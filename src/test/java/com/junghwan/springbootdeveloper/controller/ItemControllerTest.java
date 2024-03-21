@@ -2,6 +2,8 @@ package com.junghwan.springbootdeveloper.controller;
 
 import com.junghwan.springbootdeveloper.domain.Item;
 import com.junghwan.springbootdeveloper.dto.AddItemRequest;
+import com.junghwan.springbootdeveloper.dto.UpdateItemRequest;
+import com.junghwan.springbootdeveloper.repository.ItemRepository;
 import com.junghwan.springbootdeveloper.service.ItemService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +15,26 @@ public class ItemControllerTest {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private ItemRepository itemRepository;
+
     @Test
-    public void addItem2(){
+    public void update(){
 
-        AddItemRequest item = new AddItemRequest();
+        Item item = itemService.findById(44L);
 
-        item.setDepartment("112");
-        item.setSerial(45456777789L);
-        item.setName("가위");
+        UpdateItemRequest request = new UpdateItemRequest(
+                item.getDepartment(),
+                123123L,
+                "이름수정3999999",
+                item.getImportCode(),
+                item.getMaterial(),
+                item.getColor(),
+                item.getSize(),
+                item.getPrice());
 
-        Item result = itemService.save(item);
+        itemService.update(44L, request);
 
-        System.out.println(result);
     }
 
 }

@@ -12,15 +12,6 @@ public class ItemServiceTest {
     @Autowired
     private ItemService itemService;
 
-    @Test
-    public void addItem(){
 
-        AddItemRequest request = new AddItemRequest("1123", 99929L, "test2");
-
-        Item result = itemService.save(request);
-
-        System.out.println(result);
-
-    }
 
 }

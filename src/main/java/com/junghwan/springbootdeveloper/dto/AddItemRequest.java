@@ -15,9 +15,24 @@ public class AddItemRequest {
     private String department;
     private Long serial;
     private String name;
+    private String importCode;
+    private String material;
+    private String color;
+    private String size;
+    private Long price;
+
 
     public Item toEntity(){
-        return Item.builder().department(department).serial(serial).name(name).build();
+        return Item.builder()
+                .department(department)
+                .serial(serial)
+                .name(name)
+                .importCode(importCode)
+                .material(material)
+                .color(color)
+                .size(size)
+                .price(price)
+                .build();
     }
 
 }

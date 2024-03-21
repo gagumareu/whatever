@@ -50,11 +50,20 @@ function loadPriceCard(data){
     let $price = data.price;
 
     str += `<div class="item-box">
-                <span class="serial">${data.serial}</span>
-                <span class="name">${data.name}</span>
-                <span class="color">${data.color}</span>
-                <span class="size">${data.size}</span>
-                <span class="price">${new Intl.NumberFormat().format($price)}원</span>
+                <div class="box-margin">
+                    <div class="item-name"><span class="name">${data.name}</span></div>
+                    <div class="item-color"><span class="color">${data.color}</span></div>
+                    <div class="item-size"><span class="size">${data.size}</span></div>
+                    <div class="emptyBox"></div>
+                    <div class="item-JanNPrice">
+                        <div class="jan-code"><span class="serial">${data.serial}</span> </div>
+                        <div class="Jan-empty1"></div>
+                        <div class="Jan-price"><span class="price">${new Intl.NumberFormat().format($price)}</span></div>
+                        <div class="Jan-won"><span>원</span></div>
+                        
+                        
+                    </div>
+                </div>
             </div>`
 
     // itemDiv.innerHTML = str
@@ -79,11 +88,13 @@ $itemWrapper.addEventListener("click", function (e){
 
     e.preventDefault()
 
-    console.log("clicking")
-
     const target = e.target.closest('.item-box');
 
-    target.remove();
+    target.remove()
+
+    $min = $min -1
+
+    countingItems($min)
 
 },false);
 

@@ -7,15 +7,93 @@
 
 <style>
 
+   /* header  */
+
+    .header{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .muji-log{
+        width: 100px;
+        height: 100px;
+    }
+
+    /* container */
+
     .item-box{
-        width: 300px;
+        width: 258px;
         border: 1px solid black;
-        cursor: grab;
+        cursor: pointer;
+        /*display: flex;*/
+        /*flex-direction: column;*/
+        padding: 9px 6px 9px 6px;
+        height: 100%;
+    }
+
+    .box-margin{
+        border: 1px solid gray;
+        height: 100%;
+    }
+
+    .item-name{
+        height: 26px;
+        font-size: 12px;
+    }
+
+    .item-color{
+        height: 13px;
+        font-size: 6px;
+    }
+
+    .item-size{
+        height: 13px;
+        font-size: 6px;
+    }
+
+    .emptyBox{
+        height: 4px;
+    }
+
+    .item-JanNPrice{
+        height: 31px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .serial{
+        font-size: 4px;
+    }
+
+    .price{
+        font-size: 18px;
+    }
+
+    .jan-code{
+        width: 61px;
+    }
+
+    .Jan-empty1{
+        width: 52px;
+    }
+
+    .Jan-price{
+        width: 118px;
+        display: flex;
+        justify-content: right;
+    }
+
+    .price{
+        font-size: 18px;
     }
 
     .item-counting{
         display: flex;
+        flex-direction: row;
     }
+
+    /* footer  */
+
 
 
 </style>
@@ -25,11 +103,18 @@
 <div class="wrapper">
     <div class="header">
 
+        <img class="muji-log" src="/icons/MUJI_logo.svg">
+        <div class="title">
+            <h3>무인양품 김포점 v.Beta</h3>
+            <p>All Right Reserved By MUJI Korea</p>
+        </div>
+
+
     </div>
 
     <div class="container">
 
-        <label>잔코드
+        <label>JAN 입력
             <input type="text" id="serial_input" >
             <button type="button" id="add_item_btn">추가</button>
         </label>

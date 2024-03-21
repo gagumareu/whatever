@@ -1,19 +1,22 @@
-const serialInput = document.getElementById("serial_input");
-const addItemButton = document.getElementById('add_item_btn');
 
-let min = 0;
-console.log("min1: " + min)
+const $serialInput = document.getElementById("serial_input");
+const $addItemButton = document.getElementById('add_item_btn');
+
+let $min = 0;
+console.log("min1: " + $min)
+
+countingItems($min);
 
 
-if (addItemButton) {
-    addItemButton.addEventListener("click", (event) => {
+if ($addItemButton) {
+    $addItemButton.addEventListener("click", (event) => {
 
-        if (min >= 33){
+        if ($min >= 33){
             alert("추가 금지")
             return false;
         }
 
-        let serial = serialInput.value;
+        let serial = $serialInput.value;
 
         console.log(serial);
 
@@ -28,8 +31,8 @@ if (addItemButton) {
             .then(data => {
                 console.log(data);
                 loadPriceCard(data);
-                min = min + 1;
-                countingItems(min);
+                $min = $min + 1;
+                countingItems($min);
 
             })
             .catch(error => {
@@ -40,38 +43,51 @@ if (addItemButton) {
 
 function loadPriceCard(data){
 
-    const itemDiv = document.querySelector('.item-info');
+    const $temDiv = document.querySelector('.item-box-wrapper');
 
     let str = '';
 
+    let $price = data.price;
+
     str += `<div class="item-box">
-                <div class="serial">${data.serial}</div>
-                <div class="name">${data.name}</div>
-                <div class="color">${data.color}</div>
-                <div class="size">${data.size}</div>
-                <div class="price">${data.price}원</div>
+                <span class="serial">${data.serial}</span>
+                <span class="name">${data.name}</span>
+                <span class="color">${data.color}</span>
+                <span class="size">${data.size}</span>
+                <span class="price">${new Intl.NumberFormat().format($price)}원</span>
             </div>`
 
     // itemDiv.innerHTML = str
-    itemDiv.insertAdjacentHTML("beforeend",str)
+    $temDiv.insertAdjacentHTML("beforeend",str)
 
 }
 
-countingItems(min);
 
 function countingItems(min){
 
-    console.log("hello2 ");
-
-    let str = '';
-
-    console.log("min2: " + min)
-
     let minDiv = document.querySelector('.theNumberOfMin');
-
-    // str = '<span>${min}</span>'
 
     minDiv.innerHTML = min
 
 }
+
+
+const $itemWrapper = document.querySelector('.item-box-wrapper');
+const $itemBox = document.querySelector('.item-box');
+
+$itemWrapper.addEventListener("click", function (e){
+
+    e.preventDefault()
+
+    console.log("clicking")
+
+    const target = e.target.closest('.item-box');
+
+    target.remove();
+
+},false);
+
+
+
+
 

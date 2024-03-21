@@ -34,9 +34,9 @@ public class ItemApiController {
         return ResponseEntity.ok().body(items);
     }
 
-    @GetMapping("/api/item/{id}")
-    public ResponseEntity<ItemResponse> findById(@PathVariable Long id){
-        Item item = itemService.findById(id);
+    @GetMapping("/api/item/{serial}")
+    public ResponseEntity<ItemResponse> findBydSerial(@PathVariable Long serial){
+        Item item = itemService.findBySerial(serial);
         return ResponseEntity.ok().body(new ItemResponse(item));
     }
 

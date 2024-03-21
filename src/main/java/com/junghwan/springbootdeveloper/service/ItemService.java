@@ -34,6 +34,10 @@ public class ItemService {
         return itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
     }
 
+    public Item findBySerial(long serial){
+        return itemRepository.findBySerial(serial);
+    }
+
     public void delete(Long id){
         itemRepository.deleteById(id);
     }
@@ -41,20 +45,7 @@ public class ItemService {
     @Transactional
     public Item update(long id, UpdateItemRequest request){
 
-        log.info("------------ findById --------------");
-        log.info("request: " + request);
-
         Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("not found: " + id));
-
-        log.info("serial1: " + item.getSerial());
-        log.info("name1: " + item.getName());
-
-        log.info("------------ update --------------");
-
-        log.info("name2: " + request.getName());
-        log.info("serial2: " + request.getSerial());
-        log.info("department2: " + request.getDepartment());
-        log.info("price: " + request.getPrice());
 
         item.update(
                 request.getDepartment(),

@@ -57,9 +57,9 @@ function loadPriceCard(data){
                     <div class="emptyBox"></div>
                     <div class="item-JanNPrice">
                         <div class="jan-code"><span class="serial">${data.serial}</span> </div>
-                        <div class="Jan-empty1"></div>
-                        <div class="Jan-price"><span class="price">${new Intl.NumberFormat().format($price)}</span></div>
-                        <div class="Jan-won"><span>원</span></div>
+                        <div class="jan-empty1"></div>
+                        <div class="jan-price"><span class="price">${new Intl.NumberFormat().format($price)}</span></div>
+                        <div class="jan-won"><span>원</span></div>
                         
                         
                     </div>
@@ -82,7 +82,6 @@ function countingItems(min){
 
 
 const $itemWrapper = document.querySelector('.item-box-wrapper');
-const $itemBox = document.querySelector('.item-box');
 
 $itemWrapper.addEventListener("click", function (e){
 

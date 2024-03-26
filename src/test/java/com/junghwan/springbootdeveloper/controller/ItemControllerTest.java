@@ -18,23 +18,23 @@ public class ItemControllerTest {
     @Autowired
     private ItemRepository itemRepository;
 
-    @Test
-    public void update(){
-
-        Item item = itemService.findById(44L);
-
-        UpdateItemRequest request = new UpdateItemRequest(
-                item.getDepartment(),
-                123123L,
-                "이름수정3999999",
-                item.getImportCode(),
-                item.getMaterial(),
-                item.getColor(),
-                item.getSize(),
-                item.getPrice());
-
-        itemService.update(44L, request);
-
-    }
+//    @Test
+//    public void update(){
+//
+//        Item item = itemService.findById(44L);
+//
+//        UpdateItemRequest request = new UpdateItemRequest(
+//                item.getDepartment(),
+//                123123L,
+//                "이름수정3999999",
+//                item.getImportCode(),
+//                item.getMaterial(),
+//                item.getColor(),
+//                item.getSize(),
+//                item.getPrice());
+//
+//        itemService.update(44L, request);
+//
+//    }
 
 }

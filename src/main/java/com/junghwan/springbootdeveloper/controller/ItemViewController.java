@@ -15,7 +15,7 @@ public class ItemViewController {
     @GetMapping("/items")
     public String getItems(Model model){
 
-        return "/priceCard";
+        return "/muji/priceCard";
     }
 
 }

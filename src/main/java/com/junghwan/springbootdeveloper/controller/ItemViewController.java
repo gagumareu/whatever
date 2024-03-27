@@ -18,4 +18,10 @@ public class ItemViewController {
         return "/muji/priceCard";
     }
 
+    @GetMapping("/")
+    public String home(){
+
+        return "muji/priceCard";
+    }
+
 }

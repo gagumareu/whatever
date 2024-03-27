@@ -35,3 +35,11 @@ body{
 .title{
     margin-left: 20px;
 }
+
+.category{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 390px;
+    margin: 30px 0px;
+}

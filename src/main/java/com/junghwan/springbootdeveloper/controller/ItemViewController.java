@@ -16,7 +16,7 @@ public class ItemViewController {
 
     @GetMapping("/items")
     public String getItems(Model model){
-        return "/muji/priceCard";
+        return "muji/priceCard";
     }
 
     @GetMapping("/")
@@ -26,13 +26,12 @@ public class ItemViewController {
 
     @GetMapping("/foodExpiry")
     public String foodExpiry(){
-        log.info("foodExpiry");
-        return "/muji/foodExpiry";
+        return "muji/foodExpiry";
     }
 
     @GetMapping("/article")
     public String article(){
-        return "/muji/article";
+        return "muji/article";
     }
 
     @GetMapping("/notice")

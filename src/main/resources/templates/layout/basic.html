@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link th:href="@{/css/basic.css}" rel="stylesheet">
+<link th:href="@{/css/items.css}" rel="stylesheet">
+
+<body>
+
+<div class="wrapper">
+    <div class="header">
+        <img class="muji-log" src="/icons/MUJI_logo.svg">
+        <div class="title">
+            <h3>무인양품 김포점 v.Beta</h3>
+            <p>All Right Reserved By MUJI Korea</p>
+        </div>
+    </div>
+
+    <div class="category">
+        <a th:href="@{/items}">프라이스카드</a>
+        <a th:href="@{#}">유통기한</a>
+        <a th:href="@{#}">게시판</a>
+    </div>
+
+    <div class="container" layout:fragment="content">
+
+
+
+    </div>
+
+    <div class="footer">
+        <h2>footer</h2>
+    </div>
+</div>
+
+<script src="/js/item.js"></script>
+
+</body>
+</html>

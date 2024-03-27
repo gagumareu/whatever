@@ -21,7 +21,7 @@ public class Item {
     @Column(name = "department", nullable = false)
     private String department;
 
-    @Column(name = "serial", nullable = false, unique = true, length = 1000)
+    @Column(name = "serial", nullable = false, unique = true)
     private Long serial;
 
     @Column(name = "name", nullable = false)

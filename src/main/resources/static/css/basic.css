@@ -9,6 +9,10 @@ body{
     flex-direction: column;
 }
 
+a{
+    text-decoration: none;
+}
+
 .wrapper{
     display: flex;
     flex-direction: column;

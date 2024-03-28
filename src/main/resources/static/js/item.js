@@ -60,8 +60,6 @@ function loadPriceCard(data){
                         <div class="jan-empty1"></div>
                         <div class="jan-price"><span class="price">${new Intl.NumberFormat().format($price)}</span></div>
                         <div class="jan-won"><span>원</span></div>
-                        
-                        
                     </div>
                 </div>
             </div>`

@@ -4,163 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<link th:href="@{/css/basic.css?ver=230327}" rel="stylesheet">
-<link th:href="@{/css/items.css?ver=230327}" rel="stylesheet">
-<style>
 
-    @media print {
-        .header{
-            display: none;
+<!--    <link th:href="@{/css/basic.css?ver=230331}" rel="stylesheet">-->
+    <style>
+
+
+        html{
+            height: 100%
         }
 
-        .category{
-            display: none;
-        }
-        .footer{
-            display: none;
-        }
-
-        .jan-code-input{
-            display: none;
-        }
-
-        .description{
-            display: none;
-        }
-
-        /* A4 size*/
-        /*.item-box-wrapper{*/
-        /*    margin: 0;*/
-        /*    border: initial;*/
-        /*    border-radius: initial;*/
-        /*    width: initial;*/
-        /*    min-height: initial;*/
-        /*    box-shadow: initial;*/
-        /*    background: initial;*/
-        /*    page-break-after: always;*/
+        /*body{*/
+        /*    min-height: 100vh;*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
         /*}*/
 
-        /*    */
-
-
-        body{
-            width: 210mm;
-            height: 297mm;
-            margin: 30mm 45mm 30mm 45mm; /* margin: auto auto; 로 자동 여백 설정도 가능 */
+        a{
+            text-decoration: none;
+            color: black;
         }
 
-        .item-box-wrapper{
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            /*grid-template-rows: 110px 110px 110px;*/
-            /*width: 595px;*/
-            /*height: 842px;*/
-
-            margin: 0;
-            border: initial;
-            border-radius: initial;
-            width: initial;
-            min-height: initial;
-            box-shadow: initial;
-            background: initial;
-            page-break-after: always;
-
-        }
-
-        .item-box{
-            width: 6.29cm;
-            border: 0 solid black;
-            cursor: pointer;
-            height: 2.88cm;
-        }
-
-        .box-margin{
-            border: 1px solid gray;
-            /*height: 100%;*/
-            padding: 0.25cm 0.16cm 0.25cm 0.16cm;
-        }
-
-        .item-name{
-            width: 100%;
-            height: 0.7cm;
-            font-size: 12px;
+        .wrapper{
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             align-items: center;
+
         }
 
-        .item-color{
-            width: 100%;
-            height: 0.35cm;
-            font-size: 6px;
-            display: flex;
-            align-items: center;
+        .footer{
+            padding : 30px 0;
+            margin-top: auto;
         }
 
-        .item-size{
-            width: 100%;
-            height: 0.34cm;
-            font-size: 6px;
-            display: flex;
-            align-items: center;
-        }
-
-        .emptyBox{
-            height: 0.14cm;
-        }
-
-        .item-JanNPrice{
-            height: 0.84cm;
+        .header{
             display: flex;
             flex-direction: row;
         }
 
-        .serial{
-            font-size: 4px;
+        .muji-log{
+            width: 100px;
+            height: 100px;
         }
 
-        .jan-code{
-            width: 1.48cm;
+        .title{
+            margin-left: 20px;
+        }
+
+        .category{
             display: flex;
-            /* justify-items: normal; */
-            align-items: flex-end;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 390px;
+            margin: 30px 0;
         }
 
-        .jan-empty1{
-            width: 1.26cm;
-        }
-
-        .jan-price{
-            width: 2.87cm;
-            display: flex;
-            justify-content: right;
-            align-items: end;
-        }
-
-        .price{
-            font-size: 18px;
-        }
-
-        .jan-won{
-            width: 0.38cm;
-            font-size: 8px;
-            display: flex;
-            align-items: end;
-            justify-content: center;
-        }
-
-        /*    */
 
 
+    </style>
+</head>
 
-    }
-
-    @page{
-        margin: 0;
-        size: A4;
-
-    }
-</style>
 <body>
 
 <div class="wrapper">

@@ -23,6 +23,14 @@
 
         }
 
+        .article-add-btn{
+            height: 33px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+
+        }
+
 
         .articles-wrapper{
             font-size: 1.3em;
@@ -39,6 +47,10 @@
             height: 100%;
         }
 
+        .articles-wrapper:hover{
+            /*background-color: rgba(205,206,196,0.98);*/
+        }
+
         .article-thumbnail-div{
             width: 100px;
             height: 100%;
@@ -47,7 +59,7 @@
         .article-thumbnail-div img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             border-radius: 10px;
 
         }
@@ -68,6 +80,28 @@
 
         }
 
+        .search-wrapper{
+            display: flex;
+            margin: 20px 0px;
+            justify-content: center;
+        }
+
+        .search-form{
+            height: 33px;
+        }
+
+        .search-select{
+            height: 90%;
+        }
+
+        .search-keyword{
+            height: 70%;
+        }
+
+        .search-sumit-btn{
+            height: 94%;
+        }
+
         .pagination-wrapper{
             display: flex;
             justify-content: center;
@@ -86,6 +120,7 @@
             cursor: pointer;
         }
 
+
         /* mobile */
         @media screen and (max-width: 375px){
             body{
@@ -101,14 +136,16 @@
         /* tablet*/
         @media screen and (min-width: 600px) and (max-width: 992px){
             body{
-                background: pink;
+                background-color:
+            }
+
+            .category{
+                width: 100%;
+                font-size: 2.2em;
             }
             .container{
                 width: 100%;
                 font-size: 2.2em;
-            }
-            body{
-
             }
 
             .article-category{
@@ -122,47 +159,33 @@
                 flex: 70%;
             }
 
+            .articles-wrapper{
+                font-size: 1.4em;
+                height: 100px;
+            }
+
+            .pagination{
+                width: 48%;
+                font-size: 1.3em;
+
+            }
+
         }
 
-        /* tablet 규격 */
-        /*@media screen and (max-width: 820px){*/
-        /*    body{*/
-        /*        font-size: 1.2em*/
-        /*    }*/
-        /*}*/
-
-        /* mobile 규격 */
-        /*@media screen and (max-width: 390px){*/
-        /*    body{*/
-        /*        font-size: 20px;*/
-        /*    }*/
-
-        /*    .category{*/
-        /*        font-size: 2em;*/
-        /*        width: 80%;*/
-        /*    }*/
-
-        /*    .container{*/
-        /*        width: 100%;*/
-        /*    }*/
-
-        /*    .articles-wrapper{*/
-        /*        width: 100%;*/
-        /*        font-size: 2.5em;*/
-        /*        height: 147px;*/
-        /*    }*/
-
-
-        /*}*/
+        /* desk */
+        @media screen and (min-width: 992px){
+            body {
+                background: white;
+            }
+        }
 
     </style>
-
 </head>
 <body>
 
 <div class="container" layout:fragment="content">
 
-    <div>
+    <div class="article-add-btn">
         <button type="button" class="create-article-btn" th:onclick="|location.href='@{/newArticle}'|">글쓰기</button>
     </div>
 
@@ -187,18 +210,18 @@
         </a>
     </div>
 
-    <div th:class="search-wrapper">
-        <form action="/articles" method="get">
+    <div class="search-wrapper">
+        <form action="/articles" method="get" class="search-form">
             <input type="hidden" th:value="${pageRequestDTO.size}" name="size">
             <label>
-                <select name="type" th:class="search-seelect">
+                <select name="type" class="search-select">
                     <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
                     <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
                     <option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">제목+내용</option>
                     <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
                 </select>
-                <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" th:class="search-keyword">
-                <button th:class="search-sumit-btn" type="submit">검색</button>
+                <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" class="search-keyword">
+                <button class="search-submit-btn" type="submit">검색</button>
             </label>
         </form>
     </div>

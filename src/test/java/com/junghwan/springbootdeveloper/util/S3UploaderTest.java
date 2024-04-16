@@ -12,19 +12,19 @@ public class S3UploaderTest {
     @Autowired
     private S3Uploader s3Uploader;
 
-    @Test
-    public void testUpload(){
-
-        try {
-
-            String filePath = "C:\\upload\\zzz.jpg";
-
-            String uploadName = s3Uploader.upload(filePath);
-
-            log.info(uploadName);
-        }catch (Exception e){
-            log.error(e.getMessage());
-        }
-    }
+//    @Test
+//    public void testUpload(){
+//
+//        try {
+//
+//            String filePath = "C:\\upload\\zzz.jpg";
+//
+//            String uploadName = s3Uploader.upload(filePath);
+//
+//            log.info(uploadName);
+//        }catch (Exception e){
+//            log.error(e.getMessage());
+//        }
+//    }
 
 }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}" lang="en"><head>
+    <meta charset="UTF-8">
+  <title>무인양품 김포점</title>
+
+  <style>
+    /* 모든기기공통 CSS */
+    body{ background-color: orange; }
+
+    /* desktop 규격 */
+    @media screen and (min-width: 1024px){
+      body{ background-color: lightblue; }
+    }
+
+    /* tablet 규격 */
+    @media screen and (max-width: 820px){
+      body{ background-color: pink; font-size: 1.2em}
+    }
+
+    /* mobile 규격 */
+    @media screen and (max-width: 390px){
+      body{ background-color: navy; font-size: 20px;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+  <div class="notice">
+    <div>
+      <h4>공지</h4>
+      <p>모바일 버전 미적용 !!</p>
+    </div>
+    <div>
+      <h4>업데이트 예정</h4>
+      <P>검색기능 (이름, 잔코드, 수입 품번)</P>
+      <p>모바일 반응형</p>
+      <p>프라이스카드</p>
+      <ul>
+        <li><P>저장 기능(자주 사용하는 제품 리스트 저장 및 불러오기)</P></li>
+      </ul>
+      <p>게시판</p>
+      <ul>
+        <li><p>textEditor 추후</p></li>
+        <li><p>text editor 게시글 수정 시 본문 내용 html 변환 </p></li>
+        <li><p>댓글</p></li>
+        <li><p>댓글</p></li>
+        <li><p>댓글</p></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

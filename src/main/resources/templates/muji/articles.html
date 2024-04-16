@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>무인양품 김포점</title>
+
+    <style>
+        .articles-wrapper{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .articles-box{
+        }
+
+        .container{
+            width: 900px;
+        }
+
+
+
+        .articles-wrapper{
+            font-size: 1.3em;
+            height: 73px;
+            padding: 5px 10px;
+            border-bottom: 1px solid cadetblue;
+        }
+
+        .articles-wrapper a{
+            display: flex;
+            flex-direction: row;
+            /*justify-content: space-between;*/
+            width: 100%;
+            height: 100%;
+        }
+
+        .article-thumbnail-div{
+            width: 100px;
+            height: 100%;
+        }
+
+        .article-thumbnail-div img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+
+        }
+
+        .article-title-div{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .pagination-wrapper{
+            display: flex;
+            justify-content: center;
+        }
+        .pagination{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            padding: 0px;
+            list-style-type: none;
+            font-size: 1.2em;
+            width: 33%;
+        }
+
+        .page-item{
+            cursor: pointer;
+        }
+
+        /* desktop 규격 */
+        @media screen and (min-width: 1024px){
+            body{
+            }
+
+
+
+        }
+
+        /* tablet 규격 */
+        /*@media screen and (max-width: 820px){*/
+        /*    body{*/
+        /*        font-size: 1.2em*/
+        /*    }*/
+        /*}*/
+
+        /* mobile 규격 */
+        @media screen and (max-width: 390px){
+            body{
+                font-size: 20px;
+            }
+
+            .category{
+                font-size: 2em;
+                width: 80%;
+            }
+
+            .container{
+                width: 100%;
+            }
+
+            .articles-wrapper{
+                width: 100%;
+                font-size: 2.5em;
+                height: 147px;
+            }
+
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+
+    <div>
+        <button type="button" class="create-article-btn" th:onclick="|location.href='@{/newArticle}'|">글쓰기</button>
+    </div>
+
+    <div th:each="item : ${responseDTO.dtoList}" class="articles-wrapper" th:with="link = ${pageRequestDTO.getLink()}">
+        <a th:href="|@{/article/{id}(id=${item.id})}?${link}|" class="articles-box">
+            <div class="article-thumbnail-div" >
+                <img th:if="${item.articleImages != null && item.articleImages.size() > 0}" th:src="${item.articleImages[0].getThumbnailUrl()}">
+                <img th:unless="${item.articleImages != null && item.articleImages.size() > 0}" src="/icons/imageIcon1.svg">
+            </div>
+            <div class="article-title-div">
+                <div>
+                    <span th:text="${item.title}" class="article-title"></span>
+                    <span th:if="${item.commentCounting > 0}">[[${item.commentCounting}]]</span>
+                </div>
+                <div>
+                    <div th:text="${item.writer}" class="article-writer"></div>
+                </div>
+                <div th:text="${item.category}" class="article-category"></div>
+                <div th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd')}" class="article-writer"></div>
+            </div>
+        </a>
+    </div>
+
+    <div th:class="search-wrapper">
+        <form action="/articles" method="get">
+            <input type="hidden" th:value="${pageRequestDTO.size}" name="size">
+            <label>
+                <select name="type" th:class="search-seelect">
+                    <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+                    <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
+                    <option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">제목+내용</option>
+                    <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
+                </select>
+                <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" th:class="search-keyword">
+                <button th:class="search-sumit-btn" type="submit">검색</button>
+            </label>
+        </form>
+    </div>
+
+    <div class="pagination-wrapper">
+        <ul class="pagination">
+            <li class="prev-li" th:if="${responseDTO.prev}">
+                <a class="prev-link" th:data-num="${responseDTO.start -1}">Prev</a>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+                <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
+                    <a th:class="page-link" th:data-num="${i}">[[${i}]]</a>
+                </li>
+            </th:block>
+            <li th:class="next-li" th:if="${responseDTO.next}">
+                <a th:class="next-link" th:data-num="${responseDTO.end +1}">Next</a>
+            </li>
+        </ul>
+    </div>
+
+    <script th:inline="javascript" layout:fragment="script">
+
+        console.log([[${pageRequestDTO}]])
+        console.log([[${responseDTO}]])
+
+        const pagination = document.querySelector('.pagination');
+
+        if (pagination){
+            pagination.addEventListener("click", function (e){
+
+                e.preventDefault()
+                e.stopPropagation()
+
+                const target = e.target;
+
+                if (target.tagName !== 'A'){
+                    return
+                }
+
+                const num = target.getAttribute("data-num")
+
+                const formObj = document.querySelector("form")
+
+                formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+
+                formObj.submit();
+
+            }, false)
+        }
+
+    </script>
+
+</div>
+
+</body>
+</html>

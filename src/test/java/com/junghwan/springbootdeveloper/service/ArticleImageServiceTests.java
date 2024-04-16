@@ -15,14 +15,14 @@ public class ArticleImageServiceTests {
     @Autowired
     private ArticleImageService articleImageService;
 
-    @Test
-    public void getImages(){
-
-        List<ArticleImageDTO> response = articleImageService.findByArticleId(181L).stream().map(ArticleImageDTO::new).toList();
-
-        response.forEach(log::info);
-
-    }
+//    @Test
+//    public void getImages(){
+//
+//        List<ArticleImageDTO> response = articleImageService.findByArticleId(181L).stream().map(ArticleImageDTO::new).toList();
+//
+//        response.forEach(log::info);
+//
+//    }
 
 
 

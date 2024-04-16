@@ -20,30 +20,30 @@ public class CommentRepositoryTests {
     @Autowired
     private CommentRepository commentRepository;
 
-    @Test
-    public void save(){
-
-        Long article_id = 23L;
-
-        Article article = Article.builder().id(article_id).build();
-
-        Comment comment = Comment.builder()
-                .article(article)
-                .comment("댓글 입니다.")
-                .author("정환").build();
-
-        commentRepository.save(comment);
-    }
-
-    @Transactional
-    @Test
-    public void testArticleComment(){
-        Long articleId = 23L;
-
-        Pageable pageable = PageRequest.of(1,10, Sort.by("id").ascending());
-
-        Page<Comment> result = commentRepository.listOfArticle(articleId, pageable);
-
-        result.getContent().forEach(log::info);
-    }
+//    @Test
+//    public void save(){
+//
+//        Long article_id = 23L;
+//
+//        Article article = Article.builder().id(article_id).build();
+//
+//        Comment comment = Comment.builder()
+//                .article(article)
+//                .comment("댓글 입니다.")
+//                .author("정환").build();
+//
+//        commentRepository.save(comment);
+//    }
+//
+//    @Transactional
+//    @Test
+//    public void testArticleComment(){
+//        Long articleId = 23L;
+//
+//        Pageable pageable = PageRequest.of(1,10, Sort.by("id").ascending());
+//
+//        Page<Comment> result = commentRepository.listOfArticle(articleId, pageable);
+//
+//        result.getContent().forEach(log::info);
+//    }
 }

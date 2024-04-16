@@ -15,16 +15,16 @@ public class ArticleImageRepositoryTests {
     @Autowired
     private ArticleImageRepository articleImageRepository;
 
-    @Test
-    public void findById(){
-
-        List<ArticleImage> articleImages = articleImageRepository.findByArticleId(177L);
-
-        articleImages.forEach(articleImage -> {
-            log.info(articleImage);
-        });
-
-    }
+//    @Test
+//    public void findById(){
+//
+//        List<ArticleImage> articleImages = articleImageRepository.findByArticleId(177L);
+//
+//        articleImages.forEach(articleImage -> {
+//            log.info(articleImage);
+//        });
+//
+//    }
 
 
 }

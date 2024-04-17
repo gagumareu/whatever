@@ -4,12 +4,29 @@ const saveArticleBtn = document.getElementById('create-btn');
 if (saveArticleBtn){
     saveArticleBtn.addEventListener('click', (event) => {
 
+        const titleValue = document.querySelector('.article-title-value').value
+        const categoryValue = document.querySelector('.article-category-value').value
+        const writerValue = document.querySelector('.article-writer-value').value
+        const contentValue = document.getElementById('summernote').value
+
+        if (!titleValue){
+            alert("제목을 입력해 주세요");
+            return;
+        }else if (!categoryValue){
+            alert("카테고리를 선택해 주세요")
+            return;
+        }else if (!writerValue){
+            alert("작성자를 입력해 주세요")
+            return;
+        }else if(!contentValue){
+            alert("내용을 입력해 주세요")
+            return;
+        }
+
+
         let str = '';
-
         const form = document.querySelector('form');
-
         const uploadli = document.querySelector('.uploadResultDiv').getElementsByTagName('li');
-
         const fileHidden = document.querySelector('.fileHidden');
 
         for (let i = 0; i < uploadli.length; i++){

@@ -11,19 +11,97 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
+    <style>
+        body{
+            margin: 8px;
+        }
+
+        .container{
+            width: 60%;
+        }
+
+        .article-add-title-wrapper{
+            display: flex;
+            height: 37px;
+            margin-bottom: 26px;
+        }
+
+        .article-title-value{
+            flex: 80%;
+            margin-right: 20px;
+        }
+
+        .article-add-category-wrapper{
+            display: flex;
+            flex-direction: row;
+            flex: 20%;
+        }
+
+        .article-category-value{
+            margin-right: 9px;
+        }
+
+        .article-writer-value{
+
+        }
+
+        .uploadResultDiv{
+            display: none;
+        }
+
+        .hidden-input-box{
+            display: none;
+        }
+
+        /* tablet*/
+        @media screen and (min-width: 600px) and (max-width: 992px){
+
+            .container{
+                width: 100%;
+            }
+
+            .article-add-form{
+                height: 100%;
+            }
+
+            .article-add-title-wrapper{
+                height: 70px;
+            }
+
+            .add-article-btn{
+                height: 50px;
+                width: 80px;
+                font-size: 1.6em;
+
+            }
+
+
+        }
+
+
+    </style>
 </head>
 <body>
 
 <div class="container" layout:fragment="content">
-    <form class="" th:action="@{/newArticle}" method="post">
-        <input type="text" class="article-title-value" name="title" th:placeholder="제목" th:value="${article.title}" required="required">
-        <select class="article-category-value" name="category" required>
-            <option value="리뷰" th:selected="${article.category} == '리뷰'">리뷰</option>
-            <option value="버그" th:selected="${article.category} == '버그'">버그</option>
-            <option value="방명록" th:selected="${article.category} == '방명록'">방명록</option>
-            <option value="이런저런" th:selected="${article.category} == '이런저런'">이런저런</option>
-        </select>
-        <input type="text" name="writer" class="article-writer-value" th:placeholder="작성자" th:value="${article.writer}" required>
+    <form class="article-add-form" th:action="@{/newArticle}" method="post">
+        <div class="article-add-title-wrapper">
+            <input type="text" class="article-title-value" name="title" th:placeholder="제목" th:value="${article.title}" required="required">
+            <div class="article-add-category-wrapper">
+                <select class="article-category-value" name="category" required>
+                    <option value="리뷰" th:selected="${article.category} == '리뷰'">리뷰</option>
+                    <option value="버그" th:selected="${article.category} == '버그'">버그</option>
+                    <option value="방명록" th:selected="${article.category} == '방명록'">방명록</option>
+                    <option value="이런저런" th:selected="${article.category} == '이런저런'">이런저런</option>
+                    <option value="야구" th:selected="${article.category} == '야구'">야구</option>
+                    <option value="축구" th:selected="${article.category} == '야구'">축구</option>
+                    <option value="애니" th:selected="${article.category} == '애니'">애니</option>
+                    <option value="영화" th:selected="${article.category} == '영화'">영화</option>
+                </select>
+                <input type="text" name="writer" class="article-writer-value" th:placeholder="작성자" th:value="${article.writer}" required>
+            </div>
+        </div>
+
         <div class="hidden-input-box">
 
         </div>

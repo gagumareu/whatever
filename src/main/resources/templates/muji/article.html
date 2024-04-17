@@ -5,35 +5,156 @@
 <head>
     <meta charset="UTF-8">
     <title>무인양품 김포점</title>
-</head>
-<style>
+    <style>
 
-</style>
+        .article-red-title{
+            font-size: 2.2em;
+            margin-bottom: 30px;
+        }
+
+        .article-writer-info{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+
+        .article-writer{
+            margin-right: 50px;
+            font-size: 1.4em;
+            /*font-weight: bold;*/
+
+        }
+
+        .article-red-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+        .article-red-btn-wrapper{
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+        }
+
+        .article-red-wrapper{
+            margin-bottom: 50px;
+        }
+
+        .article-btn{
+            margin-right: 20px;
+        }
+
+        .comment-wrapper{
+            background: #b0e0e6;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 60px;
+        }
+        .comment-box{
+            display: flex;
+            flex-direction: row;
+            height: 100px;
+        }
+
+        .comment-textArea{
+            flex: 80%;
+        }
+
+        .comment-button-box{
+            flex: 20%;
+        }
+        .comment-author{
+            height: 20px;
+        }
+
+        .comment-list{
+            list-style: none;
+            font-size: 1.3em;
+        }
+
+        .commentItem{
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dcdcdc;
+
+        }
+
+        .comment-text{
+            align-items: center;
+            flex: 80%;
+            display: flex;
+        }
+
+        .comment-author-info{
+            flex: 20%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .commentPagination{
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            font-size: 1.2em;
+            justify-content: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dcdcdc;
+
+        }
+
+        .page-item{
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+
 <body>
 
 <div class="container" layout:fragment="content">
 
-    <div>
+    <div class="article-red-wrapper">
         <input type="hidden" id="article-id" th:value="${article.id}">
-        <div th:text="${article.title}"></div>
-        <div th:utext="${article.content}"></div>
-        <div th:text="${article.writer}"></div>
-        <div th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
+        <div th:text="${article.title}" class="article-red-title"></div>
+        <div class="article-writer-info">
+            <div th:text="${article.writer}" class="article-writer"></div>
+            <div th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
+        </div>
+        <div th:utext="${article.content}" class="article-red-content"></div>
+
     </div>
-    <div th:with="link = ${pageRequestDTO.getLink()}">
-        <button type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
-        <button type="button" class="article-delete-btn">삭제</button>
+
+    <div class="notice-update">
+        <p>수정/삭제 버튼은 회원 기능 업데이트 후 게시글 작성자만 관리하도록 진행 예정입니다.</p>
+        <p>댓글 기능도 회원 기능 업데이트 후 보수 예정입니다.</p>
+    </div>
+
+    <div th:with="link = ${pageRequestDTO.getLink()}" class="article-red-btn-wrapper">
+        <button class="article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
+        <button type="button" class="article-delete-btn article-btn">삭제</button>
         <a th:href="|@{/articles}?${link}|">
             <button type="button" class="article-delete-btn">리스트</button>
         </a>
     </div>
 
-    <div>
-        <div>
+
+    <div class="comment-wrapper">
+        <div class="comment-box">
             <textarea name="comment" class="comment-textArea" placeholder="댓글 작성"></textarea>
-            <input name="author" class="comment-author" type="text">
-            <button type="button" class="addCommentBtn">댓글 달기</button>
+            <div class="comment-button-box">
+                <input name="author" class="comment-author" type="text" placeholder="작성자">
+                <button type="button" class="addCommentBtn">댓글 달기</button>
+            </div>
         </div>
+    </div>
+
+    <div class="comment-list-wrapper">
         <ul class="comment-list">
 
         </ul>
@@ -66,10 +187,11 @@
                 for (const dto of dtoList){
 
                     str += `<li class="commentItem">
-                                <span>${dto.id}</span>
-                                <span>${dto.comment}</span>
-                                <span>${dto.author}</span>
-                                <span>${dto.createdAt}</span>
+                                <span class="comment-text">${dto.comment}</span>
+                                <span class="comment-author-info">
+                                    <span>${dto.author}</span>
+                                    <span>${dto.createdAt}</span>
+                                </span>
                             </li>`
 
                 }
@@ -86,9 +208,11 @@
             }
 
             for (let i = data.start; i <= data.end; i++){
-                pageStr += `<li class="page-item ${i == data.page ? "active" : ""}">
+                if (data.page > 0){
+                    pageStr += `<li class="page-item ${i == data.page ? "active" : ""}">
                                 <a data-page="${i}">${i}</a>
                             </li>`
+                }
             }
 
             if (data.next){
@@ -112,7 +236,7 @@
             })
         }
 
-        printComment(1, 10, true)
+        printComment(1, 10, false)
 
 
         //  리플 달기

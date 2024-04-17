@@ -15,9 +15,7 @@
         .articles-box{
         }
 
-        .container{
-            width: 60%;
-        }
+
 
         .article-title-div{
 
@@ -48,7 +46,7 @@
         }
 
         .articles-wrapper:hover{
-            /*background-color: rgba(205,206,196,0.98);*/
+            background-color: #e0ffff;
         }
 
         .article-thumbnail-div{
@@ -136,7 +134,6 @@
         /* tablet*/
         @media screen and (min-width: 600px) and (max-width: 992px){
             body{
-                background-color:
             }
 
             .category{
@@ -170,12 +167,33 @@
 
             }
 
+            .article-add-btn{
+                height: 70px;
+            }
+
+
+            .create-article-btn{
+                width: 164px;
+                font-size: 1.1em;
+                height: 100%;
+            }
+
+            .search-wrapper{
+                height: 50px;
+
+            }
+
+            .search-submit-btn{
+                height: 44px;
+
+            }
+
         }
 
         /* desk */
         @media screen and (min-width: 992px){
             body {
-                background: white;
+                /*background: white;*/
             }
         }
 
@@ -233,11 +251,11 @@
             </li>
             <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
                 <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
-                    <a th:class="page-link" th:data-num="${i}">[[${i}]]</a>
+                    <a class="page-link" th:data-num="${i}">[[${i}]]</a>
                 </li>
             </th:block>
-            <li th:class="next-li" th:if="${responseDTO.next}">
-                <a th:class="next-link" th:data-num="${responseDTO.end +1}">Next</a>
+            <li class="next-li" th:if="${responseDTO.next}">
+                <a class="next-link" th:data-num="${responseDTO.end +1}">Next</a>
             </li>
         </ul>
     </div>

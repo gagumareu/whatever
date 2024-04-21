@@ -4,7 +4,7 @@
       layout:decorate="~{layout/basic.html}" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>무인양품 김포점</title>
+    <title>정환 개인 프로젝트</title>
 
     <style>
         .articles-wrapper{
@@ -31,8 +31,7 @@
 
 
         .articles-wrapper{
-            font-size: 1.3em;
-            height: 73px;
+            height: 60px;
             padding: 5px 10px;
             border-bottom: 1px solid cadetblue;
         }
@@ -72,10 +71,11 @@
 
         .article-title-box{
             flex: 80%;
+            font-size: 1.3em;
         }
 
         .article-info-box{
-
+            /*font-size: 0.9em;*/
         }
 
         .search-wrapper{
@@ -90,10 +90,13 @@
 
         .search-select{
             height: 90%;
+            border-radius: 8px;
         }
 
         .search-keyword{
             height: 70%;
+            border-radius: 8px;
+            border: 1px solid deepskyblue;
         }
 
         .search-sumit-btn{
@@ -119,21 +122,24 @@
         }
 
 
-        /* mobile */
+        /* mobile1 */
         @media screen and (max-width: 375px){
             body{
                 background: mediumseagreen;
             }
         }
+
+        /* mobile2 */
         @media screen and (min-width: 375px) and (max-width: 600px){
             body{
-                background: lightblue;
+                /*background: lightblue;*/
             }
         }
 
         /* tablet*/
         @media screen and (min-width: 600px) and (max-width: 992px){
             body{
+                /*background-color: silver;*/
             }
 
             .category{
@@ -142,51 +148,9 @@
             }
             .container{
                 width: 100%;
-                font-size: 2.2em;
+                /*font-size: 2.2em;*/
             }
 
-            .article-category{
-                display: none;
-            }
-
-            .article-createdAt{
-                display: none;
-            }
-            .article-title-box{
-                flex: 70%;
-            }
-
-            .articles-wrapper{
-                font-size: 1.4em;
-                height: 100px;
-            }
-
-            .pagination{
-                width: 48%;
-                font-size: 1.3em;
-
-            }
-
-            .article-add-btn{
-                height: 70px;
-            }
-
-
-            .create-article-btn{
-                width: 164px;
-                font-size: 1.1em;
-                height: 100%;
-            }
-
-            .search-wrapper{
-                height: 50px;
-
-            }
-
-            .search-submit-btn{
-                height: 44px;
-
-            }
 
         }
 

@@ -94,7 +94,7 @@ if (updateArticleBtn){
         })
         .then(() => {
             alert("수정 완료");
-            // location.replace(`/article/${id}`)
+            location.replace(`/article/${id}`)
         });
     });
 }

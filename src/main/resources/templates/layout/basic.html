@@ -3,7 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>정환 개인 프로젝트</title>
 
     <!-- Editor's Style -->
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
@@ -14,7 +15,8 @@
     <style>
 
         html, body{
-            font-size: 12px;
+            font-size: 14px;
+            margin: 0px;
         }
 
         .log-image{
@@ -22,22 +24,43 @@
         }
 
         .container{
-            width: 60%;
+            width: 100%;
+        }
+
+        img{
+            width: 100%;
         }
 
 
 
-
-        /* mobile */
+        /* mobile1 */
         @media screen and (max-width: 375px){
             body{
-                background: mediumseagreen;
+                /*background: mediumseagreen;*/
+            }
+
+            .container{
+                width: 100%;
+            }
+
+            .category{
+                width: 100%;
             }
         }
+        /* mobile2 */
         @media screen and (min-width: 375px) and (max-width: 600px){
             body{
-                background: lightblue;
+                /*background: lightblue;*/
             }
+            .category{
+                width: 100%;
+            }
+
+            .container{
+                width: 100%;
+            }
+
+
         }
 
         /* tablet*/
@@ -48,19 +71,31 @@
 
             .category{
                 width: 100%;
-                font-size: 2.2em;
+                /*font-size: 2.2em;*/
                 justify-content: space-evenly;
             }
 
             .container{
                 width: 100%;
             }
+
+
         }
 
         /* desk */
         @media screen and (min-width: 992px){
             body {
                 /*background: beige;*/
+            }
+
+            .container{
+                width: 60%;
+            }
+
+            .category{
+                width: 45%;
+                /*font-size: 2.2em;*/
+                justify-content: space-evenly;
             }
         }
 
@@ -231,9 +266,9 @@
 
 <div class="wrapper">
     <div class="header">
-        <img class="muji-log" src="/images/paddington3.jpg">
+        <img class="main-log" src="/images/Paddington3.jpg">
         <div class="title">
-            <h3>무인양품 김포점 v.Beta</h3>
+            <h3>정환 개인 프로젝트</h3>
         </div>
     </div>
 

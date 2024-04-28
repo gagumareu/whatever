@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/basic.html}" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>정환 개인 프로젝트</title>
     <style>
+
 
         .article-red-title{
             font-size: 2.2em;
@@ -66,6 +68,13 @@
 
         .comment-button-box{
             flex: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .addCommentBtn{
+            height: 40px;
         }
         .comment-author{
             height: 20px;
@@ -112,6 +121,33 @@
             margin-right: 10px;
         }
 
+        @media screen and (min-width: 375px) and (max-width: 600px){
+
+            img{
+                width: 100%;
+            }
+
+            body{
+                /*background: lightblue;*/
+            }
+            .category{
+                width: 100%;
+            }
+
+            .container{
+                width: 100%;
+                padding: 0;
+            }
+
+            .article-red-wrapper{
+                padding: 0px 15px;
+            }
+
+
+        }
+
+
+
     </style>
 </head>
 
@@ -136,8 +172,10 @@
     </div>
 
     <div th:with="link = ${pageRequestDTO.getLink()}" class="article-red-btn-wrapper">
-        <button class="article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
-        <button type="button" class="article-delete-btn article-btn">삭제</button>
+        <div class="member-btn-box" th:if="${#authentication.principal != 'anonymousUser' && #authentication.principal.username == article.writer}">
+            <button class="article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
+            <button type="button" class="article-delete-btn article-btn">삭제</button>
+        </div>
         <a th:href="|@{/articles}?${link}|">
             <button type="button" class="article-delete-btn">리스트</button>
         </a>
@@ -145,12 +183,15 @@
 
 
     <div class="comment-wrapper">
-        <div class="comment-box">
+        <div class="comment-box" th:if="${#authentication.principal != 'anonymousUser'}">
             <textarea name="comment" class="comment-textArea" placeholder="댓글 작성"></textarea>
             <div class="comment-button-box">
-                <input name="author" class="comment-author" type="text" placeholder="작성자">
+                <input type="hidden" name="author" class="comment-author" placeholder="작성자" th:value="${#authentication.principal.username}">
                 <button type="button" class="addCommentBtn">댓글 달기</button>
             </div>
+        </div>
+        <div class="comment-required-to-login" th:if="${#authentication.principal == 'anonymousUser'}">
+            <a th:href="@{/login}"><button>로그인</button></a>
         </div>
     </div>
 
@@ -171,7 +212,9 @@
 
         const $articleId = [[${article.id}]]
         const $article = [[${article}]]
-        console.log($article);
+        const $auth = [[${#authentication.principal}]]
+        console.log($article)
+        console.log($auth)
 
         const commentList = document.querySelector('.comment-list')
         const commentPaging = document.querySelector('.commentPagination')
@@ -192,6 +235,7 @@
                                     <span>${dto.author}</span>
                                     <span>${dto.createdAt}</span>
                                 </span>
+                                <span><button class="comment-update-btn" type="button">...</button></span>
                             </li>`
 
                 }
@@ -246,6 +290,12 @@
 
         if ($addCommentBtn){
             $addCommentBtn.addEventListener('click', function (e){
+
+                if (!$comment.value){
+                    alert("댓글 내용을 입력해 주세요.")
+                    return;
+                }
+
                 const commentObj = {
                     articleId: $articleId,
                     comment: $comment.value,

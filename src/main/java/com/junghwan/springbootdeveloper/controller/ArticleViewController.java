@@ -6,6 +6,7 @@ import com.junghwan.springbootdeveloper.dto.*;
 import com.junghwan.springbootdeveloper.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ public class ArticleViewController {
 
     private final ArticleService articleService;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/newArticle")
     public String newArticle(@RequestParam(required = false) Long id, Model model){
 
@@ -54,6 +56,7 @@ public class ArticleViewController {
 //
 //    }
 
+//    @PreAuthorize("permitAll()")
     @GetMapping("/article/{id}")
     public String article(Model model, @PathVariable long id, PageRequestDTO pageRequestDTO){
 

@@ -7,11 +7,6 @@
 }
 
 
-
-/* container */
-
-/********************************************/
-
 .item-box-wrapper{
     display: grid;
     grid-template-columns: 260px 260px 260px;

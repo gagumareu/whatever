@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/basic.html}" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -153,7 +154,8 @@
                 </select>
             </div>
             <div class="new-article-writer">
-                <input type="text" name="writer" class="article-writer-value" th:placeholder="작성자" th:value="${article.writer}" required>
+                <input th:if="${article == null}" type="text" name="writer" class="article-writer-value" th:placeholder="작성자" th:value="${#authentication.principal.username}" readonly>
+                <input th:unless="${article == null}" type="text" name="writer" class="article-writer-value" th:placeholder="작성자" th:value="${article.writer}" readonly>
             </div>
         </div>
 
@@ -165,7 +167,9 @@
             $(document).ready(function() {
 
                 let $articleId = [[${article.id}]]
+                let $article = [[${article}]]
                 console.log($articleId)
+                console.log($article)
 
                 let targetImageList = [];
                 console.log("---- targetImageList ----")
@@ -352,6 +356,9 @@
 
     <script layout:fragment="script" th:inline="javascript">
 
+        const auth = [[${#authentication.principal}]]
+
+        console.log(auth)
 
     </script>
 

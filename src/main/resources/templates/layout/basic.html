@@ -122,6 +122,13 @@
             .description{
                 display: none;
             }
+            .muji-log-div{
+                display: none;
+            }
+
+            .print-btn-div{
+                display: none;
+            }
 
             /* A4 size*/
             /*.item-box-wrapper{*/
@@ -270,10 +277,13 @@
         <div class="title">
             <h3>정환 개인 프로젝트</h3>
         </div>
+        <div class="logout-div">
+            <button type="button" onclick="location.href='/logout'">로그아웃</button>
+        </div>
     </div>
 
     <div class="category">
-        <a th:href="@{/items}">프라이스카드</a>
+        <a th:href="@{/priceCard}">프라이스카드</a>
         <a th:href="@{/foodExpiry}">유통기한</a>
         <a th:href="@{/articles}">게시판</a>
         <a th:href="@{/notice}">공지</a>

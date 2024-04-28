@@ -30,7 +30,7 @@ async function addComment(commentObj){
     return response.data
 }
 
-async function getRed(id){
+async function getComment(id){
     const response = await axios.get(`/api/comment/${id}`)
     return response.data
 }

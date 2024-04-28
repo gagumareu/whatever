@@ -35,6 +35,10 @@ dependencies {
     implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final'
+    implementation 'org.glassfish:jakarta.el:3.0.3'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -44,6 +48,7 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
 

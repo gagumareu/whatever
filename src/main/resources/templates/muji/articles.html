@@ -70,12 +70,17 @@
         }
 
         .article-title-box{
-            flex: 80%;
+            flex: 85%;
             font-size: 1.3em;
         }
 
         .article-info-box{
+            flex: 15%;
             /*font-size: 0.9em;*/
+        }
+
+        .articles-comment-counting{
+            color: #dcdcdc;
         }
 
         .search-wrapper{
@@ -134,6 +139,16 @@
             body{
                 /*background: lightblue;*/
             }
+
+            .article-title-div{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .article-info-box{
+                display: flex;
+                flex-direction: row;
+            }
         }
 
         /* tablet*/
@@ -180,7 +195,7 @@
             <div class="article-title-div">
                 <div class="article-title-box">
                     <span th:text="${item.title}" class="article-title"></span>
-                    <span th:if="${item.commentCounting > 0}">[[${item.commentCounting}]]</span>
+                    <span th:if="${item.commentCounting > 0}" class="articles-comment-counting">[[${item.commentCounting}]]</span>
                 </div>
                 <div class="article-info-box">
                     <div th:text="${item.writer}" class="article-writer"></div>

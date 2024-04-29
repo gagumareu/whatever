@@ -1,6 +1,5 @@
 package com.junghwan.springbootdeveloper.controller;
 
-import com.junghwan.springbootdeveloper.domain.Article;
 import com.junghwan.springbootdeveloper.dto.*;
 
 import com.junghwan.springbootdeveloper.service.ArticleService;
@@ -38,7 +37,7 @@ public class ArticleViewController {
 
         }
 
-        return "muji/newArticle";
+        return "article/newArticle";
 
 
     }
@@ -52,7 +51,7 @@ public class ArticleViewController {
 //
 //        model.addAttribute("articles", articles);
 //
-//        return "muji/articles";
+//        return "article/articles";
 //
 //    }
 
@@ -64,10 +63,10 @@ public class ArticleViewController {
 
         model.addAttribute("article", article);
 
-        return "muji/article";
+        return "article/article";
     }
 
-    @GetMapping("/articles")
+    @GetMapping({"/articles", "/"})
     public String articleList(PageRequestDTO pageRequestDTO, Model model){
 
 //        PageResponseDTO<ArticleViewResponse> responseDTO = articleService.list(pageRequestDTO);
@@ -78,7 +77,7 @@ public class ArticleViewController {
 
         model.addAttribute("responseDTO", responseDTO);
 
-        return "muji/articles";
+        return "article/articles";
 
     }
 
@@ -90,6 +89,7 @@ public class ArticleViewController {
 
         return "redirect:/articles";
     }
+
 
 
 

@@ -20,11 +20,6 @@ public class ItemViewController {
         return "muji/priceCard";
     }
 
-    @GetMapping("/")
-    public String home(){
-        return "muji/priceCard";
-    }
-
     @GetMapping("/foodExpiry")
     public String foodExpiry(){
         return "muji/foodExpiry";

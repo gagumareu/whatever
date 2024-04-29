@@ -1,4 +1,5 @@
 
+// 게시물 작성 API
 const saveArticleBtn = document.getElementById('create-btn');
 
 if (saveArticleBtn){
@@ -43,7 +44,9 @@ if (saveArticleBtn){
     });
 }
 
-const deleteArticleBtn = document.querySelector('.article-delete-btn');
+
+// 게시물 삭제 API
+const deleteArticleBtn = document.getElementById('article-delete-btn');
 
 if (deleteArticleBtn){
     deleteArticleBtn.addEventListener('click', event => {
@@ -59,6 +62,8 @@ if (deleteArticleBtn){
     });
 }
 
+
+// 게시글 업데이트 API
 const updateArticleBtn = document.getElementById('update-btn');
 
 if (updateArticleBtn){

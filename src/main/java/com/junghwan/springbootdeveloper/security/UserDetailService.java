@@ -1,4 +1,4 @@
-package com.junghwan.springbootdeveloper.service;
+package com.junghwan.springbootdeveloper.security;
 
 import com.junghwan.springbootdeveloper.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

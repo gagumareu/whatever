@@ -174,10 +174,10 @@
     <div th:with="link = ${pageRequestDTO.getLink()}" class="article-red-btn-wrapper">
         <div class="member-btn-box" th:if="${#authentication.principal != 'anonymousUser' && #authentication.principal.username == article.writer}">
             <button class="article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
-            <button type="button" class="article-delete-btn article-btn">삭제</button>
+            <button type="button" id="article-delete-btn" class="article-btn">삭제</button>
         </div>
         <a th:href="|@{/articles}?${link}|">
-            <button type="button" class="article-delete-btn">리스트</button>
+            <button type="button" class="article-backToList-btn">리스트</button>
         </a>
     </div>
 
@@ -216,8 +216,8 @@
         console.log($article)
         console.log($auth)
 
-        const commentList = document.querySelector('.comment-list')
-        const commentPaging = document.querySelector('.commentPagination')
+        const $commentList = document.querySelector('.comment-list')
+        const $commentPaging = document.querySelector('.commentPagination')
 
         function printCommentList(dtoList){
 
@@ -240,7 +240,7 @@
 
                 }
             }
-            commentList.innerHTML = str
+            $commentList.innerHTML = str
         }
 
         function printPage(data){
@@ -262,7 +262,7 @@
             if (data.next){
                 pageStr += `<li><a data-page="${data.end +1}">NEXT</a></li>`
             }
-            commentPaging.innerHTML = pageStr
+            $commentPaging.innerHTML = pageStr
         }
 
         function printComment(page, size, goLast){
@@ -314,7 +314,7 @@
         let page = 1
         let size = 10
 
-        commentPaging.addEventListener('click', function (e){
+        $commentPaging.addEventListener('click', function (e){
 
             e.preventDefault()
             e.stopPropagation()

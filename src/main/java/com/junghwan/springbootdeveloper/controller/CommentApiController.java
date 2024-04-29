@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-public class CommentController {
+public class CommentApiController {
 
     private final CommentService commentService;
 

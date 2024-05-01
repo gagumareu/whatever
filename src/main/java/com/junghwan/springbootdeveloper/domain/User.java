@@ -1,26 +1,27 @@
 package com.junghwan.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@Builder
 @Table(name = "users")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity
-public class User implements UserDetails {
+@ToString(exclude = "roleSet")
+public class User extends BaseEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private Long id;
+    private String userId;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -28,10 +29,44 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Builder
-    public User(String email, String password, String auth){
-        this.email = email;
+    private boolean del;
+
+    private boolean social;
+
+//    @Builder
+//    public User(String email, String password, boolean del, boolean social, String auth){
+//        this.email = email;
+//        this.password = password;
+//        this.del = del;
+//        this.social = social;
+//    }
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<UserRole> roleSet = new HashSet<>();
+
+    public void changePassword(String password){
         this.password = password;
+    }
+
+    public void changeEmail(String email){
+        this.email = email;
+    }
+
+    public void changeDel(boolean del){
+        this.del = del;
+    }
+
+    public void addRole(UserRole userRole){
+        this.roleSet.add(userRole);
+    }
+
+    public void clearRoles(){
+        this.roleSet.clear();
+    }
+
+    public void changeSocial(boolean social){
+        this.social = social;
     }
 
     // 권한 반환

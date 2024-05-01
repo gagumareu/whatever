@@ -51,17 +51,11 @@ public class ArticleApiController {
         return ResponseEntity.ok().body(article);
     }
 
-    @PreAuthorize("principal.username == #writer")
+
     @DeleteMapping("/api/article/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id){
 
         System.out.println("----- api delete id ------ " + id);
-
-        ArticleViewResponse articleViewResponse = articleService.findById(id);
-
-        String writer = articleViewResponse.getWriter();
-
-//        log.info("writer: " + writer);
 
         List<ArticleImageDTO> responses = articleImageService.findByArticleId(id).stream().map(ArticleImageDTO::new).toList();
 

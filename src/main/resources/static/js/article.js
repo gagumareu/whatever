@@ -50,15 +50,17 @@ const deleteArticleBtn = document.getElementById('article-delete-btn');
 
 if (deleteArticleBtn){
     deleteArticleBtn.addEventListener('click', event => {
-        let id = document.getElementById('article-id').value;
-        console.log(id);
-        fetch(`/api/article/${id}`, {
-            method: "DELETE"
-        })
-            .then(() => {
+
+        if (confirm("삭제하시겠습니까?")){
+            let id = document.getElementById('article-id').value;
+            console.log(id);
+            fetch(`/api/article/${id}`, {
+                method: "DELETE"
+            }).then(() => {
                 alert('삭제가 완료되었습니다.');
                 location.replace('/articles');
             });
+        }
     });
 }
 

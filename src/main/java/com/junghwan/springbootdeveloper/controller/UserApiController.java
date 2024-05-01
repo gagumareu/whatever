@@ -5,24 +5,37 @@ import com.junghwan.springbootdeveloper.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequiredArgsConstructor
 @Controller
+@Log4j2
 public class UserApiController {
 
     private final UserService userService;
 
     @PostMapping("/user")
-    public String signup(AddUserRequest request){
+    public String signup(AddUserRequest request, RedirectAttributes redirectAttributes){
 
-        userService.save(request);
+        log.info("signup.....");
+        log.info(request);
 
-        return "redirect:/user/login";
+        try {
+            userService.signup(request);
+        } catch (UserService.UseridExistException e) {
+            redirectAttributes.addFlashAttribute("error", "userId");
+            return "redirect:/signup";
+        }
+
+        redirectAttributes.addFlashAttribute("result", "success");
+
+        return "redirect:/login";
     }
 
     @GetMapping("/logout")
@@ -30,7 +43,7 @@ public class UserApiController {
 
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
 
-        return "redirect:/user/login";
+        return "redirect:/login";
     }
 
 }

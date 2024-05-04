@@ -140,15 +140,32 @@
                 /*background: lightblue;*/
             }
 
+            .articles-wrapper{
+                margin: 0 10px;
+                padding: 5px 0;
+            }
+
+            .article-thumbnail-div{
+                flex: 21%;
+            }
+
             .article-title-div{
                 display: flex;
                 flex-direction: column;
+                align-items: baseline;
+                flex: 88%;
             }
 
             .article-info-box{
                 display: flex;
                 flex-direction: row;
+                font-size: 0.9em;
+                gap: 10px;
+                color: #696969ab;
             }
+
+
+
         }
 
         /* tablet*/
@@ -189,7 +206,8 @@
     <div th:each="item : ${responseDTO.dtoList}" class="articles-wrapper" th:with="link = ${pageRequestDTO.getLink()}">
         <a th:href="|@{/article/{id}(id=${item.id})}?${link}|" class="articles-box">
             <div class="article-thumbnail-div" >
-                <img th:if="${item.articleImages != null && item.articleImages.size() > 0}" th:src="${item.articleImages[0].getThumbnailUrl()}">
+                <!--/*@thymesVar id="s3url" type=""*/-->
+                <img th:if="${item.articleImages != null && item.articleImages.size() > 0}" th:src="${item.articleImages[0].s3url}">
                 <img th:unless="${item.articleImages != null && item.articleImages.size() > 0}" src="/icons/imageIcon1.svg">
             </div>
             <div class="article-title-div">

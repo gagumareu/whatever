@@ -31,7 +31,10 @@ public class UserDetailService implements UserDetailsService {
 
         Optional<User> result = userRepository.getWithRoles(username);
 
+        log.info(result);
+
         if (result.isEmpty()){
+            log.info("username not found");
             throw new UsernameNotFoundException("username not found");
         }
 

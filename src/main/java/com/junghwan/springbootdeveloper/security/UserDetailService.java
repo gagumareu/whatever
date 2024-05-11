@@ -27,9 +27,10 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        log.info("----------------------- loadUserByUsername -------------------- ");
         log.info("loadUserByUserName: " + username);
 
-        Optional<User> result = userRepository.getWithRoles(username);
+        Optional<User> result = userRepository.findByEmail(username);
 
         log.info(result);
 
@@ -52,6 +53,7 @@ public class UserDetailService implements UserDetailsService {
 
         log.info("--------- userSecurityDTO -------------");
         log.info(userSecurityDTO);
+        log.info(userSecurityDTO.getAuthorities());
 
         return userSecurityDTO;
     }

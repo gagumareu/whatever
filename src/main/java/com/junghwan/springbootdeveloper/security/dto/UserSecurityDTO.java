@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,8 +19,12 @@ public class UserSecurityDTO extends User {
     private String email;
     private boolean del;
     private boolean social;
+    private List<String> roleSet;
 
-    public UserSecurityDTO(String username, String password, String email, boolean del, boolean social, Collection<? extends GrantedAuthority> authorities) {
+    public UserSecurityDTO(String username, String password,
+                           String email,
+                           boolean del,
+                           boolean social, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
 
         this.userId = username;

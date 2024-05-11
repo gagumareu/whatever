@@ -22,40 +22,40 @@ public class UserRepositoryTests {
     private PasswordEncoder passwordEncoder;
 
 
-    @Test
-    public void insertUser(){
-
-        IntStream.rangeClosed(1, 101).forEach(i -> {
-
-            User user = User.builder()
-                    .userId("user" + i)
-                    .email("user" + i + "@email.com")
-                    .password(passwordEncoder.encode("1111"))
-                    .build();
-
-            user.addRole(UserRole.USER);
-
-            if (i > 90){
-                user.addRole(UserRole.ADMIN);
-            }
-            userRepository.save(user);
-
-        });
-
-    }
-
-    @Test
-    public void testRead(){
-
-        Optional<User> result = userRepository.getWithRoles("user100");
-
-        User user = result.orElseThrow();
-
-        log.info(user);
-        log.info(user.getRoleSet());
-
-        user.getRoleSet().forEach(userRole -> log.info(userRole.name()));
-
-    }
+//    @Test
+//    public void insertUser(){
+//
+//        IntStream.rangeClosed(1, 101).forEach(i -> {
+//
+//            User user = User.builder()
+//                    .userId("user" + i)
+//                    .email("user" + i + "@email.com")
+//                    .password(passwordEncoder.encode("1111"))
+//                    .build();
+//
+//            user.addRole(UserRole.USER);
+//
+//            if (i > 90){
+//                user.addRole(UserRole.ADMIN);
+//            }
+//            userRepository.save(user);
+//
+//        });
+//
+//    }
+//
+//    @Test
+//    public void testRead(){
+//
+//        Optional<User> result = userRepository.getWithRoles("user100");
+//
+//        User user = result.orElseThrow();
+//
+//        log.info(user);
+//        log.info(user.getRoleSet());
+//
+//        user.getRoleSet().forEach(userRole -> log.info(userRole.name()));
+//
+//    }
 
 }

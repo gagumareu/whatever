@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://thymeleaf.org/extras/spring-security"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -279,9 +279,9 @@
             <h3>정환 개인 프로젝트</h3>
         </div>
         <div class="loginNLogout-div">
-            <button type="button" onclick="location.href='/login'">로그인</button>
-            <button type="button" onclick="location.href='/signup'">회원가입</button>
-            <button type="button" onclick="location.href='/logout'">로그아웃</button>
+            <button sec:authorize="isAnonymous()" type="button" onclick="location.href='/login'">로그인</button>
+            <button sec:authorize="isAnonymous()" type="button" onclick="location.href='/signup'">회원가입</button>
+            <button sec:authorize="isAuthenticated()" type="button" onclick="location.href='/logout'">로그아웃</button>
         </div>
     </div>
 

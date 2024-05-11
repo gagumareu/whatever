@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final'
     implementation 'org.glassfish:jakarta.el:3.0.3'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

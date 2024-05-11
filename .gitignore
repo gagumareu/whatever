@@ -45,3 +45,4 @@ application.yml
 application-db.yml
 application-s3.yml
 application.properties
+application-oauth.yml

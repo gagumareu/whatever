@@ -23,6 +23,9 @@ public class User extends BaseEntity implements UserDetails {
     @Id
     private String userId;
 
+    @Column(unique = true)
+    private String nickName;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
@@ -32,6 +35,8 @@ public class User extends BaseEntity implements UserDetails {
     private boolean del;
 
     private boolean social;
+
+    private String profileImg;
 
 //    @Builder
 //    public User(String email, String password, boolean del, boolean social, String auth){
@@ -67,6 +72,10 @@ public class User extends BaseEntity implements UserDetails {
 
     public void changeSocial(boolean social){
         this.social = social;
+    }
+
+    private void changeProfileImg(String profileImg){
+        this.profileImg = profileImg;
     }
 
     // 권한 반환

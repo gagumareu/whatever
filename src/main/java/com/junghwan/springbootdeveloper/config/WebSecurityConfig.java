@@ -2,6 +2,7 @@ package com.junghwan.springbootdeveloper.config;
 
 import com.junghwan.springbootdeveloper.security.UserDetailService;
 import com.junghwan.springbootdeveloper.security.handler.Custom403Handler;
+import com.junghwan.springbootdeveloper.security.handler.UserLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -61,6 +62,9 @@ public class WebSecurityConfig {
         // csrf 비활성화
         http.csrf(AbstractHttpConfigurer::disable);
 
+        // oauth 활성화
+        http.oauth2Login(oauth2Login -> oauth2Login.loginPage("/login").successHandler(successHandler()));
+
         return http.build();
     }
 
@@ -89,7 +93,10 @@ public class WebSecurityConfig {
         return  new Custom403Handler();
     }
 
-
+    @Bean
+    public UserLoginSuccessHandler successHandler(){
+        return new UserLoginSuccessHandler(bCryptPasswordEncoder());
+    }
 
 
 }

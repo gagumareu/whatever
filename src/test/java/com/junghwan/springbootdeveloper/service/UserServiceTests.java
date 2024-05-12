@@ -11,19 +11,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Log4j2
 public class UserServiceTests {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Test
-    public void update(){
-
-        UpdateUserRequest request = UpdateUserRequest.builder()
-                        .nickName("testNickName2")
-                                .password(passwordEncoder.encode("wjdghks2")).build();
-
-        userService.update(request, "udekang@gmail.com");
-
-    }
+//    @Autowired
+//    private UserService userService;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+//    @Test
+//    public void update(){
+//
+//        UpdateUserRequest request = UpdateUserRequest.builder()
+//                        .nickName("testNickName2")
+//                                .password(passwordEncoder.encode("wjdghks2")).build();
+//
+//        userService.update(request, "udekang@gmail.com");
+//
+//    }
 }

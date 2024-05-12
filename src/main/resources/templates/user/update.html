@@ -8,10 +8,32 @@
     <title>Title</title>
 </head>
 <body>
-<h1>user update info</h1>
+<div layout:fragment="content">
 
-<form action="/user/update" method="">
+    <h1>user update info</h1>
 
-</form>
+    <div>
+
+        <label>닉네임
+            <input name="nickName" type="text" placeholder="닉네임" id="nickName">
+        </label>
+        <label>비밀번호
+            <input name="password" type="password" placeholder="비밀번호" id="password">
+        </label>
+        <button type="button" class="saveBtn">저장</button>
+
+    </div>
+
+    <script src="/js/user.js"></script>
+
+    <script layout:fragment="script" th:inline="javascript">
+
+        const $email = [[${#authentication.principal.username}]]
+
+        console.log($email)
+
+    </script>
+</div>
+
 </body>
 </html>

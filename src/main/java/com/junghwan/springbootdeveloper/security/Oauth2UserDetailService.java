@@ -44,23 +44,23 @@ public class Oauth2UserDetailService extends DefaultOAuth2UserService {
         });
 
         String email = null;
-        String profileImg = null;
+        String socialImg = null;
 
         if (clientName.equals("Google")){
             email = oAuth2User.getAttribute("email");
-            profileImg = oAuth2User.getAttribute("picture");
+            socialImg = oAuth2User.getAttribute("picture");
         }
 
         log.info("EMAIL: " + email);
-        log.info("PICTURE: " + profileImg);
+        log.info("PICTURE: " + socialImg);
 
-        User user = saveSocialUser(email, profileImg);
+        User user = saveSocialUser(email, socialImg);
 
         UserAuthResponseDTO userAuthResponseDTO = new UserAuthResponseDTO(
                 user.getEmail(),
                 user.getPassword(),
                 true,
-                profileImg,
+                socialImg,
                 user.getRoleSet().stream().map(
                         userRole -> new SimpleGrantedAuthority("ROLE_" + userRole.name())
                 ).collect(Collectors.toList()),
@@ -87,7 +87,7 @@ public class Oauth2UserDetailService extends DefaultOAuth2UserService {
                 .userId(email)
                 .password(passwordEncoder.encode("1111"))
                 .social(true)
-                .profileImg(profileImg)
+                .socialImg(profileImg)
                 .build();
 
         user.addRole(UserRole.USER);

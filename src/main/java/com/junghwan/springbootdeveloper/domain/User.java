@@ -1,5 +1,6 @@
 package com.junghwan.springbootdeveloper.domain;
 
+import com.junghwan.springbootdeveloper.dto.UpdateUserRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,6 +39,8 @@ public class User extends BaseEntity implements UserDetails {
 
     private String profileImg;
 
+    private String socialImg;
+
 //    @Builder
 //    public User(String email, String password, boolean del, boolean social, String auth){
 //        this.email = email;
@@ -49,6 +52,12 @@ public class User extends BaseEntity implements UserDetails {
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<UserRole> roleSet = new HashSet<>();
+
+    public void update(String nickName, String password, String profileImg){
+        this.nickName = nickName;
+        this.password = password;
+        this.profileImg = profileImg;
+    }
 
     public void changePassword(String password){
         this.password = password;

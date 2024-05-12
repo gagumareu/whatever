@@ -3,7 +3,9 @@ package com.junghwan.springbootdeveloper.service;
 import com.junghwan.springbootdeveloper.domain.User;
 import com.junghwan.springbootdeveloper.domain.UserRole;
 import com.junghwan.springbootdeveloper.dto.AddUserRequest;
+import com.junghwan.springbootdeveloper.dto.UpdateUserRequest;
 import com.junghwan.springbootdeveloper.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -56,6 +58,17 @@ public class UserService {
         log.info(user.getRoleSet());
 
         userRepository.save(user);
+    }
+
+    @Transactional
+    public User update(UpdateUserRequest request, String email){
+
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Not Found Email: " + email));
+
+        user.update(request.getNickName(), bCryptPasswordEncoder.encode(request.getPassword()), request.getProfileImg());
+
+        return userRepository.save(user);
+
     }
 
 }

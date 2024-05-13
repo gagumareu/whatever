@@ -22,23 +22,23 @@ public class UserAuthResponseDTO extends User implements OAuth2User {
     private String password;
     private String nickName;
     private boolean social;
-    private String profileImg;
+    private String socialImg;
     private Map<String, Object> attr;
 
     public UserAuthResponseDTO(String username,
                                String password,
                                boolean social,
-                               String profileImg,
+                               String socialImg,
                                Collection<? extends GrantedAuthority> authorities,
                                Map<String, Object> attributes) {
-        this(username, password, social, profileImg, authorities);
+        this(username, password, social, socialImg, authorities);
         this.attr = attributes;
     }
 
     public UserAuthResponseDTO(String username,
                                String password,
                                boolean social,
-                               String profileImg,
+                               String socialImg,
                                Collection<? extends GrantedAuthority> authorities
                                ) {
         super(username, password, authorities);
@@ -46,7 +46,7 @@ public class UserAuthResponseDTO extends User implements OAuth2User {
         this.userId = username;
         this.password = password;
         this.social = social;
-        this.profileImg = profileImg;
+        this.socialImg = socialImg;
     }
 
 

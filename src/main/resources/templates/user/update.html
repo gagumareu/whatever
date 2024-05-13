@@ -28,7 +28,7 @@
 
     <script layout:fragment="script" th:inline="javascript">
 
-        const $email = [[${#authentication.principal.username}]]
+        const $email = [[${#authentication.principal}]]
 
         console.log($email)
 

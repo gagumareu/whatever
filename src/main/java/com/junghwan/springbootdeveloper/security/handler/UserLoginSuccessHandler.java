@@ -44,9 +44,15 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         boolean passwordResult = passwordEncoder.matches("1111", userAuthResponseDTO.getPassword());
 
+        log.info("should be changed password: " + passwordResult);
+
         if (formSocial && passwordResult){
             redirectStrategy.sendRedirect(request, response, "/user/update?from=social");
+        }else {
+            response.sendRedirect("/");
         }
+
+
 
     }
 }

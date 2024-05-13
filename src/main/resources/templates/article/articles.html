@@ -262,30 +262,26 @@
         console.log([[${pageRequestDTO}]])
         console.log([[${responseDTO}]])
 
-        const pagination = document.querySelector('.pagination');
+        document.querySelector('.pagination').addEventListener('click', function (e){
 
-        if (pagination){
-            pagination.addEventListener("click", function (e){
+            e.preventDefault()
+            e.stopPropagation()
 
-                e.preventDefault()
-                e.stopPropagation()
+            const target = e.target;
 
-                const target = e.target;
+            if (target.tagName !== 'A'){
+                return
+            }
 
-                // if (target.tagName !== 'A'){
-                //     return
-                // }
+            const num = target.getAttribute("data-num")
 
-                const num = target.getAttribute("data-num")
+            const formObj = document.querySelector("form")
 
-                const formObj = document.querySelector("form")
+            formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
 
-                formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+            formObj.submit();
+        }, false)
 
-                formObj.submit();
-
-            }, false)
-        }
 
     </script>
 

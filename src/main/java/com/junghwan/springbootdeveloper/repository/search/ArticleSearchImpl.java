@@ -1,8 +1,6 @@
 package com.junghwan.springbootdeveloper.repository.search;
 
-import com.junghwan.springbootdeveloper.domain.Article;
-import com.junghwan.springbootdeveloper.domain.QArticle;
-import com.junghwan.springbootdeveloper.domain.QComment;
+import com.junghwan.springbootdeveloper.domain.*;
 import com.junghwan.springbootdeveloper.dto.ArticleImageDTO;
 import com.junghwan.springbootdeveloper.dto.ArticleListAllDTO;
 import com.junghwan.springbootdeveloper.dto.ArticleListCommentCountDTO;
@@ -126,9 +124,11 @@ public class ArticleSearchImpl extends QuerydslRepositorySupport implements Arti
 
         QArticle article = QArticle.article;
         QComment comment = QComment.comment1;
+        QUser user = QUser.user;
 
         JPQLQuery<Article> articleJPQLQuery = from(article);
         articleJPQLQuery.leftJoin(comment).on(comment.article.eq(article));
+        articleJPQLQuery.leftJoin(user).on(article.writer.eq(user.email));
 
         if ((types != null && types.length > 0) && keyword != null){
             BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -154,7 +154,7 @@ public class ArticleSearchImpl extends QuerydslRepositorySupport implements Arti
         getQuerydsl().applyPagination(pageable, articleJPQLQuery);  // paging
 
 
-        JPQLQuery<Tuple> tupleJPQLQuery = articleJPQLQuery.select(article, comment.countDistinct());
+        JPQLQuery<Tuple> tupleJPQLQuery = articleJPQLQuery.select(article, comment.countDistinct(), user);
 
         List<Tuple> tupleList = tupleJPQLQuery.fetch();
 
@@ -162,6 +162,7 @@ public class ArticleSearchImpl extends QuerydslRepositorySupport implements Arti
 
             Article article1 = (Article) tuple.get(article);
             long commentCount = tuple.get(1, Long.class);
+            User user1 = (User) tuple.get(user);
 
             ArticleListAllDTO dto = ArticleListAllDTO.builder()
                     .id(article1.getId())
@@ -170,6 +171,9 @@ public class ArticleSearchImpl extends QuerydslRepositorySupport implements Arti
                     .category(article1.getCategory())
                     .createdAt(article1.getCreatedAt())
                     .commentCounting(commentCount)
+                    .nickName(user1.getNickName())
+                    .profileImg(user1.getProfileImg())
+                    .socialImg(user1.getSocialImg())
                     .build();
 
             // articleImage 를 ArticleImageDTO 처리할 부분

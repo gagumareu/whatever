@@ -7,18 +7,60 @@
     <title>정환 개인 프로젝트</title>
 
     <style>
-        .articles-wrapper{
-            display: flex;
-            flex-direction: column;
-        }
+        /*.articles-wrapper{*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*}*/
+        /*.articles-wrapper{*/
+        /*    height: 60px;*/
+        /*    padding: 5px 10px;*/
+        /*    border-bottom: 1px solid cadetblue;*/
+        /*}*/
 
+        /*.articles-wrapper:hover{*/
+        /*    background-color: #e0ffff;*/
+        /*}*/
+
+        /*.articles-wrapper a{*/
+        /*    display: flex;*/
+        /*    flex-direction: row;*/
+        /*    !*justify-content: space-between;*!*/
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*}*/
+
+        /*.articles-box{*/
+        /*    height: 60px;*/
+        /*    padding: 5px 10px;*/
+        /*    border-bottom: 1px solid cadetblue;*/
+
+        /*}*/
+
+        /**/
         .articles-box{
+            height: 60px;
+            padding: 5px 10px;
+            border-bottom: 1px solid cadetblue;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .articles-box:hover{
+            background-color: #e0ffff;
         }
 
 
 
-        .article-title-div{
+        .category-div{
+            display: flex;
+            flex-direction: row;
+            color: #888;
+            font-size: 0.9em;
 
+        }
+
+        .article-category{
+            margin-right: 10px;
         }
 
         .article-add-btn{
@@ -30,26 +72,11 @@
         }
 
 
-        .articles-wrapper{
-            height: 60px;
-            padding: 5px 10px;
-            border-bottom: 1px solid cadetblue;
-        }
 
-        .articles-wrapper a{
-            display: flex;
-            flex-direction: row;
-            /*justify-content: space-between;*/
-            width: 100%;
-            height: 100%;
-        }
 
-        .articles-wrapper:hover{
-            background-color: #e0ffff;
-        }
 
         .article-thumbnail-div{
-            width: 100px;
+            width: 67px;
             height: 100%;
         }
 
@@ -61,6 +88,10 @@
 
         }
 
+        .article-title{
+            font-size: 1.4em;
+        }
+
         .article-title-div{
             display: flex;
             flex-direction: row;
@@ -70,12 +101,14 @@
         }
 
         .article-title-box{
-            flex: 85%;
-            font-size: 1.3em;
+            /*flex: 76%;*/
+            /*font-size: 1.3em;*/
         }
 
         .article-info-box{
-            flex: 15%;
+            display: flex;
+            flex-direction: row;
+            /*flex: 37%;*/
             /*font-size: 0.9em;*/
         }
 
@@ -115,7 +148,7 @@
         .pagination{
             display: flex;
             flex-direction: row;
-            justify-content: space-evenly;
+            justify-content: center;
             padding: 0px;
             list-style-type: none;
             font-size: 1.2em;
@@ -126,74 +159,31 @@
             cursor: pointer;
         }
 
-
-        /* mobile1 */
-        @media screen and (max-width: 375px){
-            /*body{*/
-            /*    background: mediumseagreen;*/
-            /*}*/
+        .profileImg-div{
+            width: 50px;
         }
 
-        /* mobile2 */
-        @media screen and (min-width: 375px) and (max-width: 600px){
-            body{
-                /*background: lightblue;*/
-            }
-
-            .articles-wrapper{
-                margin: 0 10px;
-                padding: 5px 0;
-            }
-
-            .article-thumbnail-div{
-                flex: 21%;
-            }
-
-            .article-title-div{
-                display: flex;
-                flex-direction: column;
-                align-items: baseline;
-                flex: 88%;
-            }
-
-            .article-info-box{
-                display: flex;
-                flex-direction: row;
-                font-size: 0.9em;
-                gap: 10px;
-                color: #696969ab;
-            }
-
-
-
+        .profileImg-div img{
+            border-radius: 30px;
+            object-fit: cover;
         }
 
-        /* tablet*/
-        @media screen and (min-width: 600px) and (max-width: 992px){
-            body{
-                /*background-color: silver;*/
-            }
-
-            .category{
-                width: 100%;
-                font-size: 2.2em;
-            }
-            .container{
-                width: 100%;
-                /*font-size: 2.2em;*/
-            }
-
-
+        .profileInfo-div{
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
         }
 
-        /* desk */
-        @media screen and (min-width: 992px){
-            body {
-                /*background: white;*/
-            }
+        .profileInfo-div-responsible{
+            display: none;
+            margin-right: 10px;
         }
+
+
 
     </style>
+
+    <link href="/css/articles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -203,27 +193,44 @@
         <button type="button" class="create-article-btn" th:onclick="|location.href='@{/newArticle}'|">글쓰기</button>
     </div>
 
-    <div th:each="item : ${responseDTO.dtoList}" class="articles-wrapper" th:with="link = ${pageRequestDTO.getLink()}">
-        <a th:href="|@{/article/{id}(id=${item.id})}?${link}|" class="articles-box">
-            <div class="article-thumbnail-div" >
+<!--    <div th:each="item : ${responseDTO.dtoList}" class="articles-wrapper" th:with="link = ${pageRequestDTO.getLink()}">-->
+        <a th:each="item : ${responseDTO.dtoList}" th:with="link = ${pageRequestDTO.getLink()}" th:href="|@{/article/{id}(id=${item.id})}?${link}|" class="articles-box">
+            <div class="col-sm-2 article-thumbnail-div" >
                 <!--/*@thymesVar id="s3url" type=""*/-->
                 <img th:if="${item.articleImages != null && item.articleImages.size() > 0}" th:src="${item.articleImages[0].s3url}">
                 <img th:unless="${item.articleImages != null && item.articleImages.size() > 0}" src="/icons/imageIcon1.svg">
             </div>
-            <div class="article-title-div">
-                <div class="article-title-box">
-                    <span th:text="${item.title}" class="article-title"></span>
-                    <span th:if="${item.commentCounting > 0}" class="articles-comment-counting">[[${item.commentCounting}]]</span>
+            <div class="row col-sm-10 article-title-div">
+                <div class="col-lg-8 article-title-box">
+                    <div class="title-div">
+                        <span th:text="${item.title}" class="article-title"></span>
+                        <span th:if="${item.commentCounting > 0}" class="articles-comment-counting">[[${item.commentCounting}]]</span>
+                    </div>
+                    <div class="category-div">
+                        <div th:text="${item.category}" class="article-category"></div>
+                        <div class="profileInfo-div-responsible">
+                            <div th:if="${item.nickName == null}" th:text="${item.writer}" class="article-writer"></div>
+                            <div th:unless="${item.nickName == null}" th:text="${item.nickName}" class="article-writer"></div>
+                        </div>
+                        <div th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd')}" class="article-createdAt"></div>
+                    </div>
                 </div>
-                <div class="article-info-box">
-                    <div th:text="${item.writer}" class="article-writer"></div>
-                    <div th:text="${item.category}" class="article-category"></div>
-                    <div th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd')}" class="article-createdAt"></div>
+                <div class="col-lg-4 article-info-box">
+                    <div class="col-lg-4 profileImg-div">
+                        <img th:if="${item.profileImg == null}" th:src="${item.socialImg}">
+                        <img th:unless="${item.profileImg == null}" th:src="${item.profileImg}">
+                        <img th:if="${item.profileImg == null && item.socialImg == null}" th:src="@{/icons/person.svg}">
+                    </div>
+                    <div class="col-lg-8 profileInfo-div">
+                        <div th:if="${item.nickName == null}" th:text="${item.writer}" class="article-writer"></div>
+                        <div th:unless="${item.nickName == null}" th:text="${item.nickName}" class="article-writer"></div>
+                    </div>
+
                 </div>
 
             </div>
         </a>
-    </div>
+<!--    </div>-->
 
     <div class="search-wrapper">
         <form action="/articles" method="get" class="search-form">

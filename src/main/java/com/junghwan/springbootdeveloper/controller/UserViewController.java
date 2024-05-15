@@ -45,7 +45,7 @@ public class UserViewController {
     @GetMapping("/user/update")
     public String updateInfo(@RequestParam(required = false) String from){
 
-        log.info("------ user/update -----");
+        log.info("------ update -----");
         log.info(from);
 
         return "user/update";

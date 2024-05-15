@@ -27,4 +27,10 @@ public class ArticleListAllDTO {
     private Long commentCounting;
 
     private List<ArticleImageDTO> articleImages;
+
+    private String nickName;
+
+    private String profileImg;
+
+    private String socialImg;
 }

@@ -28,9 +28,9 @@
 
     <script layout:fragment="script" th:inline="javascript">
 
-        const $email = [[${#authentication.principal}]]
+        const $auth = [[${#authentication.principal}]]
 
-        console.log($email)
+        console.log($auth)
 
         console.log([[${request}]])
         console.log([[${response}]])

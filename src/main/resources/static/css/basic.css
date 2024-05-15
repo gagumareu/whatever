@@ -66,6 +66,8 @@ a{
     margin-left: 20px;
 }
 
-.title{
+.title a{
     color: lightslategray;
+    font-weight: 600;
+    font-size: 2em;
 }

@@ -166,12 +166,12 @@
                 </select>
             </div>
             <div class="new-article-writer">
-                <div th:if="${article.id == null}">
+                <div>
                     <input type="text" name="writer" class="article-writer-value" th:value="${#authentication.principal.username}" readonly>
                 </div>
-                <div th:if="${article.id != null}">
-                    <input type="text" name="writer" class="article-writer-value" th:value="${article.writer}" readonly>
-                </div>
+<!--                <div th:if="${article.id != null}">-->
+<!--                    <input type="text" name="writer" class="article-writer-value" th:value="${article.writer}" readonly>-->
+<!--                </div>-->
             </div>
         </div>
 

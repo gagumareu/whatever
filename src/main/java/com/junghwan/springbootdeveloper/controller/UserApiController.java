@@ -1,6 +1,7 @@
 package com.junghwan.springbootdeveloper.controller;
 
 import com.junghwan.springbootdeveloper.domain.User;
+import com.junghwan.springbootdeveloper.dto.AddUserRequest;
 import com.junghwan.springbootdeveloper.dto.UpdateUserRequest;
 import com.junghwan.springbootdeveloper.security.dto.UserSecurityDTO;
 import com.junghwan.springbootdeveloper.service.UserService;
@@ -8,10 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequiredArgsConstructor
 @RestController
@@ -30,5 +29,7 @@ public class UserApiController {
 
         return ResponseEntity.ok().body(updatedUser);
     }
+
+
 
 }

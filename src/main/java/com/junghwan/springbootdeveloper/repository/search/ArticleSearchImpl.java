@@ -128,7 +128,7 @@ public class ArticleSearchImpl extends QuerydslRepositorySupport implements Arti
 
         JPQLQuery<Article> articleJPQLQuery = from(article);
         articleJPQLQuery.leftJoin(comment).on(comment.article.eq(article));
-        articleJPQLQuery.leftJoin(user).on(article.writer.eq(user.email));
+        articleJPQLQuery.leftJoin(user).on(user.userId.eq(article.writer));
 
         if ((types != null && types.length > 0) && keyword != null){
             BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -142,7 +142,7 @@ public class ArticleSearchImpl extends QuerydslRepositorySupport implements Arti
                         booleanBuilder.or(article.content.contains(keyword));
                         break;
                     case "w":
-                        booleanBuilder.or(article.writer.contains(keyword));
+                        booleanBuilder.or(user.nickName.contains(keyword));
                         break;
                 }
             }  // for end

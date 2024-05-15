@@ -77,6 +77,9 @@
             .container{
                 width: 100%;
             }
+            .title a{
+                font-size: 1.2em;
+            }
 
 
         }
@@ -292,7 +295,7 @@
 <div class="wrapper">
     <div class="container header">
         <div class="title">
-            <span>이런저런</span>
+            <a th:href="@{/articles}">이런저런</a>
         </div>
         <div class="loginNLogout-div">
             <button sec:authorize="isAnonymous()" type="button" onclick="location.href='/login'" class="btn btn-primary">로그인</button>

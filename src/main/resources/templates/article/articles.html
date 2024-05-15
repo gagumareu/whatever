@@ -240,9 +240,9 @@
                 </div>
                 <div class="col-lg-4 article-info-box">
                     <div class="col-lg-4 profileImg-div">
-                        <img th:if="${item.profileImg == null}" th:src="${item.socialImg}">
-                        <img th:unless="${item.profileImg == null}" th:src="${item.profileImg}">
-                        <img th:if="${item.profileImg == null && item.socialImg == null}" th:src="@{/icons/person.svg}">
+                        <img th:if="${item.profileImg == null && item.socialImg != null}" th:src="${item.socialImg}">
+                        <img th:if="${item.profileImg != null && item.socialImg == null}" th:src="${item.profileImg}">
+                        <img th:if="${item.profileImg == null && item.socialImg == null}" src="/icons/person1.svg">
                     </div>
                     <div class="col-lg-8 profileInfo-div">
                         <div th:if="${item.nickName == null}" th:text="${item.writer}" class="article-writer"></div>

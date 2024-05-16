@@ -11,9 +11,15 @@
 <div layout:fragment="content">
 
     <h1>회원 정보 수정</h1>
-
     <div>
-
+    </div>
+    <div>
+        <div>
+            [[${#authentication.principal.userId}]]
+        </div>
+        <div class="socialImg">
+            <img th:src="${#authentication.principal.socialImg}">
+        </div>
         <label>닉네임
             <input name="nickName" type="text" placeholder="닉네임" id="nickName">
         </label>
@@ -29,8 +35,10 @@
     <script layout:fragment="script" th:inline="javascript">
 
         const $auth = [[${#authentication.principal}]]
+        const $test = [[${#authentication.principal.socialImg}]]
 
         console.log($auth)
+        console.log($test)
 
         console.log([[${request}]])
         console.log([[${response}]])

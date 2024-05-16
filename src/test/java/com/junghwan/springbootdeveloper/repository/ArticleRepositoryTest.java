@@ -8,6 +8,7 @@ import com.junghwan.springbootdeveloper.repository.ArticleRepository;
 import com.junghwan.springbootdeveloper.repository.CommentRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,8 +18,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 @Log4j2
@@ -49,7 +52,7 @@ public class ArticleRepositoryTest {
 //    @Test
 //    public void testReadWithImages(){
 //
-//        Optional<Article> result = articleRepository.findByIdWithImages(16L);
+//        Optional<Article> result = articleRepository.findByIdWithImages(259L);
 //
 //        Article article = result.orElseThrow();
 //
@@ -59,6 +62,17 @@ public class ArticleRepositoryTest {
 //            log.info(articleImage);
 //        }
 //    }
+//
+//    @Test
+//    public void testReadWithAll(){
+//
+//        Object[] result = articleRepository.findByIdWithAll(259L);
+//
+//        System.out.println(Arrays.asList(result).toString());
+//
+//
+//    }
+
 //
 //    @Test
 //    public void testSearchAll(){

@@ -55,7 +55,7 @@
             display: flex;
             flex-direction: row;
             color: #888;
-            font-size: 0.9em;
+            font-size: 0.8em;
 
         }
 
@@ -224,7 +224,7 @@
                 <img th:unless="${item.articleImages != null && item.articleImages.size() > 0}" src="/icons/imageIcon1.svg">
             </div>
             <div class="row col-sm-10 article-title-div">
-                <div class="col-lg-8 col-md-8 article-title-box">
+                <div class="col-8 article-title-box">
                     <div class="title-div">
                         <span th:text="${item.title}" class="article-title"></span>
                         <span th:if="${item.commentCounting > 0}" class="articles-comment-counting">[[${item.commentCounting}]]</span>
@@ -238,13 +238,13 @@
                         <div th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd')}" class="article-createdAt"></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 article-info-box">
-                    <div class="col-lg-4 profileImg-div">
+                <div class="col-4 article-info-box">
+                    <div class="col-4 profileImg-div">
                         <img th:if="${item.profileImg == null && item.socialImg != null}" th:src="${item.socialImg}">
                         <img th:if="${item.profileImg != null && item.socialImg == null}" th:src="${item.profileImg}">
                         <img th:if="${item.profileImg == null && item.socialImg == null}" src="/icons/person1.svg">
                     </div>
-                    <div class="col-lg-8 profileInfo-div">
+                    <div class="col-8 profileInfo-div">
                         <div th:if="${item.nickName == null}" th:text="${item.writer}" class="article-writer"></div>
                         <div th:unless="${item.nickName == null}" th:text="${item.nickName}" class="article-writer"></div>
                     </div>

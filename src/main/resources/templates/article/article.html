@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/basic.html}" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -117,6 +116,17 @@
 
         }
 
+        .comment-required-to-login{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .comment-required-to-login span{
+            margin-left: 10px;
+
+        }
+
         .page-item{
             margin-right: 10px;
         }
@@ -166,18 +176,13 @@
 
     </div>
 
-    <div class="notice-update">
-        <p>수정/삭제 버튼은 회원 기능 업데이트 후 게시글 작성자만 관리하도록 진행 예정입니다.</p>
-        <p>댓글 기능도 회원 기능 업데이트 후 보수 예정입니다.</p>
-    </div>
-
     <div th:with="link = ${pageRequestDTO.getLink()}" class="article-red-btn-wrapper">
         <div class="member-btn-box" th:if="${#authentication.principal != 'anonymousUser' && #authentication.principal.username == article.writer}">
             <button class="article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
             <button type="button" id="article-delete-btn" class="article-btn">삭제</button>
         </div>
         <a th:href="|@{/articles}?${link}|">
-            <button type="button" class="article-backToList-btn">리스트</button>
+            <button type="button" class="btn btn-outline-primary article-backToList-btn">리스트</button>
         </a>
     </div>
 
@@ -191,7 +196,8 @@
             </div>
         </div>
         <div class="comment-required-to-login" th:if="${#authentication.principal == 'anonymousUser'}">
-            <a th:href="@{/login}"><button>로그인</button></a>
+            <a th:href="@{/login}"><button type="button" class="btn btn-outline-primary">로그인</button></a>
+            <span>댓글 작성을 위해 로그인 해주세요.</span>
         </div>
     </div>
 

@@ -4,6 +4,21 @@
     /*body{*/
     /*    background: mediumseagreen;*/
     /*}*/
+    .create-article-btn{
+        width: 90px;
+        margin-left: 0;
+    }
+
+    .search-select{
+        width: 75px;
+    }
+    .profileInfo-div-responsible{
+        display: block;
+    }
+
+    .article-info-box{
+        display: none;
+    }
 }
 
 /* mobile2 */
@@ -54,10 +69,13 @@
     }
 
     .create-article-btn{
-        width: 80px;
+        width: 90px;
         margin-left: 0;
     }
 
+    .search-select{
+        width: 75px;
+    }
 
 }
 

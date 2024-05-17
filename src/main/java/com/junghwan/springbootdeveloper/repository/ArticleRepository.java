@@ -17,6 +17,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
 
     @EntityGraph(attributePaths = {"imageSet"})
     @Query("SELECT a, u FROM Article a LEFT OUTER JOIN User u ON u.userId = a.writer WHERE a.id = :id")
-    Object[] findByIdWithAll(Long id);
+    List<Object[]> findByIdWithUser(Long id);
 
 }

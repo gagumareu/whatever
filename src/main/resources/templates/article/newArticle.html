@@ -117,7 +117,7 @@
 
             .container{
                 width: 100%;
-                padding: 0;
+                /*padding: 0;*/
             }
 
 
@@ -132,7 +132,7 @@
             }
             .container{
                 width: 100%;
-                padding: 0;
+                /*padding: 0;*/
             }
 
             .article-add-form{
@@ -355,8 +355,8 @@
         </div>
 
         <div>
-            <button th:if="${article.id == null}" type="button" class="add-article-btn" id="create-btn">등록</button>
-            <button th:if="${article.id != null}" type="button" class="update-article-btn" id="update-btn">수정</button>
+            <button th:if="${article.id == null}" type="button" class="btn btn-outline-primary add-article-btn" id="create-btn">등록</button>
+            <button th:if="${article.id != null}" type="button" class="btn btn-outline-primary update-article-btn" id="update-btn">수정</button>
         </div>
     </form>
 

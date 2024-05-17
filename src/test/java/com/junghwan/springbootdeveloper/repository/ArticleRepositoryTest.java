@@ -63,16 +63,6 @@ public class ArticleRepositoryTest {
 //        }
 //    }
 //
-//    @Test
-//    public void testReadWithAll(){
-//
-//        Object[] result = articleRepository.findByIdWithAll(259L);
-//
-//        System.out.println(Arrays.asList(result).toString());
-//
-//
-//    }
-
 //
 //    @Test
 //    public void testSearchAll(){

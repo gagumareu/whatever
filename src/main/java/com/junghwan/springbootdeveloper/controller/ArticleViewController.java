@@ -59,9 +59,12 @@ public class ArticleViewController {
     @GetMapping("/article/{id}")
     public String article(Model model, @PathVariable long id, PageRequestDTO pageRequestDTO){
 
-        ArticleViewResponse article = articleService.findById(id);
+//        ArticleViewResponse article = articleService.findById(id);
+
+        ArticleViewResponse article = articleService.findByIdWithUser(id);
 
         model.addAttribute("article", article);
+//        model.addAttribute("article2", article2);
 
         return "article/article";
     }

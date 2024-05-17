@@ -6,6 +6,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        .socialImg{
+            width: 60px;
+        }
+
+        .socialImg img{
+            border-radius: 30px;
+        }
+
+
+
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
@@ -17,15 +30,17 @@
         <div>
             [[${#authentication.principal.userId}]]
         </div>
-        <div class="socialImg">
-            <img th:src="${#authentication.principal.socialImg}">
+        <div class="content">
+            <div class="socialImg">
+                <img th:src="${#authentication.principal.socialImg}">
+            </div>
+            <label>닉네임
+                <input name="nickName" type="text" placeholder="닉네임" id="nickName">
+            </label>
+            <label>비밀번호
+                <input name="password" type="password" placeholder="비밀번호" id="password">
+            </label>
         </div>
-        <label>닉네임
-            <input name="nickName" type="text" placeholder="닉네임" id="nickName">
-        </label>
-        <label>비밀번호
-            <input name="password" type="password" placeholder="비밀번호" id="password">
-        </label>
         <button type="button" class="saveBtn">저장</button>
 
     </div>
@@ -35,10 +50,10 @@
     <script layout:fragment="script" th:inline="javascript">
 
         const $auth = [[${#authentication.principal}]]
-        const $test = [[${#authentication.principal.socialImg}]]
+        const $userId = [[${#authentication.principal.userId}]]
 
         console.log($auth)
-        console.log($test)
+        console.log($userId)
 
         console.log([[${request}]])
         console.log([[${response}]])

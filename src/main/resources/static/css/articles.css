@@ -19,6 +19,17 @@
     .article-info-box{
         display: none;
     }
+
+    .article-title-box{
+        width: 100%;
+    }
+
+    .comment-wrapper{
+        padding: 10px;
+    }
+
+
+
 }
 
 /* mobile2 */
@@ -75,6 +86,10 @@
 
     .search-select{
         width: 75px;
+    }
+
+    .article-title-box{
+        width: 100%;
     }
 
 }

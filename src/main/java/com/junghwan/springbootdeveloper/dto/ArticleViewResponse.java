@@ -23,6 +23,10 @@ public class ArticleViewResponse {
 
     private Long commentCounting;
 
+    private String nickName;
+    private String socialImg;
+    private String profileImg;
+
     public ArticleViewResponse(Article article){
         this.id = article.getId();
         this.title = article.getTitle();

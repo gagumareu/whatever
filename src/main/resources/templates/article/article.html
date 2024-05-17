@@ -16,6 +16,7 @@
         .article-writer-info{
             display: flex;
             flex-direction: row;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 18px;
@@ -26,7 +27,8 @@
             margin-right: 50px;
             font-size: 1.4em;
             color: #0f5132d9;
-
+            display: flex;
+            align-items: center;
         }
 
         .article-red-content{
@@ -63,6 +65,7 @@
 
         .comment-textArea{
             flex: 80%;
+            border-radius: 10px;
         }
 
         .comment-button-box{
@@ -131,6 +134,21 @@
             margin-right: 10px;
         }
 
+        .profileImg{
+            width: 60px;
+            margin-right: 10px;
+        }
+
+        .profileImg img{
+            border-radius: 30px;
+        }
+
+        .profile-box{
+            display: flex;
+            flex-direction: row;
+        }
+
+
         @media screen and (min-width: 375px) and (max-width: 600px){
 
             img{
@@ -146,7 +164,7 @@
 
             .container{
                 width: 100%;
-                padding: 0;
+                /*padding: 0;*/
             }
 
             .article-red-wrapper{
@@ -169,7 +187,14 @@
         <input type="hidden" id="article-id" th:value="${article.id}">
         <div th:text="${article.title}" class="article-red-title"></div>
         <div class="article-writer-info">
-            <div th:text="${article.writer}" class="article-writer"></div>
+            <div class="profile-box">
+                <div class="profileImg">
+                    <img th:if="${article.profileImg == null && article.socialImg != null}" th:src="${article.socialImg}">
+                    <img th:if="${article.profileImg != null && article.socialImg == null}" th:src="${article.profileImg}">
+                    <img th:if="${article.profileImg == null && article.socialImg == null}" src="/icons/person1.svg">
+                </div>
+                <div th:text="${article.nickName}" class="article-writer"></div>
+            </div>
             <div th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
         </div>
         <div th:utext="${article.content}" class="article-red-content"></div>
@@ -178,8 +203,8 @@
 
     <div th:with="link = ${pageRequestDTO.getLink()}" class="article-red-btn-wrapper">
         <div class="member-btn-box" th:if="${#authentication.principal != 'anonymousUser' && #authentication.principal.username == article.writer}">
-            <button class="article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
-            <button type="button" id="article-delete-btn" class="article-btn">삭제</button>
+            <button class="btn btn-outline-primary article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
+            <button type="button" id="article-delete-btn" class="btn btn-outline-primary article-btn">삭제</button>
         </div>
         <a th:href="|@{/articles}?${link}|">
             <button type="button" class="btn btn-outline-primary article-backToList-btn">리스트</button>
@@ -192,7 +217,7 @@
             <textarea name="comment" class="comment-textArea" placeholder="댓글 작성"></textarea>
             <div class="comment-button-box">
                 <input type="hidden" name="author" class="comment-author" placeholder="작성자" th:value="${#authentication.principal.username}">
-                <button type="button" class="addCommentBtn">댓글 달기</button>
+                <button type="button" class="btn btn-light addCommentBtn">등록</button>
             </div>
         </div>
         <div class="comment-required-to-login" th:if="${#authentication.principal == 'anonymousUser'}">
@@ -218,9 +243,12 @@
 
         const $articleId = [[${article.id}]]
         const $article = [[${article}]]
+        const $article2 = [[${article2}]]
         const $auth = [[${#authentication.principal}]]
+
         console.log($article)
         console.log($auth)
+        console.log($article2)
 
         const $commentList = document.querySelector('.comment-list')
         const $commentPaging = document.querySelector('.commentPagination')

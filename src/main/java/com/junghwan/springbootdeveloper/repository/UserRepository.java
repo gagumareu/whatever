@@ -13,6 +13,10 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByEmail(String email);
 
     @EntityGraph(attributePaths = "roleSet")
+    @Query("SELECT u FROM User u WHERE u.userId = :id")
+    Optional<User> findByUserId(String id);
+
+    @EntityGraph(attributePaths = "roleSet")
     @Query("SELECT u FROM User u WHERE u.userId = :userId")
     Optional<User> getWithRoles(String userId);
 

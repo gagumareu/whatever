@@ -23,3 +23,16 @@ if (saveBtn){
             });
     });
 }
+
+const $profileImg = document.querySelector('.socialImg')
+
+if ($profileImg){
+    $profileImg.addEventListener('click', () => {
+        console.log('clicking')
+
+        document.querySelector('.input-file').click()
+
+
+
+    })
+}

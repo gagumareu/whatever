@@ -32,8 +32,10 @@
         </div>
         <div class="content">
             <div class="socialImg">
-                <img th:src="${#authentication.principal.socialImg}">
+<!--                <img th:src="${#authentication.principal.socialImg}">-->
+                <img src="/icons/person1.svg">
             </div>
+            <input type="file" name="file" class="input-file">
             <label>닉네임
                 <input name="nickName" type="text" placeholder="닉네임" id="nickName">
             </label>

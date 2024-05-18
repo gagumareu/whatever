@@ -61,9 +61,9 @@ public class UserService {
     }
 
     @Transactional
-    public User update(UpdateUserRequest request, String email){
+    public User update(UpdateUserRequest request, String userId){
 
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Not Found Email: " + email));
+        User user = userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("Not Found Email: " + userId));
 
         user.update(request.getNickName(), bCryptPasswordEncoder.encode(request.getPassword()), request.getProfileImg());
 

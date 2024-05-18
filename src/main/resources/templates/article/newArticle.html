@@ -105,6 +105,16 @@
             display: none;
         }
 
+        .btn-box{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-box button{
+            width: 100%;
+        }
+
 
         /* mobile */
         @media screen and (min-width: 375px) and (max-width: 600px){
@@ -354,7 +364,7 @@
             </ul>
         </div>
 
-        <div>
+        <div class="btn-box">
             <button th:if="${article.id == null}" type="button" class="btn btn-outline-primary add-article-btn" id="create-btn">등록</button>
             <button th:if="${article.id != null}" type="button" class="btn btn-outline-primary update-article-btn" id="update-btn">수정</button>
         </div>

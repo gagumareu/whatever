@@ -11,6 +11,9 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("SELECT c FROM Comment c WHERE c.article.id = :articleId")
     Page<Comment> listOfArticle(Long articleId, Pageable pageable);
 
+    @Query("SELECT c, u FROM Comment c LEFT OUTER JOIN User u ON u.userId = c.author WHERE c.article.id = :articleId")
+    Page<Object[]> listOfArticle2(Long articleId, Pageable pageable);
+
     void deleteByArticle_id(Long id);
 
 }

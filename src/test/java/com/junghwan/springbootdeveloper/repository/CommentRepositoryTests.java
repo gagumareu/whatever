@@ -13,6 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 @SpringBootTest
 @Log4j2
 public class CommentRepositoryTests {
@@ -35,15 +38,27 @@ public class CommentRepositoryTests {
 //        commentRepository.save(comment);
 //    }
 //
-//    @Transactional
-//    @Test
-//    public void testArticleComment(){
-//        Long articleId = 23L;
-//
-//        Pageable pageable = PageRequest.of(1,10, Sort.by("id").ascending());
-//
-//        Page<Comment> result = commentRepository.listOfArticle(articleId, pageable);
-//
-//        result.getContent().forEach(log::info);
-//    }
+    @Transactional
+    @Test
+    public void testArticleComment(){
+
+        Long articleId = 261L;
+
+        Pageable pageable = PageRequest.of(1,10, Sort.by("id").ascending());
+
+        Page<Object[]> result2 = commentRepository.listOfArticle2(articleId, pageable);
+        Page<Comment> result1 = commentRepository.listOfArticle(articleId, pageable);
+        Optional<Comment> comment = commentRepository.findById(articleId);
+
+        System.out.println(Arrays.asList(comment));
+
+        result1.getContent().forEach(log::info);
+
+        System.out.println(result1.getContent());
+
+        result2.getContent().forEach(objects -> {
+            System.out.println(Arrays.asList(objects));
+        });
+
+    }
 }

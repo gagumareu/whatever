@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/basic.html}" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,6 +16,7 @@
         .article-writer-info{
             display: flex;
             flex-direction: row;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 18px;
@@ -26,8 +26,9 @@
         .article-writer{
             margin-right: 50px;
             font-size: 1.4em;
-            /*font-weight: bold;*/
-
+            color: #0f5132d9;
+            display: flex;
+            align-items: center;
         }
 
         .article-red-content{
@@ -64,6 +65,7 @@
 
         .comment-textArea{
             flex: 80%;
+            border-radius: 10px;
         }
 
         .comment-button-box{
@@ -82,7 +84,7 @@
 
         .comment-list{
             list-style: none;
-            font-size: 1.3em;
+
         }
 
         .commentItem{
@@ -117,9 +119,35 @@
 
         }
 
+        .comment-required-to-login{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .comment-required-to-login span{
+            margin-left: 10px;
+
+        }
+
         .page-item{
             margin-right: 10px;
         }
+
+        .profileImg{
+            width: 60px;
+            margin-right: 10px;
+        }
+
+        .profileImg img{
+            border-radius: 30px;
+        }
+
+        .profile-box{
+            display: flex;
+            flex-direction: row;
+        }
+
 
         @media screen and (min-width: 375px) and (max-width: 600px){
 
@@ -136,7 +164,7 @@
 
             .container{
                 width: 100%;
-                padding: 0;
+                /*padding: 0;*/
             }
 
             .article-red-wrapper{
@@ -159,25 +187,27 @@
         <input type="hidden" id="article-id" th:value="${article.id}">
         <div th:text="${article.title}" class="article-red-title"></div>
         <div class="article-writer-info">
-            <div th:text="${article.writer}" class="article-writer"></div>
+            <div class="profile-box">
+                <div class="profileImg">
+                    <img th:if="${article.profileImg == null && article.socialImg != null}" th:src="${article.socialImg}">
+                    <img th:if="${article.profileImg != null && article.socialImg == null}" th:src="${article.profileImg}">
+                    <img th:if="${article.profileImg == null && article.socialImg == null}" src="/icons/person1.svg">
+                </div>
+                <div th:text="${article.nickName}" class="article-writer"></div>
+            </div>
             <div th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
         </div>
         <div th:utext="${article.content}" class="article-red-content"></div>
 
     </div>
 
-    <div class="notice-update">
-        <p>수정/삭제 버튼은 회원 기능 업데이트 후 게시글 작성자만 관리하도록 진행 예정입니다.</p>
-        <p>댓글 기능도 회원 기능 업데이트 후 보수 예정입니다.</p>
-    </div>
-
     <div th:with="link = ${pageRequestDTO.getLink()}" class="article-red-btn-wrapper">
         <div class="member-btn-box" th:if="${#authentication.principal != 'anonymousUser' && #authentication.principal.username == article.writer}">
-            <button class="article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
-            <button type="button" id="article-delete-btn" class="article-btn">삭제</button>
+            <button class="btn btn-outline-primary article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
+            <button type="button" id="article-delete-btn" class="btn btn-outline-primary article-btn">삭제</button>
         </div>
         <a th:href="|@{/articles}?${link}|">
-            <button type="button" class="article-backToList-btn">리스트</button>
+            <button type="button" class="btn btn-outline-primary article-backToList-btn">리스트</button>
         </a>
     </div>
 
@@ -187,11 +217,12 @@
             <textarea name="comment" class="comment-textArea" placeholder="댓글 작성"></textarea>
             <div class="comment-button-box">
                 <input type="hidden" name="author" class="comment-author" placeholder="작성자" th:value="${#authentication.principal.username}">
-                <button type="button" class="addCommentBtn">댓글 달기</button>
+                <button type="button" class="btn btn-light addCommentBtn">등록</button>
             </div>
         </div>
         <div class="comment-required-to-login" th:if="${#authentication.principal == 'anonymousUser'}">
-            <a th:href="@{/login}"><button>로그인</button></a>
+            <a th:href="@{/login}"><button type="button" class="btn btn-outline-primary">로그인</button></a>
+            <span>댓글 작성을 위해 로그인 해주세요.</span>
         </div>
     </div>
 
@@ -213,8 +244,10 @@
         const $articleId = [[${article.id}]]
         const $article = [[${article}]]
         const $auth = [[${#authentication.principal}]]
+
         console.log($article)
         console.log($auth)
+        console.log($article2)
 
         const $commentList = document.querySelector('.comment-list')
         const $commentPaging = document.querySelector('.commentPagination')

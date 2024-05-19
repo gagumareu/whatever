@@ -1,5 +1,6 @@
 package com.junghwan.springbootdeveloper.service;
 
+import com.junghwan.springbootdeveloper.domain.Article;
 import com.junghwan.springbootdeveloper.domain.Comment;
 import com.junghwan.springbootdeveloper.dto.*;
 import com.junghwan.springbootdeveloper.repository.CommentRepository;

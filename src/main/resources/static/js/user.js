@@ -7,7 +7,7 @@ if (saveBtn){
         const $nickName = document.getElementById('nickName').value
         const $password = document.getElementById('password').value
 
-        fetch(`/api/user/${$email}`, {
+        fetch(`/api/user/${$userId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -22,4 +22,17 @@ if (saveBtn){
                 location.replace(`/articles`)
             });
     });
+}
+
+const $profileImg = document.querySelector('.socialImg')
+
+if ($profileImg){
+    $profileImg.addEventListener('click', () => {
+        console.log('clicking')
+
+        document.querySelector('.input-file').click()
+
+
+
+    })
 }

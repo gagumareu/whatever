@@ -11,6 +11,8 @@ public class AddUserRequest {
     private String password;
     private boolean del;
     private boolean social;
+    private String nickName;
+    private String profileImg;
 
     public User toEntity(){
         return User.builder()
@@ -19,6 +21,8 @@ public class AddUserRequest {
                 .password(password)
                 .del(false)
                 .social(false)
+                .nickName(nickName)
+                .profileImg(profileImg)
                 .build();
     }
 

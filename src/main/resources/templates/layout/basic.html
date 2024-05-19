@@ -8,29 +8,49 @@
     <title>정환 개인 프로젝트</title>
 
     <!-- Editor's Style -->
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+<!--    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>-->
+
+    <!--  bootstrap  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+          integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">
 
     <link th:href="@{/css/basic.css?ver=240415}" rel="stylesheet">
     <link th:href="@{/css/items.css?ver=240415}" rel="stylesheet">
+
+    <!--  폰트  -->
+    <link href="https://webfontworld.github.io/gmarket/GmarketSans.css" rel="stylesheet">
+
+    <!--  bootstrap  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
     <style>
 
         html, body{
             font-size: 14px;
             margin: 0px;
+            font-family: 'GmarketSans';
+
         }
 
         .log-image{
             object-fit: contain;
         }
 
-        .container{
-            width: 100%;
-        }
+        /*.container{*/
+        /*    width: 100%;*/
+        /*}*/
 
         img{
             width: 100%;
         }
+
+        .signup-btn{
+            margin-left: 10px;
+        }
+
+
 
 
 
@@ -59,6 +79,9 @@
 
             .container{
                 width: 100%;
+            }
+            .title a{
+                font-size: 1.2em;
             }
 
 
@@ -90,7 +113,7 @@
             }
 
             .container{
-                width: 60%;
+                width: 50%;
             }
 
             .category{
@@ -272,25 +295,23 @@
 <body>
 
 <div class="wrapper">
-    <div class="header">
-        <img class="main-log" src="/images/Paddington3.jpg">
+    <div class="container header">
         <div class="title">
-            <h3>정환 개인 프로젝트</h3>
+            <a th:href="@{/articles}">이런저런</a>
         </div>
         <div class="loginNLogout-div">
-            <button sec:authorize="isAnonymous()" type="button" onclick="location.href='/login'">로그인</button>
-            <button sec:authorize="isAnonymous()" type="button" onclick="location.href='/signup'">회원가입</button>
-            <button sec:authorize="isAuthenticated()" type="button" onclick="location.href='/logout'">로그아웃</button>
+            <button sec:authorize="isAnonymous()" type="button" onclick="location.href='/login'" class="btn btn-primary">로그인</button>
+            <button sec:authorize="isAnonymous()" type="button" onclick="location.href='/signup'" class="btn btn-primary signup-btn">회원가입</button>
+            <button sec:authorize="isAuthenticated()" type="button" onclick="location.href='/logout'" class="btn btn-primary">로그아웃</button>
         </div>
     </div>
 
-    <div class="category">
-
-        <a th:href="@{/priceCard}">프라이스카드</a>
-        <a th:href="@{/foodExpiry}">유통기한</a>
-        <a th:href="@{/articles}">게시판</a>
-        <a th:href="@{/notice}">공지</a>
-    </div>
+<!--    <div class="category">-->
+<!--        <a th:href="@{/priceCard}">프라이스카드</a>-->
+<!--        <a th:href="@{/foodExpiry}">유통기한</a>-->
+<!--        <a th:href="@{/articles}">게시판</a>-->
+<!--        <a th:href="@{/notice}">공지</a>-->
+<!--    </div>-->
 
     <div class="container" layout:fragment="content">
 

@@ -74,6 +74,17 @@ public class ArticleServiceTests {
 //        }
 //
 //    }
+
+//    @Test
+//    public void testReadALl(){
+//
+//        long id = 259L;
+//
+//        ArticleViewResponse article = articleService.findByIdWithUser(id);
+//
+//        System.out.println(article);
+//
+//    }
 //
 //    @Test
 //    public void testUpdate(){

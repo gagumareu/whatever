@@ -1,6 +1,7 @@
 package com.junghwan.springbootdeveloper.service;
 
 import com.junghwan.springbootdeveloper.domain.Article;
+import com.junghwan.springbootdeveloper.domain.User;
 import com.junghwan.springbootdeveloper.dto.*;
 import com.junghwan.springbootdeveloper.repository.ArticleRepository;
 import com.junghwan.springbootdeveloper.repository.CommentRepository;
@@ -43,6 +44,22 @@ public class ArticleService {
         return response;
     }
 
+    public ArticleViewResponse entityToDTOWithUser(Article article, User user){
+
+        return ArticleViewResponse.builder()
+                .id(article.getId())
+                .title(article.getTitle())
+                .content(article.getContent())
+                .writer(article.getWriter())
+                .category(article.getCategory())
+                .createdAt(article.getCreatedAt())
+                .updatedAt(article.getUpdatedAt())
+                .nickName(user.getNickName())
+                .profileImg(user.getProfileImg())
+                .socialImg(user.getSocialImg())
+                .build();
+    }
+
     public Article save(AddArticleRequest request){
         log.info(request);
         return articleRepository.save(request.toEntity());
@@ -57,6 +74,18 @@ public class ArticleService {
         Article article = articleRepository.findByIdWithImages(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
         return entityToDTO(article);
+    }
+
+    public ArticleViewResponse findByIdWithUser(long id){
+
+        List<Object[]> result = articleRepository.findByIdWithUser(id);
+
+        Article article = (Article) result.get(0)[0];
+
+        User user = (User) result.get(0)[1];
+
+        return entityToDTOWithUser(article, user);
+
     }
 
     @Transactional

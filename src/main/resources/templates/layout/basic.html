@@ -1,180 +1,294 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<link th:href="@{/css/basic.css?ver=230327}" rel="stylesheet">
-<link th:href="@{/css/items.css?ver=230327}" rel="stylesheet">
-<style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>정환 개인 프로젝트</title>
 
-    @media print {
-        .header{
-            display: none;
+    <!-- Editor's Style -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+
+    <link th:href="@{/css/basic.css?ver=240415}" rel="stylesheet">
+    <link th:href="@{/css/items.css?ver=240415}" rel="stylesheet">
+    <style>
+
+        html, body{
+            font-size: 14px;
+            margin: 0px;
         }
 
-        .category{
-            display: none;
-        }
-        .footer{
-            display: none;
+        .log-image{
+            object-fit: contain;
         }
 
-        .jan-code-input{
-            display: none;
+        .container{
+            width: 100%;
         }
 
-        .description{
-            display: none;
+        img{
+            width: 100%;
         }
 
-        /* A4 size*/
-        /*.item-box-wrapper{*/
-        /*    margin: 0;*/
-        /*    border: initial;*/
-        /*    border-radius: initial;*/
-        /*    width: initial;*/
-        /*    min-height: initial;*/
-        /*    box-shadow: initial;*/
-        /*    background: initial;*/
-        /*    page-break-after: always;*/
-        /*}*/
-
-        /*    */
 
 
-        body{
-            width: 210mm;
-            height: 297mm;
-            margin: 30mm 45mm 30mm 45mm; /* margin: auto auto; 로 자동 여백 설정도 가능 */
+        /* mobile1 */
+        @media screen and (max-width: 375px){
+            body{
+                /*background: mediumseagreen;*/
+            }
+
+            .container{
+                width: 100%;
+            }
+
+            .category{
+                width: 100%;
+            }
+        }
+        /* mobile2 */
+        @media screen and (min-width: 375px) and (max-width: 600px){
+            body{
+                /*background: lightblue;*/
+            }
+            .category{
+                width: 100%;
+            }
+
+            .container{
+                width: 100%;
+            }
+
+
         }
 
-        .item-box-wrapper{
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            /*grid-template-rows: 110px 110px 110px;*/
-            /*width: 595px;*/
-            /*height: 842px;*/
+        /* tablet*/
+        @media screen and (min-width: 600px) and (max-width: 992px){
+            body{
+                /*background: pink;*/
+            }
 
+            .category{
+                width: 100%;
+                /*font-size: 2.2em;*/
+                justify-content: space-evenly;
+            }
+
+            .container{
+                width: 100%;
+            }
+
+
+        }
+
+        /* desk */
+        @media screen and (min-width: 992px){
+            body {
+                /*background: beige;*/
+            }
+
+            .container{
+                width: 60%;
+            }
+
+            .category{
+                width: 45%;
+                /*font-size: 2.2em;*/
+                justify-content: space-evenly;
+            }
+        }
+
+
+
+
+
+        @media print {
+            .header{
+                display: none;
+            }
+
+            .category{
+                display: none;
+            }
+            .footer{
+                display: none;
+            }
+
+            .jan-code-input{
+                display: none;
+            }
+
+            .description{
+                display: none;
+            }
+            .muji-log-div{
+                display: none;
+            }
+
+            .print-btn-div{
+                display: none;
+            }
+
+            /* A4 size*/
+            /*.item-box-wrapper{*/
+            /*    margin: 0;*/
+            /*    border: initial;*/
+            /*    border-radius: initial;*/
+            /*    width: initial;*/
+            /*    min-height: initial;*/
+            /*    box-shadow: initial;*/
+            /*    background: initial;*/
+            /*    page-break-after: always;*/
+            /*}*/
+
+            /*    */
+
+
+            body{
+                width: 210mm;
+                height: 297mm;
+                margin: 30mm 45mm 30mm 45mm; /* margin: auto auto; 로 자동 여백 설정도 가능 */
+            }
+
+            .item-box-wrapper{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                /*grid-template-rows: 110px 110px 110px;*/
+                /*width: 595px;*/
+                /*height: 842px;*/
+
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+
+            }
+
+            .item-box{
+                width: 6.29cm;
+                border: 0 solid black;
+                cursor: pointer;
+                height: 2.88cm;
+            }
+
+            .box-margin{
+                border: 1px solid gray;
+                /*height: 100%;*/
+                padding: 0.25cm 0.16cm 0.25cm 0.16cm;
+            }
+
+            .item-name{
+                width: 100%;
+                height: 0.7cm;
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+            }
+
+            .item-color{
+                width: 100%;
+                height: 0.35cm;
+                font-size: 6px;
+                display: flex;
+                align-items: center;
+            }
+
+            .item-size{
+                width: 100%;
+                height: 0.34cm;
+                font-size: 6px;
+                display: flex;
+                align-items: center;
+            }
+
+            .emptyBox{
+                height: 0.14cm;
+            }
+
+            .item-JanNPrice{
+                height: 0.84cm;
+                display: flex;
+                flex-direction: row;
+            }
+
+            .serial{
+                font-size: 4px;
+            }
+
+            .jan-code{
+                width: 1.48cm;
+                display: flex;
+                /* justify-items: normal; */
+                align-items: flex-end;
+            }
+
+            .jan-empty1{
+                width: 1.26cm;
+            }
+
+            .jan-price{
+                width: 2.87cm;
+                display: flex;
+                justify-content: right;
+                align-items: end;
+            }
+
+            .price{
+                font-size: 18px;
+            }
+
+            .jan-won{
+                width: 0.38cm;
+                font-size: 8px;
+                display: flex;
+                align-items: end;
+                justify-content: center;
+            }
+
+            /*    */
+
+
+
+        }
+
+        @page{
             margin: 0;
-            border: initial;
-            border-radius: initial;
-            width: initial;
-            min-height: initial;
-            box-shadow: initial;
-            background: initial;
-            page-break-after: always;
+            size: A4;
 
         }
 
-        .item-box{
-            width: 6.29cm;
-            border: 0 solid black;
-            cursor: pointer;
-            height: 2.88cm;
-        }
 
-        .box-margin{
-            border: 1px solid gray;
-            /*height: 100%;*/
-            padding: 0.25cm 0.16cm 0.25cm 0.16cm;
-        }
-
-        .item-name{
-            width: 100%;
-            height: 0.7cm;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-        }
-
-        .item-color{
-            width: 100%;
-            height: 0.35cm;
-            font-size: 6px;
-            display: flex;
-            align-items: center;
-        }
-
-        .item-size{
-            width: 100%;
-            height: 0.34cm;
-            font-size: 6px;
-            display: flex;
-            align-items: center;
-        }
-
-        .emptyBox{
-            height: 0.14cm;
-        }
-
-        .item-JanNPrice{
-            height: 0.84cm;
-            display: flex;
-            flex-direction: row;
-        }
-
-        .serial{
-            font-size: 4px;
-        }
-
-        .jan-code{
-            width: 1.48cm;
-            display: flex;
-            /* justify-items: normal; */
-            align-items: flex-end;
-        }
-
-        .jan-empty1{
-            width: 1.26cm;
-        }
-
-        .jan-price{
-            width: 2.87cm;
-            display: flex;
-            justify-content: right;
-            align-items: end;
-        }
-
-        .price{
-            font-size: 18px;
-        }
-
-        .jan-won{
-            width: 0.38cm;
-            font-size: 8px;
-            display: flex;
-            align-items: end;
-            justify-content: center;
-        }
-
-        /*    */
+    </style>
 
 
+</head>
 
-    }
-
-    @page{
-        margin: 0;
-        size: A4;
-
-    }
-</style>
 <body>
 
 <div class="wrapper">
     <div class="header">
-        <img class="muji-log" src="/icons/MUJI_logo.svg">
+        <img class="main-log" src="/images/Paddington3.jpg">
         <div class="title">
-            <h3>무인양품 김포점 v.Beta</h3>
+            <h3>정환 개인 프로젝트</h3>
+        </div>
+        <div class="loginNLogout-div">
+            <button sec:authorize="isAnonymous()" type="button" onclick="location.href='/login'">로그인</button>
+            <button sec:authorize="isAnonymous()" type="button" onclick="location.href='/signup'">회원가입</button>
+            <button sec:authorize="isAuthenticated()" type="button" onclick="location.href='/logout'">로그아웃</button>
         </div>
     </div>
 
     <div class="category">
-        <a th:href="@{/items}">프라이스카드</a>
+
+        <a th:href="@{/priceCard}">프라이스카드</a>
         <a th:href="@{/foodExpiry}">유통기한</a>
-        <a th:href="@{/article}">게시판</a>
+        <a th:href="@{/articles}">게시판</a>
         <a th:href="@{/notice}">공지</a>
     </div>
 
@@ -185,7 +299,7 @@
     </div>
 
     <div class="footer">
-        <p>All Right Reserved By MUJI Korea</p>
+
     </div>
 </div>
 

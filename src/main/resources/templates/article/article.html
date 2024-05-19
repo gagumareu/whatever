@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/basic.html}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>정환 개인 프로젝트</title>
+    <style>
+
+
+        .article-red-title{
+            font-size: 2.2em;
+            margin-bottom: 30px;
+        }
+
+        .article-writer-info{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+
+        .article-writer{
+            margin-right: 50px;
+            font-size: 1.4em;
+            /*font-weight: bold;*/
+
+        }
+
+        .article-red-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+        .article-red-btn-wrapper{
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+        }
+
+        .article-red-wrapper{
+            margin-bottom: 50px;
+        }
+
+        .article-btn{
+            margin-right: 20px;
+        }
+
+        .comment-wrapper{
+            background: #b0e0e6;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 60px;
+        }
+        .comment-box{
+            display: flex;
+            flex-direction: row;
+            height: 100px;
+        }
+
+        .comment-textArea{
+            flex: 80%;
+        }
+
+        .comment-button-box{
+            flex: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .addCommentBtn{
+            height: 40px;
+        }
+        .comment-author{
+            height: 20px;
+        }
+
+        .comment-list{
+            list-style: none;
+            font-size: 1.3em;
+        }
+
+        .commentItem{
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dcdcdc;
+
+        }
+
+        .comment-text{
+            align-items: center;
+            flex: 80%;
+            display: flex;
+        }
+
+        .comment-author-info{
+            flex: 20%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .commentPagination{
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            font-size: 1.2em;
+            justify-content: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dcdcdc;
+
+        }
+
+        .page-item{
+            margin-right: 10px;
+        }
+
+        @media screen and (min-width: 375px) and (max-width: 600px){
+
+            img{
+                width: 100%;
+            }
+
+            body{
+                /*background: lightblue;*/
+            }
+            .category{
+                width: 100%;
+            }
+
+            .container{
+                width: 100%;
+                padding: 0;
+            }
+
+            .article-red-wrapper{
+                padding: 0px 15px;
+            }
+
+
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="container" layout:fragment="content">
+
+    <div class="article-red-wrapper">
+        <input type="hidden" id="article-id" th:value="${article.id}">
+        <div th:text="${article.title}" class="article-red-title"></div>
+        <div class="article-writer-info">
+            <div th:text="${article.writer}" class="article-writer"></div>
+            <div th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
+        </div>
+        <div th:utext="${article.content}" class="article-red-content"></div>
+
+    </div>
+
+    <div class="notice-update">
+        <p>수정/삭제 버튼은 회원 기능 업데이트 후 게시글 작성자만 관리하도록 진행 예정입니다.</p>
+        <p>댓글 기능도 회원 기능 업데이트 후 보수 예정입니다.</p>
+    </div>
+
+    <div th:with="link = ${pageRequestDTO.getLink()}" class="article-red-btn-wrapper">
+        <div class="member-btn-box" th:if="${#authentication.principal != 'anonymousUser' && #authentication.principal.username == article.writer}">
+            <button class="article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
+            <button type="button" id="article-delete-btn" class="article-btn">삭제</button>
+        </div>
+        <a th:href="|@{/articles}?${link}|">
+            <button type="button" class="article-backToList-btn">리스트</button>
+        </a>
+    </div>
+
+
+    <div class="comment-wrapper">
+        <div class="comment-box" th:if="${#authentication.principal != 'anonymousUser'}">
+            <textarea name="comment" class="comment-textArea" placeholder="댓글 작성"></textarea>
+            <div class="comment-button-box">
+                <input type="hidden" name="author" class="comment-author" placeholder="작성자" th:value="${#authentication.principal.username}">
+                <button type="button" class="addCommentBtn">댓글 달기</button>
+            </div>
+        </div>
+        <div class="comment-required-to-login" th:if="${#authentication.principal == 'anonymousUser'}">
+            <a th:href="@{/login}"><button>로그인</button></a>
+        </div>
+    </div>
+
+    <div class="comment-list-wrapper">
+        <ul class="comment-list">
+
+        </ul>
+        <ul class="commentPagination">
+
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/article.js"></script>
+    <script src="/js/comment.js"></script>
+
+    <script layout:fragment="script" th:inline="javascript">
+
+        const $articleId = [[${article.id}]]
+        const $article = [[${article}]]
+        const $auth = [[${#authentication.principal}]]
+        console.log($article)
+        console.log($auth)
+
+        const $commentList = document.querySelector('.comment-list')
+        const $commentPaging = document.querySelector('.commentPagination')
+
+        function printCommentList(dtoList){
+
+            console.log(dtoList)
+
+            let str = '';
+
+            if (dtoList && dtoList.length > 0){
+
+                for (const dto of dtoList){
+
+                    str += `<li class="commentItem">
+                                <span class="comment-text">${dto.comment}</span>
+                                <span class="comment-author-info">
+                                    <span>${dto.author}</span>
+                                    <span>${dto.createdAt}</span>
+                                </span>
+                                <span><button class="comment-update-btn" type="button">...</button></span>
+                            </li>`
+
+                }
+            }
+            $commentList.innerHTML = str
+        }
+
+        function printPage(data){
+
+            let pageStr = '';
+
+            if (data.prev){
+                pageStr += `<li><a class="comment-page-link" data-page="${data.start -1}">PREV</a></li>`
+            }
+
+            for (let i = data.start; i <= data.end; i++){
+                if (data.page > 0){
+                    pageStr += `<li class="page-item ${i == data.page ? "active" : ""}">
+                                <a data-page="${i}">${i}</a>
+                            </li>`
+                }
+            }
+
+            if (data.next){
+                pageStr += `<li><a data-page="${data.end +1}">NEXT</a></li>`
+            }
+            $commentPaging.innerHTML = pageStr
+        }
+
+        function printComment(page, size, goLast){
+
+            console.log("page: " + page)
+            console.log("size: " + size)
+
+            getList({$articleId, page, size, goLast}).then(
+                data => {
+                    printCommentList(data.dtoList)
+                    printPage(data)
+                }
+            ).catch(e => {
+                console.error(e)
+            })
+        }
+
+        printComment(1, 10, false)
+
+
+        //  리플 달기
+        const $addCommentBtn = document.querySelector('.addCommentBtn')
+        const $comment = document.querySelector('.comment-textArea')
+        const $author = document.querySelector('.comment-author')
+
+        if ($addCommentBtn){
+            $addCommentBtn.addEventListener('click', function (e){
+
+                if (!$comment.value){
+                    alert("댓글 내용을 입력해 주세요.")
+                    return;
+                }
+
+                const commentObj = {
+                    articleId: $articleId,
+                    comment: $comment.value,
+                    author: $author.value
+                }
+                addComment(commentObj).then(result => {
+                    $comment.value = ''
+                    $author.value = ''
+                    printComment(1, 10, true)
+                }).catch(e => {
+                    alert("Exception....")
+                })
+            }, false)
+        }
+
+        let page = 1
+        let size = 10
+
+        $commentPaging.addEventListener('click', function (e){
+
+            e.preventDefault()
+            e.stopPropagation()
+
+            const target = e.target
+
+            if (!target || target.tagName != 'A'){
+                return
+            }
+
+            const pageNum = target.getAttribute("data-page")
+            page = pageNum
+            printComment(page, size)
+
+        }, false)
+
+
+    </script>
+</div>
+
+
+
+
+</body>
+</html>

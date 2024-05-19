@@ -65,8 +65,6 @@ public class Item {
             String size,
             long price){
 
-        log.info("serial: " + serial);
-
         this.department = department;
         this.serial = serial;
         this.name = name;

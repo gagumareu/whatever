@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>정환 개인 프로젝트</title>
+
+    <style>
+        .articles-wrapper{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .articles-box{
+        }
+
+
+
+        .article-title-div{
+
+        }
+
+        .article-add-btn{
+            height: 33px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+
+        }
+
+
+        .articles-wrapper{
+            height: 60px;
+            padding: 5px 10px;
+            border-bottom: 1px solid cadetblue;
+        }
+
+        .articles-wrapper a{
+            display: flex;
+            flex-direction: row;
+            /*justify-content: space-between;*/
+            width: 100%;
+            height: 100%;
+        }
+
+        .articles-wrapper:hover{
+            background-color: #e0ffff;
+        }
+
+        .article-thumbnail-div{
+            width: 100px;
+            height: 100%;
+        }
+
+        .article-thumbnail-div img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+
+        }
+
+        .article-title-div{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .article-title-box{
+            flex: 85%;
+            font-size: 1.3em;
+        }
+
+        .article-info-box{
+            flex: 15%;
+            /*font-size: 0.9em;*/
+        }
+
+        .articles-comment-counting{
+            color: #dcdcdc;
+        }
+
+        .search-wrapper{
+            display: flex;
+            margin: 20px 0px;
+            justify-content: center;
+        }
+
+        .search-form{
+            height: 33px;
+        }
+
+        .search-select{
+            height: 90%;
+            border-radius: 8px;
+        }
+
+        .search-keyword{
+            height: 70%;
+            border-radius: 8px;
+            border: 1px solid deepskyblue;
+        }
+
+        .search-sumit-btn{
+            height: 94%;
+        }
+
+        .pagination-wrapper{
+            display: flex;
+            justify-content: center;
+        }
+        .pagination{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            padding: 0px;
+            list-style-type: none;
+            font-size: 1.2em;
+            width: 33%;
+        }
+
+        .page-item{
+            cursor: pointer;
+        }
+
+
+        /* mobile1 */
+        @media screen and (max-width: 375px){
+            /*body{*/
+            /*    background: mediumseagreen;*/
+            /*}*/
+        }
+
+        /* mobile2 */
+        @media screen and (min-width: 375px) and (max-width: 600px){
+            body{
+                /*background: lightblue;*/
+            }
+
+            .articles-wrapper{
+                margin: 0 10px;
+                padding: 5px 0;
+            }
+
+            .article-thumbnail-div{
+                flex: 21%;
+            }
+
+            .article-title-div{
+                display: flex;
+                flex-direction: column;
+                align-items: baseline;
+                flex: 88%;
+            }
+
+            .article-info-box{
+                display: flex;
+                flex-direction: row;
+                font-size: 0.9em;
+                gap: 10px;
+                color: #696969ab;
+            }
+
+
+
+        }
+
+        /* tablet*/
+        @media screen and (min-width: 600px) and (max-width: 992px){
+            body{
+                /*background-color: silver;*/
+            }
+
+            .category{
+                width: 100%;
+                font-size: 2.2em;
+            }
+            .container{
+                width: 100%;
+                /*font-size: 2.2em;*/
+            }
+
+
+        }
+
+        /* desk */
+        @media screen and (min-width: 992px){
+            body {
+                /*background: white;*/
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+
+    <div class="article-add-btn">
+        <button type="button" class="create-article-btn" th:onclick="|location.href='@{/newArticle}'|">글쓰기</button>
+    </div>
+
+    <div th:each="item : ${responseDTO.dtoList}" class="articles-wrapper" th:with="link = ${pageRequestDTO.getLink()}">
+        <a th:href="|@{/article/{id}(id=${item.id})}?${link}|" class="articles-box">
+            <div class="article-thumbnail-div" >
+                <!--/*@thymesVar id="s3url" type=""*/-->
+                <img th:if="${item.articleImages != null && item.articleImages.size() > 0}" th:src="${item.articleImages[0].s3url}">
+                <img th:unless="${item.articleImages != null && item.articleImages.size() > 0}" src="/icons/imageIcon1.svg">
+            </div>
+            <div class="article-title-div">
+                <div class="article-title-box">
+                    <span th:text="${item.title}" class="article-title"></span>
+                    <span th:if="${item.commentCounting > 0}" class="articles-comment-counting">[[${item.commentCounting}]]</span>
+                </div>
+                <div class="article-info-box">
+                    <div th:text="${item.writer}" class="article-writer"></div>
+                    <div th:text="${item.category}" class="article-category"></div>
+                    <div th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd')}" class="article-createdAt"></div>
+                </div>
+
+            </div>
+        </a>
+    </div>
+
+    <div class="search-wrapper">
+        <form action="/articles" method="get" class="search-form">
+            <input type="hidden" th:value="${pageRequestDTO.size}" name="size">
+            <label>
+                <select name="type" class="search-select">
+                    <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+                    <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
+                    <option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">제목+내용</option>
+                    <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
+                </select>
+                <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" class="search-keyword">
+                <button class="search-submit-btn" type="submit">검색</button>
+            </label>
+        </form>
+    </div>
+
+    <div class="pagination-wrapper">
+        <ul class="pagination">
+            <li class="prev-li" th:if="${responseDTO.prev}">
+                <a class="prev-link" th:data-num="${responseDTO.start -1}">Prev</a>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+                <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
+                    <a class="page-link" th:data-num="${i}">[[${i}]]</a>
+                </li>
+            </th:block>
+            <li class="next-li" th:if="${responseDTO.next}">
+                <a class="next-link" th:data-num="${responseDTO.end +1}">Next</a>
+            </li>
+        </ul>
+    </div>
+
+    <script th:inline="javascript" layout:fragment="script">
+
+        console.log([[${pageRequestDTO}]])
+        console.log([[${responseDTO}]])
+
+        const pagination = document.querySelector('.pagination');
+
+        if (pagination){
+            pagination.addEventListener("click", function (e){
+
+                e.preventDefault()
+                e.stopPropagation()
+
+                const target = e.target;
+
+                // if (target.tagName !== 'A'){
+                //     return
+                // }
+
+                const num = target.getAttribute("data-num")
+
+                const formObj = document.querySelector("form")
+
+                formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+
+                formObj.submit();
+
+            }, false)
+        }
+
+    </script>
+
+</div>
+
+</body>
+</html>

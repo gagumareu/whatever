@@ -42,9 +42,11 @@ a{
 }
 
 .category{
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 390px;
     margin: 30px 0px;
+    font-size: 1.5em;
 }

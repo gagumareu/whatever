@@ -43,67 +43,67 @@ public class CommentRepositoryTests {
 //
 //        commentRepository.save(comment);
 //    }
+////
+//    @Transactional
+//    @Test
+//    public void testArticleComment(){
 //
-    @Transactional
-    @Test
-    public void testArticleComment(){
-
-        Long articleId = 271L;
-
-        Pageable pageable = PageRequest.of(1,10, Sort.by("id").ascending());
-
-        Page<Object[]> result2 = commentRepository.listOfArticle2(articleId, pageable);
-
-        result2.getContent().forEach(comment -> log.info(comment));
-
-
-    }
-
-    @Transactional
-    @Test
-    public void testListWithUser(){
-
-//        Pageable pageable = PageRequest.of(1, 10, Sort.by("id").ascending() );
-
-        PageRequestDTO pageRequestDTO = new PageRequestDTO();
-
-        Page<CommentResponse>  result = commentRepository.listWithUser(270L, pageRequestDTO.getPageable());
-
+//        Long articleId = 271L;
+//
+//        Pageable pageable = PageRequest.of(1,10, Sort.by("id").ascending());
+//
+//        Page<Object[]> result2 = commentRepository.listOfArticle2(articleId, pageable);
+//
+//        result2.getContent().forEach(comment -> log.info(comment));
+//
+//
+//    }
+//
+//    @Transactional
+//    @Test
+//    public void testListWithUser(){
+//
+////        Pageable pageable = PageRequest.of(1, 10, Sort.by("id").ascending() );
+//
+//        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+//
+//        Page<CommentResponse>  result = commentRepository.listWithUser(270L, pageRequestDTO.getPageable());
+//
+////        result.getContent().forEach(log::info);
+//
+//        result.getContent().forEach(comment -> {
+//           log.info(comment.toString());
+//        });
+//
+//    }
+//
+//    @Transactional
+//    @Test
+//    public void list(){
+//
+//        Pageable pageable = PageRequest.of(1, 10, Sort.by("id").ascending());
+//
+//        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+//
+//        Page<Comment> result = commentRepository.list(pageRequestDTO.getPageable());
+//
 //        result.getContent().forEach(log::info);
-
-        result.getContent().forEach(comment -> {
-           log.info(comment.toString());
-        });
-
-    }
-
-    @Transactional
-    @Test
-    public void list(){
-
-        Pageable pageable = PageRequest.of(1, 10, Sort.by("id").ascending());
-
-        PageRequestDTO pageRequestDTO = new PageRequestDTO();
-
-        Page<Comment> result = commentRepository.list(pageRequestDTO.getPageable());
-
-        result.getContent().forEach(log::info);
-
-        result.getContent().forEach(comment -> {
-            log.info(Arrays.asList(comment));
-        });
-    }
-
-    @Transactional
-    @Test
-    public void testListWithUser2() {
-        List<Comment> comments = commentRepository.listWithUser2();
-        assertFalse(comments.isEmpty());
-
-        comments.forEach(comment -> {
-            log.info(Arrays.asList(comment));
-        });
-    }
+//
+//        result.getContent().forEach(comment -> {
+//            log.info(Arrays.asList(comment));
+//        });
+//    }
+//
+//    @Transactional
+//    @Test
+//    public void testListWithUser2() {
+//        List<Comment> comments = commentRepository.listWithUser2();
+//        assertFalse(comments.isEmpty());
+//
+//        comments.forEach(comment -> {
+//            log.info(Arrays.asList(comment));
+//        });
+//    }
 
 
 

@@ -148,6 +148,10 @@
             flex-direction: row;
         }
 
+        .comment-list-wrapper{
+            margin-top: 25px;
+        }
+
 
         @media screen and (min-width: 375px) and (max-width: 600px){
 
@@ -171,6 +175,10 @@
                 padding: 0px 15px;
             }
 
+            .createdDate{
+                font-size: 0.9em;
+            }
+
 
         }
 
@@ -186,8 +194,8 @@
     <div class="article-red-wrapper">
         <input type="hidden" id="article-id" th:value="${article.id}">
         <div th:text="${article.title}" class="article-red-title"></div>
-        <div class="article-writer-info">
-            <div class="profile-box">
+        <div class="row article-writer-info">
+            <div class="col-8 profile-box">
                 <div class="profileImg">
                     <img th:if="${article.profileImg == null && article.socialImg != null}" th:src="${article.socialImg}">
                     <img th:if="${article.profileImg != null && article.socialImg == null}" th:src="${article.profileImg}">
@@ -195,7 +203,7 @@
                 </div>
                 <div th:text="${article.nickName}" class="article-writer"></div>
             </div>
-            <div th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
+            <div class="col-4 createdDate" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
         </div>
         <div th:utext="${article.content}" class="article-red-content"></div>
 
@@ -247,7 +255,6 @@
 
         console.log($article)
         console.log($auth)
-        console.log($article2)
 
         const $commentList = document.querySelector('.comment-list')
         const $commentPaging = document.querySelector('.commentPagination')
@@ -336,7 +343,7 @@
                 }
                 addComment(commentObj).then(result => {
                     $comment.value = ''
-                    $author.value = ''
+                    // $author.value = ''
                     printComment(1, 10, true)
                 }).catch(e => {
                     alert("Exception....")

@@ -220,7 +220,7 @@
         <a th:each="item : ${responseDTO.dtoList}" th:with="link = ${pageRequestDTO.getLink()}" th:href="|@{/article/{id}(id=${item.id})}?${link}|" class="articles-box">
             <div class="col-sm-2 article-thumbnail-div" >
                 <!--/*@thymesVar id="s3url" type=""*/-->
-                <img th:if="${item.articleImages != null && item.articleImages.size() > 0}" th:src="${item.articleImages[0].s3url}">
+                <img th:if="${item.articleImages != null && item.articleImages.size() > 0}" th:src="${item.articleImages[0].thumbnailUrl}">
                 <img th:unless="${item.articleImages != null && item.articleImages.size() > 0}" src="/icons/imageIcon1.svg">
             </div>
             <div class="row col-sm-10 article-title-div">

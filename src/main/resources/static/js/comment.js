@@ -15,8 +15,8 @@ async function getList({$articleId, page, size, goLast}){
 
         return getList({$articleId: $articleId, page: $lastPage, size: size})
 
-        console.log($lastPage)
-        console.log(size)
+        // console.log($lastPage)
+        // console.log(size)
 
     }
 

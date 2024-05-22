@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Getter
-@ToString
+@ToString(exclude = "article")
 public class Comment extends BaseEntity{
 
     @Id
@@ -23,6 +23,9 @@ public class Comment extends BaseEntity{
     private String comment;
 
     private String author;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private User user;
 
     public void update(String comment){
         this.comment = comment;

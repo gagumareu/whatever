@@ -4,6 +4,8 @@ import com.junghwan.springbootdeveloper.domain.Article;
 import com.junghwan.springbootdeveloper.domain.ArticleImage;
 import com.junghwan.springbootdeveloper.dto.ArticleListAllDTO;
 import com.junghwan.springbootdeveloper.dto.ArticleListCommentCountDTO;
+import com.junghwan.springbootdeveloper.dto.ArticleResponse;
+import com.junghwan.springbootdeveloper.dto.PageRequestDTO;
 import com.junghwan.springbootdeveloper.repository.ArticleRepository;
 import com.junghwan.springbootdeveloper.repository.CommentRepository;
 import jakarta.transaction.Transactional;

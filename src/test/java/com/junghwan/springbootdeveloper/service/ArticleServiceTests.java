@@ -109,31 +109,31 @@ public class ArticleServiceTests {
 //        articleService.delete(id);
 //    }
 //
-//    @Transactional
-//    @Test
-//    public void testListWithAll(){
-//
-//        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-//                .page(1)
-//                .size(20)
-//                .build();
-//
-//        PageResponseDTO<ArticleListAllDTO> responseDTO = articleService.listWithAll(pageRequestDTO);
-//
-//        List<ArticleListAllDTO> dtoList = responseDTO.getDtoList();
-//
-//        dtoList.forEach(articleListAllDTO -> {
-//
-//            log.info(articleListAllDTO.getId() + ":" + articleListAllDTO.getTitle());
-//
-//            if (articleListAllDTO.getArticleImages() != null){
-//                for (ArticleImageDTO articleImageDTO : articleListAllDTO.getArticleImages()){
-//                    log.info(articleImageDTO);
-//                }
-//            }
-//            log.info("-----------------------------------------------------------------");
-//        });
-//
-//    }
+    @Transactional
+    @Test
+    public void testListWithAll(){
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(20)
+                .build();
+
+        PageResponseDTO<ArticleListAllDTO> responseDTO = articleService.listWithAll(pageRequestDTO);
+
+        List<ArticleListAllDTO> dtoList = responseDTO.getDtoList();
+
+        dtoList.forEach(articleListAllDTO -> {
+
+            log.info(articleListAllDTO.getId() + ":" + articleListAllDTO.getTitle());
+
+            if (articleListAllDTO.getArticleImages() != null){
+                for (ArticleImageDTO articleImageDTO : articleListAllDTO.getArticleImages()){
+                    log.info(articleImageDTO);
+                }
+            }
+            log.info("-----------------------------------------------------------------");
+        });
+
+    }
 
 }

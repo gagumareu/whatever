@@ -5,6 +5,8 @@ import com.junghwan.springbootdeveloper.domain.Comment;
 import com.junghwan.springbootdeveloper.domain.User;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CommentResponse {
 
     @NotNull

@@ -63,11 +63,11 @@ public class CommentRepositoryTests {
     @Test
     public void testListWithUser(){
 
-        Pageable pageable = PageRequest.of(1, 10, Sort.by("id").ascending() );
+//        Pageable pageable = PageRequest.of(1, 10, Sort.by("id").ascending() );
 
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
 
-        Page<CommentResponse>  result = commentRepository.listWithUser(271L, pageRequestDTO.getPageable());
+        Page<CommentResponse>  result = commentRepository.listWithUser(270L, pageRequestDTO.getPageable());
 
 //        result.getContent().forEach(log::info);
 

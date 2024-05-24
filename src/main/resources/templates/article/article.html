@@ -57,10 +57,16 @@
             border-radius: 8px;
             margin-top: 60px;
         }
-        .comment-box{
+
+        .comment-author-wrapper{
             display: flex;
             flex-direction: column;
-            /*height: 100px;*/
+        }
+
+        .comment-box{
+            display: flex;
+            flex-direction: row;
+            height: 100px;
         }
 
         .comment-textArea{
@@ -106,6 +112,7 @@
         .comment-author-info{
             display: flex;
             flex-direction: row;
+            justify-content: space-between;
         }
 
         .comment-nickName{
@@ -164,6 +171,11 @@
 
         .comment-list-wrapper{
             margin-top: 25px;
+        }
+
+        .createdDate{
+            display: flex;
+            justify-content: end;
         }
 
 
@@ -259,6 +271,24 @@
         </ul>
     </div>
 
+    <div class="modal comment-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/article.js"></script>
     <script src="/js/comment.js"></script>
@@ -268,20 +298,16 @@
         const $articleId = [[${article.id}]]
         const $article = [[${article}]]
         const $auth = [[${#authentication.principal}]]
+        const $userId = $auth.username
 
         console.log($article)
         console.log($auth)
+        console.log($userId)
 
         const $commentList = document.querySelector('.comment-list')
         const $commentPaging = document.querySelector('.commentPagination')
 
         function printCommentList(dtoList){
-
-            const now = new Date();
-
-            console.log(formDate(now));
-
-
 
             console.log(dtoList)
 
@@ -305,11 +331,17 @@
                     str +=     `</div>`
 
 
-                    str +=     `<div class="col-lg-11 col-10 comment-box">
+                    str +=     `<div class="col-lg-11 col-10 comment-author-wrapper">
                                     <div class="comment-author-info">
-                                        <div class="comment-nickName">${dto.nickName}</div>
-                                        <div class="comment-createdAt">${formDate(dto.createdAt)}</div>
-                                    </div>
+                                        <div>
+                                            <div class="comment-nickName">${dto.nickName}</div>
+                                            <div class="comment-createdAt">${formDate(dto.createdAt)}</div>
+                                        </div>`
+                    str += `<button class="btn btn-light updateComment" id="modifyingComment">...</button>`
+                    // if ($userId === dto.author){
+                    //     str += `<button class="btn btn-light updateComment">...</button>`
+                    // }
+                    str +=          `</div>
                                     <div class="col-8 comment-text">${dto.comment}</div>
                                 </div>
                             </li>`
@@ -406,6 +438,13 @@
 
         }, false)
 
+        const commentBtn = document.getElementById('.updateComment')
+
+        if(commentBtn){
+            commentBtn.addEventListener('click', event => {
+                console.log('click')
+            })
+        }
 
     </script>
 </div>

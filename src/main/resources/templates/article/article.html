@@ -177,6 +177,8 @@
 
             .createdDate{
                 font-size: 0.9em;
+                display: flex;
+                justify-content: end;
             }
 
 
@@ -270,11 +272,11 @@
                 for (const dto of dtoList){
 
                     str += `<li class="commentItem">
-                                <span class="comment-text">${dto.comment}</span>
-                                <span class="comment-author-info">
-                                    <span>${dto.author}</span>
+                                <div class="comment-text">${dto.comment}</div>
+                                <div class="comment-author-info">
+                                    <span>${dto.nickName}</span>
                                     <span>${dto.createdAt}</span>
-                                </span>
+                                </div>
                                 <span><button class="comment-update-btn" type="button">...</button></span>
                             </li>`
 

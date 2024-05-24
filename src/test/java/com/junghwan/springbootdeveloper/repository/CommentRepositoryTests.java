@@ -59,23 +59,19 @@ public class CommentRepositoryTests {
 //
 //    }
 //
-//    @Transactional
-//    @Test
-//    public void testListWithUser(){
-//
-////        Pageable pageable = PageRequest.of(1, 10, Sort.by("id").ascending() );
-//
-//        PageRequestDTO pageRequestDTO = new PageRequestDTO();
-//
-//        Page<CommentResponse>  result = commentRepository.listWithUser(270L, pageRequestDTO.getPageable());
-//
-////        result.getContent().forEach(log::info);
-//
-//        result.getContent().forEach(comment -> {
-//           log.info(comment.toString());
-//        });
-//
-//    }
+    @Transactional
+    @Test
+    public void testListWithUser(){
+
+        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+
+        Page<Object[]>  result = commentRepository.listOfArticle2(270L, pageRequestDTO.getPageable());
+
+        result.getContent().forEach(comment -> {
+           log.info(Arrays.toString(comment));
+        });
+
+    }
 //
 //    @Transactional
 //    @Test

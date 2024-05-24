@@ -2,6 +2,7 @@ package com.junghwan.springbootdeveloper.service;
 
 import com.junghwan.springbootdeveloper.domain.Article;
 import com.junghwan.springbootdeveloper.domain.Comment;
+import com.junghwan.springbootdeveloper.domain.User;
 import com.junghwan.springbootdeveloper.dto.*;
 import com.junghwan.springbootdeveloper.repository.CommentRepository;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,13 +56,18 @@ public class CommentService {
         Pageable pageable = PageRequest.of(pageRequestDTO.getPage() <= 0? 0: pageRequestDTO.getPage() -1,
                 pageRequestDTO.getSize(), Sort.by("id").ascending());
 
-        Page<Comment> result = commentRepository.listOfArticle(articleId, pageable);
+        Page<Object[]> result = commentRepository.listOfArticle2(articleId, pageable);
 
-        List<CommentResponse> dtoList = result.getContent().stream().map(CommentResponse::new).toList();
+
+        List<CommentResponse> responses = result.stream().map(objects -> new CommentResponse(
+                (Comment) objects[0],
+                (User) objects[1]
+        )).collect(Collectors.toList());
+
 
         return PageResponseDTO.<CommentResponse>withAll()
                 .pageRequestDTO(pageRequestDTO)
-                .dtoList(dtoList)
+                .dtoList(responses)
                 .total((int)result.getTotalElements())
                 .build();
 

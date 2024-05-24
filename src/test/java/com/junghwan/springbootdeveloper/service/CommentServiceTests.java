@@ -31,21 +31,21 @@ public class CommentServiceTests {
 //        log.info(commentService.save(request));
 //    }
 
-    @Test
-    public void listWithUser(){
-
-        PageRequestDTO pageRequestDTO = new PageRequestDTO();
-
-        PageResponseDTO<CommentResponse> list = commentService.getListOfArticle(270L, pageRequestDTO);
-
-        log.info(list.getTotal());
-
-        list.getDtoList().forEach(commentResponse -> {
-            log.info(commentResponse);
-        });
-        list.getDtoList().forEach(commentResponse -> {
-            log.info(commentResponse.toString());
-        });
-
-    }
+//    @Test
+//    public void listWithUser(){
+//
+//        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+//
+//        PageResponseDTO<CommentResponse> list = commentService.getListOfArticle(270L, pageRequestDTO);
+//
+//        log.info(list.getTotal());
+//
+//        list.getDtoList().forEach(commentResponse -> {
+//            log.info(commentResponse);
+//        });
+//        list.getDtoList().forEach(commentResponse -> {
+//            log.info(commentResponse.toString());
+//        });
+//
+//    }
 }

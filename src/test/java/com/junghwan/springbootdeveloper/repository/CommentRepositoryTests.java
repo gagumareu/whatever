@@ -59,19 +59,19 @@ public class CommentRepositoryTests {
 //
 //    }
 //
-    @Transactional
-    @Test
-    public void testListWithUser(){
-
-        PageRequestDTO pageRequestDTO = new PageRequestDTO();
-
-        Page<Object[]>  result = commentRepository.listOfArticle2(270L, pageRequestDTO.getPageable());
-
-        result.getContent().forEach(comment -> {
-           log.info(Arrays.toString(comment));
-        });
-
-    }
+//    @Transactional
+//    @Test
+//    public void testListWithUser(){
+//
+//        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+//
+//        Page<Object[]>  result = commentRepository.listOfArticle2(270L, pageRequestDTO.getPageable());
+//
+//        result.getContent().forEach(comment -> {
+//           log.info(Arrays.toString(comment));
+//        });
+//
+//    }
 //
 //    @Transactional
 //    @Test

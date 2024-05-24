@@ -106,3 +106,10 @@ if (updateArticleBtn){
     });
 }
 
+function formDate(date){
+
+    const data = new Date(date);
+
+    return data.getFullYear() + "-" + (data.getMonth() +1 ) + "-" + data.getDate();
+
+}

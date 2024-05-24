@@ -59,8 +59,8 @@
         }
         .comment-box{
             display: flex;
-            flex-direction: row;
-            height: 100px;
+            flex-direction: column;
+            /*height: 100px;*/
         }
 
         .comment-textArea{
@@ -88,8 +88,8 @@
         }
 
         .commentItem{
-            display: flex;
-            flex-direction: row;
+            /*display: flex;*/
+            /*flex-direction: row;*/
             margin-bottom: 10px;
             padding-bottom: 10px;
             border-bottom: 1px solid #dcdcdc;
@@ -98,14 +98,28 @@
 
         .comment-text{
             align-items: center;
-            flex: 80%;
+            font-weight: 300;
             display: flex;
+            width: 100%;
         }
 
         .comment-author-info{
-            flex: 20%;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+        }
+
+        .comment-nickName{
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .comment-createdAt{
+            color: #979797;
+
+        }
+
+        .comment-profileImg img {
+            border-radius: 180px;
         }
 
         .commentPagination{
@@ -140,7 +154,7 @@
         }
 
         .profileImg img{
-            border-radius: 30px;
+            border-radius: 180px;
         }
 
         .profile-box{
@@ -263,6 +277,12 @@
 
         function printCommentList(dtoList){
 
+            const now = new Date();
+
+            console.log(formDate(now));
+
+
+
             console.log(dtoList)
 
             let str = '';
@@ -271,15 +291,28 @@
 
                 for (const dto of dtoList){
 
-                    str += `<li class="commentItem">
-                                <div class="comment-text">${dto.comment}</div>
-                                <div class="comment-author-info">
-                                    <span>${dto.nickName}</span>
-                                    <span>${dto.createdAt}</span>
-                                </div>
-                                <span><button class="comment-update-btn" type="button">...</button></span>
-                            </li>`
+                    str += `<li class="row commentItem">
+                                <div class="col-lg-1 col-2 comment-profileImg">`
+                    if (dto.socialImg != null && dto.profileImg == null){
+                        str +=  `<img src="${dto.socialImg}">`
+                    }
+                    if (dto.profileImg != null && dto.socialImg == null){
+                        str +=  `<img src="${dto.profileImg}">`
+                    }
+                    if (dto.profileImg == null && dto.socialImg == null){
+                        str +=  `<img src="/icons/person1.svg">`
+                    }
+                    str +=     `</div>`
 
+
+                    str +=     `<div class="col-lg-11 col-10 comment-box">
+                                    <div class="comment-author-info">
+                                        <div class="comment-nickName">${dto.nickName}</div>
+                                        <div class="comment-createdAt">${formDate(dto.createdAt)}</div>
+                                    </div>
+                                    <div class="col-8 comment-text">${dto.comment}</div>
+                                </div>
+                            </li>`
                 }
             }
             $commentList.innerHTML = str

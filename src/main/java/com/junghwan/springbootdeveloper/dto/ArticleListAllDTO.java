@@ -33,4 +33,5 @@ public class ArticleListAllDTO {
     private String profileImg;
 
     private String socialImg;
+
 }

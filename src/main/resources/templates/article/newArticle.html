@@ -165,6 +165,7 @@
         <div class="article-add-category-wrapper">
             <div class="new-article-category">
                 <select class="article-category-value" name="category" required>
+                    <option value="">카테고리</option>
                     <option value="리뷰" th:selected="${article.category} == '리뷰'">리뷰</option>
                     <option value="버그" th:selected="${article.category} == '버그'">버그</option>
                     <option value="방명록" th:selected="${article.category} == '방명록'">방명록</option>

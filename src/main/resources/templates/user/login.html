@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/basic.html}" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
     <style>
 
-        .d-flex{
-            justify-content: center;
-        }
-
     </style>
+
 </head>
 <body>
 <div class="container" layout:fragment="content">
     <div class="card-body p-5 text-center">
         <h2 class="">LOGIN</h2>
-        <form action="/login" method="POST">
-            <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
-            <div class="mb-3">
-                <label class="form-label">ID(email)</label>
-                <input type="text" class="form-control" name="username">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control" name="password">
-            </div>
-            <button type="submit" class="btn btn-primary">로그인</button>
-        </form>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/signup'">회원가입</button>
+        <div class = "mb-2">
+            <form action="/login" method="POST">
+                <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
+                <div class="mb-3">
+                    <label class="form-label">ID(email)</label>
+                    <input type="text" class="form-control" name="username">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+                <button type="submit" class="btn btn-outline-info">로그인</button>
+            </form>
+            <button type="button" class="btn btn-secondary mt-3" onclick="location.href='/signup'">회원가입</button>
+        </div>
         <div class="social-login-box">
             <div class="social-login">
                 <a href="/oauth2/authorization/google">
-                    <img src=""><span>구글 로그인</span>
+                    <img src=""><button type="button" class="btn btn-primary">구글 로그인</button>
                 </a>
             </div>
         </div> <!--/ social-login-box /-->

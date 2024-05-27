@@ -75,6 +75,8 @@ public class CommentApiController {
 
         request.setId(id);
 
+        log.info(request);
+
         commentService.update(request);
 
         Map<String, Long> resultMap = new HashMap<>();

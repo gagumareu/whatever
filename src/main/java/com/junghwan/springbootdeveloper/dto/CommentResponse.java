@@ -5,13 +5,14 @@ import com.junghwan.springbootdeveloper.domain.Comment;
 import com.junghwan.springbootdeveloper.domain.User;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CommentResponse {
 
     @NotNull
@@ -51,6 +52,12 @@ public class CommentResponse {
         this.nickName = user.getNickName();
         this.socialImg = user.getSocialImg();
         this.profileImg = user.getProfileImg();
+    }
+
+    @Override
+    public String toString(){
+        return "CommentResponse{" + "id=" + id + ", comment='" + comment + ", author='" + author + ", createdAt=" + createdAt + ", nickName=" + nickName +'}';
+
     }
 
 }

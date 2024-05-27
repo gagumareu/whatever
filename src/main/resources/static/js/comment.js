@@ -44,15 +44,3 @@ async function removeComment(id){
     const response = await axios.delete(`/api/comment/${id}`)
     return response.data
 }
-
-const $updateBtn = document.querySelector('.updateComment')
-const $commentUpdateModal = document.querySelector('.comment-modal')
-
-if ($updateBtn){
-    $updateBtn.addEventListener('click',  event => {
-        console.log('click')
-
-        $commentUpdateModal.show()
-
-    })
-}

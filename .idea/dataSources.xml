@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="webdb@coke-database1.cgsjh8bmyvva.ap-northeast-2.rds.amazonaws.com" uuid="adb3a324-9eae-4eac-9673-219a15a2486b">
+    <data-source source="LOCAL" name="webdb@coke-database1.cgsjh8bmyvva.ap-northeast-2.rds.amazonaws.com" uuid="58d40902-e569-4f0a-b129-2eb8a42dbb47">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>

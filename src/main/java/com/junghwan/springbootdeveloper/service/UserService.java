@@ -50,7 +50,7 @@ public class UserService {
         }
 
         User user = request.toEntity();
-        user.changePassword(passwordEncoder.encode(request.getPassword()));
+        user.changePassword(bCryptPasswordEncoder.encode(request.getPassword()));
         user.addRole(UserRole.USER);
 
         log.info("=======================");

@@ -22,15 +22,16 @@ import java.util.Set;
 public class User extends BaseEntity implements UserDetails {
 
     @Id
+    @Column(nullable = false)
     private String userId;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String nickName;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     private boolean del;

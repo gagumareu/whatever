@@ -20,10 +20,12 @@ public class ItemViewController {
         return "muji/priceCard";
     }
 
+
     @GetMapping("/foodExpiry")
     public String foodExpiry(){
         return "muji/foodExpiry";
     }
+
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/notice")

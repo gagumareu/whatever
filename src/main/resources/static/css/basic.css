@@ -47,13 +47,14 @@ a{
     margin: 7px 0;
 }
 
-.main-log{
+.muji-log{
     width: 100px;
     height: 100px;
 }
 
 
-.category {
+.category{
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;

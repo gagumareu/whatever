@@ -178,6 +178,10 @@
             justify-content: end;
         }
 
+        .modal-comment-modify{
+            display: none;
+        }
+
 
         @media screen and (min-width: 375px) and (max-width: 600px){
 
@@ -281,6 +285,9 @@
                 <div class="modal-body">
 
                 </div>
+                <div class="modal-comment-modify" >
+                    <textarea class="form-control comment-modify-value" type="text" name="comment" placeholder="수정할 댓글 작성"></textarea>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary comment-delete-btn">삭제</button>
@@ -338,10 +345,10 @@
                                             <div class="comment-nickName">${dto.nickName}</div>
                                             <div class="comment-createdAt">${formDate(dto.createdAt)}</div>
                                         </div>`
-                    str += `<button class="btn btn-light updateCommentBtn" id="modifyingComment" data-id="${dto.id}">...</button>`
-                    // if ($userId === dto.author){
-                    //     str += `<button class="btn btn-light updateComment">...</button>`
-                    // }
+                    // str += `<button class="btn btn-light updateCommentBtn" id="modifyingComment" data-id="${dto.id}">...</button>`
+                    if ($userId === dto.author){
+                        str += `<button class="btn btn-light updateCommentBtn" data-id="${dto.id}">...</button>`
+                    }
                     str +=          `</div>
                                     <div class="col-8 comment-text">${dto.comment}</div>
                                 </div>
@@ -446,11 +453,16 @@
         const $modalTitle = document.querySelector('.modal-title')
         const $modalBody = document.querySelector('.modal-body')
 
+        const $commentDeleteBtn = document.querySelector('.comment-delete-btn')
+        const $commentModifyBtn = document.querySelector('.comment-update-btn')
+
         if ($commentList){
             $commentList.addEventListener('click', function (e) {
 
                 e.preventDefault()
                 e.stopPropagation()
+
+                document.querySelector('.modal-comment-modify').style.display = 'block'
 
                 const target = e.target
 
@@ -466,8 +478,12 @@
                         dto => {
                             console.log(dto);
                             // $modalTitle.innerHTML = dto.id;
-                            $modalTitle.innerHTML = dto.author;
+                            // $modalTitle.innerHTML = dto.nickName;
                             $modalBody.innerHTML = dto.comment;
+                            $commentDeleteBtn.setAttribute('data-id', id)
+                            $commentDeleteBtn.setAttribute('data-userId', dto.author)
+                            $commentModifyBtn.setAttribute('data-id', id)
+                            $commentModifyBtn.setAttribute('data-userId', dto.author)
                             $commentUpdateModal.show()
                         }
                     ).catch(e =>{
@@ -479,10 +495,72 @@
         }
 
         // 댓글 삭제 버튼 클릭 이벤트
-        const $commentDeleteBtn = document.querySelector('.comment-delete-btn')
+        if ($commentDeleteBtn){
+            $commentDeleteBtn.addEventListener('click', function (event){
 
+                const target = event.target
+                const id = target.getAttribute('data-id')
+                const userId = target.getAttribute('data-userId')
+                console.log(id)
+                console.log(userId)
 
+                if ($userId !== userId){
+                    alert('작성자만 삭제가 가능합니다.')
+                    return
+                }
 
+                removeComment(id).then(
+                    result => {
+                        console.log(result)
+                        printComment(1, 10)
+                        $modalTitle.value = ''
+                        $modalBody.value = ''
+                        $commentUpdateModal.hide()
+                    }
+                ).catch(e => {
+                    console.error(e)
+                })
+            }, false)
+        }
+
+        // 댓글 수정 이벤트 클릭
+        const $commentModifiedValue = document.querySelector('.comment-modify-value')
+
+        if ($commentModifyBtn){
+            $commentModifyBtn.addEventListener('click', function (event) {
+
+                const target = event.target
+                const id = target.getAttribute('data-id')
+                const userId = target.getAttribute('data-userId')
+
+                if ($userId !== userId){
+                    alert('작성자만 수정이가 가능합니다.')
+                    return
+                }
+
+                const commentModifyObj = {
+                    id : id,
+                    comment: $commentModifiedValue.value
+                }
+
+                console.log(commentModifyObj)
+
+                updateComment(commentModifyObj).then(
+                    result =>{
+                        console.log(result)
+                        $modalTitle.value = ''
+                        $modalBody.value = ''
+                        $commentModifiedValue.value = ''
+                        $commentUpdateModal.hide()
+                        document.querySelector('.modal-comment-modify').style.display = 'none'
+                        printComment(1, 10)
+                    }
+                ).catch(e => {
+                    console.error(e)
+                })
+
+            }, false)
+        }
 
 
 

@@ -1,7 +1,9 @@
 package com.junghwan.springbootdeveloper.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.annotations.BatchSize;
@@ -88,9 +90,6 @@ public class Article extends BaseEntity{
 
         this.imageSet.clear();
     }
-
-
-
 
 
 }

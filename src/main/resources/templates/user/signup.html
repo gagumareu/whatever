@@ -39,6 +39,8 @@
             <button type="submit" class="btn btn-primary signup-btn">회원가입</button>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/user.js"></script>
     <script layout:fragment="script" th:inline="javascript">
 
         const error = [[${error}]]
@@ -48,23 +50,6 @@
             alert("동일한 ID를 가진 계정이 존재합니다.")
         }
 
-        const $signupBtn = document.querySelector('.signup-btn')
-
-        $signupBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log("clicking")
-
-            const $id = document.querySelector('.id')
-            const $email = document.querySelector('.email')
-            const $nickName = document.querySelector('.nickName')
-            const $password = document.querySelector('.password')
-
-            console.log($id)
-            console.log($email)
-            console.log($nickName)
-            console.log($password)
-
-        })
 
     </script>
 </div>

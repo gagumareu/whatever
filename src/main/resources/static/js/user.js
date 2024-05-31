@@ -31,8 +31,7 @@ if ($profileImg){
         console.log('clicking')
 
         document.querySelector('.input-file').click()
-
-
-
     })
 }
+
+

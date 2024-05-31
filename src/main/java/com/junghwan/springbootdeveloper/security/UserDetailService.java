@@ -35,7 +35,7 @@ public class UserDetailService implements UserDetailsService {
         log.info(result);
 
         if (result.isEmpty()){
-            log.info("username not found");
+            log.info("username not found..");
             throw new UsernameNotFoundException("username not found");
         }
 

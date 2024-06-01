@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>정환 개인 프로젝트</title>
+
+    <style>
+        /*.articles-wrapper{*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*}*/
+        /*.articles-wrapper{*/
+        /*    height: 60px;*/
+        /*    padding: 5px 10px;*/
+        /*    border-bottom: 1px solid cadetblue;*/
+        /*}*/
+
+        /*.articles-wrapper:hover{*/
+        /*    background-color: #e0ffff;*/
+        /*}*/
+
+        /*.articles-wrapper a{*/
+        /*    display: flex;*/
+        /*    flex-direction: row;*/
+        /*    !*justify-content: space-between;*!*/
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*}*/
+
+        /*.articles-box{*/
+        /*    height: 60px;*/
+        /*    padding: 5px 10px;*/
+        /*    border-bottom: 1px solid cadetblue;*/
+
+        /*}*/
+
+        /**/
+        .articles-box{
+            height: 60px;
+            padding: 5px 10px;
+            border-bottom: 1px solid cadetblue;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .articles-box:hover{
+            background-color: #e0ffff;
+        }
+
+
+
+        .category-div{
+            display: flex;
+            flex-direction: row;
+            color: #888;
+            font-size: 0.8em;
+
+        }
+
+        .article-category{
+            margin-right: 10px;
+        }
+
+        .article-add-btn{
+            height: 33px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: row;
+
+        }
+
+
+
+
+
+        .article-thumbnail-div{
+            width: 67px;
+            height: 100%;
+        }
+
+        .article-thumbnail-div img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+
+        }
+
+        .article-title{
+            font-size: 1.3em;
+        }
+
+        .article-title-div{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .article-title-box{
+            /*flex: 76%;*/
+            /*font-size: 1.3em;*/
+        }
+
+        .article-info-box{
+            display: flex;
+            flex-direction: row;
+            /*flex: 37%;*/
+            /*font-size: 0.9em;*/
+        }
+
+        .articles-comment-counting{
+            color: #dcdcdc;
+        }
+
+        .search-wrapper{
+            display: flex;
+            /*margin: 20px 0px;*/
+            /*justify-content: center;*/
+            height: 100%;
+        }
+
+        .search-form{
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+        }
+
+        .search-select{
+            width: 86px;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        .search-keyword{
+            height: 100%;
+            border-radius: 8px;
+            border: 1px solid deepskyblue;
+        }
+
+        .search-sumit-btn{
+            height: 94%;
+        }
+
+        .pagination-wrapper{
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .pagination{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 0px;
+            list-style-type: none;
+            font-size: 1.2em;
+            /*width: 33%;*/
+        }
+
+        .page-item{
+            cursor: pointer;
+        }
+
+        .profileImg-div{
+            width: 50px;
+        }
+
+        .profileImg-div img{
+            border-radius: 30px;
+            object-fit: cover;
+        }
+
+        .profileInfo-div{
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .profileInfo-div-responsible{
+            display: none;
+            margin-right: 10px;
+        }
+
+        .search-submit-btn{
+            width: 100px;
+        }
+
+
+    </style>
+
+    <link href="/css/articles.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+
+    <div class="article-add-btn">
+        <div class="search-wrapper">
+            <form action="/articles" method="get" class="search-form">
+                <input type="hidden" th:value="${pageRequestDTO.size}" name="size">
+                <select name="type" class="form-select search-select">
+                    <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+                    <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
+                    <option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">제목+내용</option>
+                    <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
+                </select>
+                <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" class="form-control search-keyword">
+                <button class="btn btn-outline-primary search-submit-btn" type="submit">검색</button>
+
+            </form>
+        </div>
+        <button type="button" class="btn btn-outline-primary create-article-btn" th:onclick="|location.href='@{/newArticle}'|">글쓰기</button>
+    </div>
+
+<!--    <div th:each="item : ${responseDTO.dtoList}" class="articles-wrapper" th:with="link = ${pageRequestDTO.getLink()}">-->
+        <a th:each="item : ${responseDTO.dtoList}" th:with="link = ${pageRequestDTO.getLink()}" th:href="|@{/article/{id}(id=${item.id})}?${link}|" class="articles-box">
+            <div class="col-sm-2 article-thumbnail-div" >
+                <!--/*@thymesVar id="s3url" type=""*/-->
+                <img th:if="${item.articleImages != null && item.articleImages.size() > 0}" th:src="${item.articleImages[0].thumbnailUrl}">
+                <img th:unless="${item.articleImages != null && item.articleImages.size() > 0}" src="/icons/imageIcon1.svg">
+            </div>
+            <div class="row col-sm-10 article-title-div">
+                <div class="col-8 article-title-box">
+                    <div class="title-div">
+                        <span th:text="${item.title}" class="article-title"></span>
+                        <span th:if="${item.commentCounting > 0}" class="articles-comment-counting">[[${item.commentCounting}]]</span>
+                    </div>
+                    <div class="category-div">
+                        <div th:text="${item.category}" class="article-category"></div>
+                        <div class="profileInfo-div-responsible">
+                            <div th:if="${item.nickName == null}" th:text="${item.writer}" class="article-writer"></div>
+                            <div th:unless="${item.nickName == null}" th:text="${item.nickName}" class="article-writer"></div>
+                        </div>
+                        <div th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd')}" class="article-createdAt"></div>
+                    </div>
+                </div>
+                <div class="col-4 article-info-box">
+                    <div class="col-4 profileImg-div">
+                        <img th:if="${item.profileImg == null && item.socialImg != null}" th:src="${item.socialImg}">
+                        <img th:if="${item.profileImg != null && item.socialImg == null}" th:src="${item.profileImg}">
+                        <img th:if="${item.profileImg == null && item.socialImg == null}" src="/icons/person1.svg">
+                    </div>
+                    <div class="col-8 profileInfo-div">
+                        <div th:if="${item.nickName == null}" th:text="${item.writer}" class="article-writer"></div>
+                        <div th:unless="${item.nickName == null}" th:text="${item.nickName}" class="article-writer"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </a>
+<!--    </div>-->
+
+
+
+    <div class="pagination-wrapper">
+        <ul class="pagination">
+            <li class="prev-li" th:if="${responseDTO.prev}">
+                <a class="prev-link" th:data-num="${responseDTO.start -1}">Prev</a>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+                <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
+                    <a class="page-link" th:data-num="${i}">[[${i}]]</a>
+                </li>
+            </th:block>
+            <li class="next-li" th:if="${responseDTO.next}">
+                <a class="next-link" th:data-num="${responseDTO.end +1}">Next</a>
+            </li>
+        </ul>
+    </div>
+
+    <script th:inline="javascript" layout:fragment="script">
+
+        console.log([[${pageRequestDTO}]])
+        console.log([[${responseDTO}]])
+
+        document.querySelector('.pagination').addEventListener('click', function (e){
+
+            e.preventDefault()
+            e.stopPropagation()
+
+            const target = e.target;
+
+            if (target.tagName !== 'A'){
+                return
+            }
+
+            const num = target.getAttribute("data-num")
+
+            const formObj = document.querySelector("form")
+
+            formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+
+            formObj.submit();
+        }, false)
+
+
+    </script>
+
+</div>
+
+</body>
+</html>

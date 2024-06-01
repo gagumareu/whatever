@@ -7,11 +7,9 @@ import com.junghwan.springbootdeveloper.repository.ItemRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -59,7 +57,6 @@ public class ItemService {
 
         return item;
 
-//        return itemRepository.save(item);
     }
 
 }

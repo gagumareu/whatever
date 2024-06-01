@@ -1,11 +1,7 @@
 package com.junghwan.springbootdeveloper.controller;
 
-import com.junghwan.springbootdeveloper.domain.Item;
-import com.junghwan.springbootdeveloper.dto.AddItemRequest;
-import com.junghwan.springbootdeveloper.dto.UpdateItemRequest;
 import com.junghwan.springbootdeveloper.repository.ItemRepository;
 import com.junghwan.springbootdeveloper.service.ItemService;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

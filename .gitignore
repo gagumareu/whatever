@@ -42,4 +42,7 @@ bin/
 .DS_Store
 
 application.yml
+application-db.yml
+application-oauth.yml
+application-s3.yml
 application.properties

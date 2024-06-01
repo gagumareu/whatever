@@ -1,27 +1,7 @@
 package com.junghwan.springbootdeveloper.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-<<<<<<< HEAD
-import com.junghwan.springbootdeveloper.domain.Item;
-import com.junghwan.springbootdeveloper.dto.AddItemRequest;
-import com.junghwan.springbootdeveloper.dto.UpdateItemRequest;
-import com.junghwan.springbootdeveloper.repository.ItemRepository;
-import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import java.util.List;
-
-=======
 import com.junghwan.springbootdeveloper.repository.ItemRepository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,22 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
->>>>>>> dc54783fc42fa3b199ea0f6acb17ba11ccc7c6b9
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-<<<<<<< HEAD
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-
-import static org.junit.jupiter.api.Assertions.*;
-=======
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
->>>>>>> dc54783fc42fa3b199ea0f6acb17ba11ccc7c6b9
 @SpringBootTest
 @AutoConfigureMockMvc
 @Log4j2

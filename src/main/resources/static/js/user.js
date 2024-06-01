@@ -34,3 +34,17 @@ if ($profileImg){
     })
 }
 
+async function existsId(id){
+    const response = await axios.get(`/api/exist/id/${id}`)
+    return response.data
+}
+
+async function existsNicName(nicName){
+    const response = await axios.get(`/api/exist/nicName/${nicName}`)
+    return response.data
+}
+
+async function existsEmail(email){
+    const response = await axios.get(`/api/exist/email/${email}`)
+    return response.data
+}

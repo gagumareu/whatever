@@ -11,8 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Log4j2
 public class UserServiceTests {
 
-//    @Autowired
-//    private UserService userService;
+    @Autowired
+    private UserService userService;
 //
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
@@ -26,4 +26,21 @@ public class UserServiceTests {
 //        userService.update(request, "udekang@gmail.com");
 //
 //    }
+
+    @Test
+    public void existsId(){
+
+       log.info(userService.existId("admin"));
+    }
+
+    @Test
+    public void existsEmail(){
+
+        log.info(userService.existsEmail("admin@email.com"));
+    }
+
+
+
+
+
 }

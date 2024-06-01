@@ -8,7 +8,10 @@
     <meta charset="UTF-8">
     <title>회원 가입</title>
     <style>
-
+        .notice{
+            color: red;
+            display: none;
+        }
     </style>
 </head>
 <body >
@@ -20,14 +23,17 @@
             <div class="mb-3">
                 <label class="form-label ">ID</label>
                 <input type="text" class="form-control id" name="userId" id="userId">
+                <div class="id-notice notice"><p>이미 가입된 ID 입니다.</p></div>
             </div>
             <div class="mb-3">
                 <label class="form-label">Email address</label>
                 <input type="email" class="form-control email" name="email" id="email">
+                <div class="email-notice notice"><p>이미 가입된 이메일 입니다.</p></div>
             </div>
             <div class="mb-3">
                 <label class="form-label">Nick Name</label>
                 <input type="text" class="form-control nickName" name="nickName" id="nickName">
+                <div class="nickName-notice notice"><p>닉네임이 이미 존재합니다.</p></div>
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>
@@ -50,22 +56,65 @@
             alert("동일한 ID를 가진 계정이 존재합니다.")
         }
 
+        const $IdValue = document.querySelector('.id')
+        const $nicNameValue = document.querySelector('.nickName')
+        const $emailValue = document.querySelector('.email')
 
-        if($signupBtn){
-            $signupBtn.addEventListener('click', () => {
+        let $id = false
+        let $email = false
+        let $nickName = false
 
-                console.log("clicking1 ----")
-                const $userId = document.getElementById('userId').value
-                const $nickName = document.getElementById('nickName').value
-                const $email = document.getElementById('email').value
-                const $password = document.getElementById('password').value
+        $IdValue.addEventListener('input', function (e){
+            if ($IdValue.value){
+                existsId($IdValue.value).then(result => {
+                    console.log(result)
+                    if (result === true){
+                        document.querySelector('.id-notice').style.display = 'block'
+                    }if(result === false){
+                        document.querySelector('.id-notice').style.display = 'none'
+                    }
+                }).catch(e =>{
+                    console.error(e)
+                })
+            }
+        })
 
-                if (!$userId || !$nickName || !$email || !$password){
-                    alert('ID를 입력해 주세요.')
-                    return;
-                }
-            })
-        }
+        $nicNameValue.addEventListener('input', event => {
+            if ($nicNameValue.value){
+                existsNicName($nicNameValue.value).then(result =>{
+                    console.log(result)
+                    if (result === true){
+                        document.querySelector('.nickName-notice').style.display = 'block'
+                    }if(result === false){
+                        document.querySelector('.nickName-notice').style.display = 'none'
+                    }
+                }).catch(e =>{
+                    console.error(e)
+                })
+            }
+        })
+
+        $emailValue.addEventListener('input', event => {
+            if ($emailValue.value){
+                existsEmail($emailValue.value).then(result =>{
+                    console.log(result)
+                    if (result === true){
+                        document.querySelector('.email-notice').style.display = 'block'
+                    }if(result === false){
+                        document.querySelector('.email-notice').style.display = 'none'
+                    }
+                }).catch(e =>{
+                    console.error(e)
+                })
+            }
+        })
+
+        $signupBtn.addEventListener('click', (e) => {
+
+            e.preventDefault();
+            e.stopPropagation();
+
+        })
 
 
     </script>

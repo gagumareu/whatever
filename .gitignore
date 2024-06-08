@@ -45,7 +45,6 @@ application.yml
 application-db.yml
 application-oauth.yml
 application-s3.yml
+application-jwt.yml
 application.properties
-application-db.yml
-application-s3.yml
-application-oauth.yml
+

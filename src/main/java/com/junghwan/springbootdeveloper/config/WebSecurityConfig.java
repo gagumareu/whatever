@@ -74,11 +74,12 @@ public class WebSecurityConfig {
                                                        BCryptPasswordEncoder bCryptPasswordEncoder,
                                                        UserDetailService userDetailService ) throws Exception{
 
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
+         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userService)
                 .passwordEncoder(bCryptPasswordEncoder)
-                .and()
-                .build();
+                 .and().build();
+
+
     }
 
     // 패스워드 인코더로 사용할 빈 등록

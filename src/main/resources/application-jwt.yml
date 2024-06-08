@@ -1,3 +1,0 @@
-jwt:
-  issuer: udekang@gmail.com
-  secret_key: operation_springboot

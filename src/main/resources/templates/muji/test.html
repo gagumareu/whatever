@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+
+
+        .item-box-wrapper{
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 2cm;
+            margin: 0 auto;
+
+            display: flex;
+            flex-wrap: wrap;
+
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*display: grid;*/
+            /*grid-template-columns: 1fr 1fr 1fr;*/
+            /*!*grid-template-rows: 110px 110px 110px;*!*/
+            /*!*width: 595px;*!*/
+            /*!*height: 842px;*!*/
+            /*break-inside: avoid;*/
+
+        }
+
+
+        .item-box{
+            width: 258px;
+            border: 0 solid #000000a3;
+            cursor: pointer;
+            height: 105px;
+        }
+
+        .box-margin{
+            border: 1px solid gray;
+            /*height: 100%;*/
+            padding: 9px 6px 9px 6px;
+        }
+
+        .item-name{
+            height: 26px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .item-color{
+            height: 13px;
+            font-size: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .item-size{
+            height: 13px;
+            font-size: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .emptyBox{
+            height: 4px;
+        }
+
+        .item-JanNPrice{
+            height: 31px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .serial{
+            font-size: 4px;
+        }
+
+        .jan-code{
+            width: 61px;
+            display: flex;
+            /* justify-items: normal; */
+            align-items: flex-end;
+        }
+
+        .jan-empty1{
+            width: 52px;
+        }
+
+        .jan-price{
+            width: 118px;
+            display: flex;
+            justify-content: right;
+            align-items: end;
+        }
+
+        .price{
+            font-size: 18px;
+        }
+
+        .jan-won{
+            width: 15px;
+            font-size: 8px;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+        }
+
+        @media print {
+
+
+            .header {
+                display: none;
+            }
+            .category {
+                display: none;
+            }
+            .footer {
+                display: none;
+            }
+            .jan-code-input {
+                display: none;
+            }
+            .description {
+                display: none;
+            }
+
+
+            html, body {
+                width: 210mm;
+                height: 297mm;
+            }
+
+            .item-box-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                height: 100%;
+                margin: 0;
+
+                /*border: initial;*/
+                /*width: initial;*/
+                /*min-height: initial;*/
+                /*box-shadow: initial;*/
+                /*background: initial;*/
+                /*page-break-after: always;*/
+
+                /*width: 100%;*/
+                /*height: 100%;*/
+
+                /*page-break-inside: avoid;*/
+
+                /*display: grid;*/
+                /*grid-template-columns: 1fr 1fr 1fr;*/
+                /*grid-template-rows: 110px 110px 110px;*/
+                /*width: 595px;*/
+                /*height: 842px;*/
+
+                /*margin: 0;*/
+                /*border: initial;*/
+                /*border-radius: initial;*/
+                /*width: initial;*/
+                /*min-height: initial;*/
+                /*box-shadow: initial;*/
+                /*background: initial;*/
+                /*page-break-after: always;*/
+                /*width: 210mm;*/
+                /*height: 297mm;*/
+                /*margin: 30mm 45mm 30mm 45mm; !* margin: auto auto; 로 자동 여백 설정도 가능 *!*/
+
+            }
+
+            .item-box {
+                width: 6.29cm;
+                border: 0 solid black;
+                cursor: pointer;
+                height: 2.88cm;
+            }
+
+            .box-margin {
+                border: 1px solid gray;
+                /*height: 100%;*/
+                padding: 0.25cm 0.16cm 0.25cm 0.16cm;
+            }
+
+            .item-name {
+                width: 100%;
+                height: 0.7cm;
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+                font-weight: bold;
+            }
+
+            .item-color {
+                width: 100%;
+                height: 0.35cm;
+                font-size: 6px;
+                display: flex;
+                align-items: center;
+            }
+
+            .item-size {
+                width: 100%;
+                height: 0.34cm;
+                font-size: 6px;
+                display: flex;
+                align-items: center;
+            }
+
+            .emptyBox {
+                height: 0.14cm;
+            }
+
+            .item-JanNPrice {
+                height: 0.84cm;
+                display: flex;
+                flex-direction: row;
+            }
+
+            .serial {
+                font-size: 4px;
+            }
+
+            .jan-code {
+                width: 1.48cm;
+                display: flex;
+                /* justify-items: normal; */
+                align-items: flex-end;
+            }
+
+            .jan-empty1 {
+                width: 1.26cm;
+            }
+
+            .jan-price {
+                width: 2.87cm;
+                display: flex;
+                justify-content: right;
+                align-items: end;
+            }
+
+            .price {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .jan-won {
+                width: 0.38cm;
+                font-size: 8px;
+                display: flex;
+                align-items: end;
+                justify-content: center;
+                font-weight: bold;
+            }
+
+            .btn{
+                display: none;
+            }
+
+        }
+
+        @page {
+
+            size: A4;
+
+            margin: 0;
+
+        }
+
+
+
+    </style>
+</head>
+<body>
+<button type="button" class="btn">출력</button>
+
+<div class="item-box-wrapper" >
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트1</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트2</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트3</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트4</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트5</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트6</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트7</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트8</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트9</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트10</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트11</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트12</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트13</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트14</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트15</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트16</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트17</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트18</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트19</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트20</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트21</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트23</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트24</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트25</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트26</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트27</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트28</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트29</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트30</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트31</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트32</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="box-margin">
+            <div class="item-name"><span class="name">테스트33</span></div>
+            <div class="item-color"><span class="color">그레이</span></div>
+            <div class="item-size"><span class="size">SD</span></div>
+            <div class="emptyBox"></div>
+            <div class="item-JanNPrice">
+                <div class="jan-code"><span class="serial"999999999999</span> </div>
+                <div class="jan-empty1"></div>
+                <div class="jan-price"><span class="price">800000</span></div>
+                <div class="jan-won"><span>원</span></div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    const btn = document.querySelector('.btn');
+    btn.addEventListener("click", ev => {
+        console.log("clicking")
+        window.print();
+    })
+</script>
+
+</body>
+</html>

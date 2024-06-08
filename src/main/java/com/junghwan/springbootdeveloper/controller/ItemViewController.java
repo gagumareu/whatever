@@ -33,8 +33,8 @@ public class ItemViewController {
         return "muji/notice";
     }
 
-
-
+    @GetMapping("/test")
+    public String test(){return "muji/test";}
 
 
 }

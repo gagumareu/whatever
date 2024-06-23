@@ -30,5 +30,19 @@ public class UserApiController {
         return ResponseEntity.ok().body(updatedUser);
     }
 
+    @GetMapping(value = "/api/exist/id/{id}")
+    public ResponseEntity<Boolean> existId(@PathVariable String id){
+        return ResponseEntity.ok().body(userService.existId(id));
+    }
+
+    @GetMapping(value = "/api/exist/nicName/{nicName}")
+    public ResponseEntity<Boolean> existNicName(@PathVariable String nicName){
+        return ResponseEntity.ok().body(userService.existsNicName(nicName));
+    }
+
+    @GetMapping(value = "/api/exist/email/{email}")
+    public ResponseEntity<Boolean> existEmail(@PathVariable String email){
+        return ResponseEntity.ok().body(userService.existsEmail(email));
+    }
 
 }

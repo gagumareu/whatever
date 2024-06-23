@@ -85,6 +85,7 @@ public class Oauth2UserDetailService extends DefaultOAuth2UserService {
         User user = User.builder()
                 .email(email)
                 .userId(email)
+                .nickName(email)
                 .password(passwordEncoder.encode("1111"))
                 .social(true)
                 .socialImg(profileImg)

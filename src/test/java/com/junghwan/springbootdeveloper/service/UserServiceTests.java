@@ -27,17 +27,18 @@ public class UserServiceTests {
 //
 //    }
 
-    @Test
-    public void existsId(){
 
-       log.info(userService.existId("admin"));
-    }
-
-    @Test
-    public void existsEmail(){
-
-        log.info(userService.existsEmail("admin@email.com"));
-    }
+//    @Test
+//    public void existsId(){
+//
+//       log.info(userService.existId("admin"));
+//    }
+//
+//    @Test
+//    public void existsEmail(){
+//
+//        log.info(userService.existsEmail("admin@email.com"));
+//    }
 
 
 

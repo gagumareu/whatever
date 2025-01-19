@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+<<<<<<< HEAD
     <data-source source="LOCAL" name="webdb@coke-database1.cgsjh8bmyvva.ap-northeast-2.rds.amazonaws.com" uuid="ca1ab663-2ef8-4672-9780-f05d3ab7d4f4">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mariadb://coke-database1.cgsjh8bmyvva.ap-northeast-2.rds.amazonaws.com:3306/webdb</jdbc-url>
+=======
+    <data-source source="LOCAL" name="@whatever-db.cx2oemeqcdtm.ap-northeast-2.rds.amazonaws.com" uuid="22129253-974f-44aa-b122-11aebf1a7526">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://whatever-db.cx2oemeqcdtm.ap-northeast-2.rds.amazonaws.com:3306</jdbc-url>
+>>>>>>> b63d2675dc6220db0e4da4ebc17edd832e23b8f1
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

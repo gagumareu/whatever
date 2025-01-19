@@ -48,3 +48,5 @@ application-s3.yml
 application-oauth.yml
 application-jwt.yml
 
+aws.yml
+

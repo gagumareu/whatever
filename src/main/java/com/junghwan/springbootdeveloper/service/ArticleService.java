@@ -107,8 +107,8 @@ public class ArticleService {
 
         if (request.getFileNames() != null){
             for (String fileName : request.getFileNames()){
-                String uuid = fileName.substring(55, 91);
-                String name = fileName.substring(92);
+                String uuid = fileName.substring(52, 88);
+                String name = (fileName.substring(89));
                 article.addImage(uuid, name, fileName);
             }
         }

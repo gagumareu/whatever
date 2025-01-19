@@ -76,6 +76,8 @@ public class ArticleApiController {
     @PutMapping("/api/article/{id}")
     public ResponseEntity<Article> update(@RequestBody UpdateArticleRequest request, @PathVariable long id){
 
+        System.out.println("------ updating article -----");
+        System.out.println(request);
         log.info(request);
         log.info(id);
 

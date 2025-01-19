@@ -57,10 +57,9 @@ public class Article extends BaseEntity{
         this.category = category;
     }
 
-    public void update(String title, String content, String writer, String category){
+    public void update(String title, String content, String category){
         this.title = title;
         this.content = content;
-        this.writer = writer;
         this.category = category;
     }
 

@@ -99,9 +99,11 @@ public class ArticleService {
     @Transactional
     public Article update(UpdateArticleRequest request, long id){
 
+        System.out.println(request);
+
         Article article = articleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
-        article.update(request.getTitle(), request.getContent(), request.getWriter(), request.getCategory());
+        article.update(request.getTitle(), request.getContent(), request.getCategory());
 
         article.clearImages();
 

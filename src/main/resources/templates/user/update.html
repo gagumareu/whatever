@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/basic.html}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .socialImg{
+            width: 60px;
+        }
+
+        .socialImg img{
+            border-radius: 30px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <h1>회원 정보 수정</h1>
+    <div>
+    </div>
+    <div>
+        <div>
+            [[${#authentication.principal.userId}]]
+        </div>
+        <div class="content">
+            <div class="socialImg">
+<!--                <img th:src="${#authentication.principal.socialImg}">-->
+                <img src="/icons/person1.svg">
+            </div>
+            <input type="file" name="file" class="input-file">
+            <label>닉네임
+                <input name="nickName" type="text" placeholder="닉네임" id="nickName">
+            </label>
+            <label>비밀번호
+                <input name="password" type="password" placeholder="비밀번호" id="password">
+            </label>
+        </div>
+        <button type="button" class="saveBtn">저장</button>
+
+    </div>
+
+    <script src="/js/user.js"></script>
+
+    <script layout:fragment="script" th:inline="javascript">
+
+        const $auth = [[${#authentication.principal}]]
+        const $userId = [[${#authentication.principal.userId}]]
+
+        console.log($auth)
+        console.log($userId)
+
+        console.log([[${request}]])
+        console.log([[${response}]])
+
+
+
+    </script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+
+
+.jan-code-input{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+
+/* container */
+
+/********************************************/
+
+.item-box-wrapper{
+    display: grid;
+    grid-template-columns: 260px 260px 260px;
+    /*grid-template-rows: 110px 110px 110px;*/
+    /*width: 595px;*/
+    /*height: 842px;*/
+
+}
+
+.jan-code-input{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.item-box{
+    width: 258px;
+    border: 0 solid #000000a3;
+    cursor: pointer;
+    height: 105px;
+}
+
+.box-margin{
+    border: 1px solid gray;
+    /*height: 100%;*/
+    padding: 9px 6px 9px 6px;
+}
+
+.item-name{
+    height: 26px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.item-color{
+    height: 13px;
+    font-size: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.item-size{
+    height: 13px;
+    font-size: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.emptyBox{
+    height: 4px;
+}
+
+.item-JanNPrice{
+    height: 31px;
+    display: flex;
+    flex-direction: row;
+}
+
+.serial{
+    font-size: 4px;
+}
+
+.jan-code{
+    width: 61px;
+    display: flex;
+    /* justify-items: normal; */
+    align-items: flex-end;
+}
+
+.jan-empty1{
+    width: 52px;
+}
+
+.jan-price{
+    width: 118px;
+    display: flex;
+    justify-content: right;
+    align-items: end;
+}
+
+.price{
+    font-size: 18px;
+}
+
+.jan-won{
+    width: 15px;
+    font-size: 8px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+
+
+/*********************************************/
+
+.item-counting{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+}
+
+.description{
+    margin-bottom: 30px;
+
+}
+
+.excelVersion{
+}
+
+

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>정환 개인 프로젝트</title>
+    <style>
+
+        img{
+            width: 100%;
+        }
+
+        .article-red-title{
+            font-size: 2.2em;
+            margin-bottom: 30px;
+        }
+
+        .article-writer-info{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+
+        .article-writer{
+            /*margin-right: 50px;*/
+            font-size: 1.4em;
+            color: #0f5132d9;
+            display: flex;
+            align-items: center;
+        }
+
+        .article-red-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .article-red-content p {
+            width: 100%;
+        }
+
+        .article-red-content p img {
+            width: 100%;
+        }
+
+        .article-red-btn-wrapper{
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+        }
+
+        .article-red-wrapper{
+            margin-bottom: 50px;
+        }
+
+        .article-btn{
+            margin-right: 20px;
+        }
+
+        .comment-wrapper{
+            background: #b0e0e6;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 60px;
+        }
+
+        .comment-author-wrapper{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-box{
+            display: flex;
+            flex-direction: row;
+            height: 100px;
+        }
+
+        .comment-textArea{
+            flex: 80%;
+            border-radius: 10px;
+        }
+
+        .comment-button-box{
+            flex: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .addCommentBtn{
+            height: 40px;
+        }
+        .comment-author{
+            height: 20px;
+        }
+
+        .comment-list{
+            list-style: none;
+            padding: 0;
+        }
+
+        .comment-author-info{
+            margin-bottom: 9px;
+        }
+        .commentItem{
+            /*display: flex;*/
+            /*flex-direction: row;*/
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dcdcdc;
+
+        }
+
+        .comment-text{
+            align-items: center;
+            font-weight: 300;
+            display: flex;
+            width: 100%;
+        }
+
+        .comment-author-info{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .comment-nickName{
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .comment-createdAt{
+            color: #979797;
+
+        }
+
+        .comment-profileImg img {
+            border-radius: 180px;
+        }
+
+        .commentPagination{
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            font-size: 1.2em;
+            justify-content: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dcdcdc;
+
+        }
+
+        .comment-required-to-login{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .comment-required-to-login span{
+            margin-left: 10px;
+
+        }
+
+        .page-item{
+            margin-right: 10px;
+        }
+
+        .profileImg{
+            width: 60px;
+            margin-right: 10px;
+        }
+
+        .profileImg img{
+            border-radius: 180px;
+        }
+
+        .profile-box{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .comment-list-wrapper{
+            margin-top: 25px;
+        }
+
+        .createdDate{
+            display: flex;
+            justify-content: end;
+        }
+
+        .modal-comment-modify{
+            display: none;
+        }
+
+
+        @media screen and (min-width: 375px) and (max-width: 600px){
+
+            img{
+                width: 100%;
+            }
+
+            body{
+                /*background: lightblue;*/
+            }
+            .category{
+                width: 100%;
+            }
+
+            .container{
+                width: 100%;
+                /*padding: 0;*/
+            }
+
+            .article-red-wrapper{
+                padding: 0px 15px;
+            }
+
+            .createdDate{
+                font-size: 0.9em;
+                display: flex;
+                justify-content: end;
+            }
+
+            .article-red-content p {
+                width: 100%;
+            }
+
+            .article-red-content p img {
+                width: 100%;
+            }
+
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="container" layout:fragment="content">
+
+    <div class="article-red-wrapper">
+        <input type="hidden" id="article-id" th:value="${article.id}">
+        <div th:text="${article.title}" class="article-red-title"></div>
+        <div class="row article-writer-info">
+            <div class="col-8 profile-box">
+                <div class="profileImg">
+                    <img th:if="${article.profileImg == null && article.socialImg != null}" th:src="${article.socialImg}">
+                    <img th:if="${article.profileImg != null && article.socialImg == null}" th:src="${article.profileImg}">
+                    <img th:if="${article.profileImg == null && article.socialImg == null}" src="/icons/person1.svg">
+                </div>
+                <div th:text="${article.nickName}" class="article-writer"></div>
+            </div>
+            <div class="col-4 createdDate" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
+        </div>
+        <div th:utext="${article.content}" class="article-red-content"></div>
+
+    </div>
+
+    <div th:with="link = ${pageRequestDTO.getLink()}" class="article-red-btn-wrapper">
+        <div class="member-btn-box" th:if="${#authentication.principal != 'anonymousUser' && #authentication.principal.username == article.writer}">
+            <button class="btn btn-outline-primary article-btn" type="button" th:onclick="|location.href='@{/newArticle?id={articleId}(articleId=${article.id})}'|">수정</button>
+            <button type="button" id="article-delete-btn" class="btn btn-outline-primary article-btn">삭제</button>
+        </div>
+        <a th:href="|@{/articles}?${link}|">
+            <button type="button" class="btn btn-outline-primary article-backToList-btn">리스트</button>
+        </a>
+    </div>
+
+
+    <div class="comment-wrapper">
+        <div class="comment-box" th:if="${#authentication.principal != 'anonymousUser'}">
+            <textarea name="comment" class="comment-textArea" placeholder="댓글 작성"></textarea>
+            <div class="comment-button-box">
+                <input type="hidden" name="author" class="comment-author" placeholder="작성자" th:value="${#authentication.principal.username}">
+                <button type="button" class="btn btn-light addCommentBtn">등록</button>
+            </div>
+        </div>
+        <div class="comment-required-to-login" th:if="${#authentication.principal == 'anonymousUser'}">
+            <a th:href="@{/login}"><button type="button" class="btn btn-outline-primary">로그인</button></a>
+            <span>댓글 작성을 위해 로그인 해주세요.</span>
+        </div>
+    </div>
+
+    <div class="comment-list-wrapper">
+        <ul class="comment-list">
+
+        </ul>
+        <ul class="commentPagination">
+
+        </ul>
+    </div>
+
+    <div class="modal comment-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-comment-modify" >
+                    <textarea class="form-control comment-modify-value" type="text" name="comment" placeholder="수정할 댓글 작성"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary comment-delete-btn">삭제</button>
+                    <button type="button" class="btn btn-primary comment-update-btn">수정</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/article.js"></script>
+    <script src="/js/comment.js"></script>
+
+    <script layout:fragment="script" th:inline="javascript">
+
+        const $articleId = [[${article.id}]]
+        const $article = [[${article}]]
+        const $auth = [[${#authentication.principal}]]
+        const $userId = $auth.username
+
+        console.log($article)
+        console.log($auth)
+        console.log($userId)
+
+        const $commentList = document.querySelector('.comment-list')
+        const $commentPaging = document.querySelector('.commentPagination')
+
+        function printCommentList(dtoList){
+
+            console.log(dtoList)
+
+            let str = '';
+
+            if (dtoList && dtoList.length > 0){
+
+                for (const dto of dtoList){
+
+                    str += `<li class="row commentItem">
+                                <div class="col-lg-1 col-2 comment-profileImg">`
+                    if (dto.socialImg != null && dto.profileImg == null){
+                        str +=  `<img src="${dto.socialImg}">`
+                    }
+                    if (dto.profileImg != null && dto.socialImg == null){
+                        str +=  `<img src="${dto.profileImg}">`
+                    }
+                    if (dto.profileImg == null && dto.socialImg == null){
+                        str +=  `<img src="/icons/person1.svg">`
+                    }
+                    str +=     `</div>`
+                    str +=     `<div class="col-lg-11 col-10 comment-author-wrapper" data-id="${dto.id}">
+                                    <div class="comment-author-info">
+                                        <div>
+                                            <div class="comment-nickName">${dto.nickName}</div>
+                                            <div class="comment-createdAt">${formDate(dto.createdAt)}</div>
+                                        </div>`
+                    // str += `<button class="btn btn-light updateCommentBtn" id="modifyingComment" data-id="${dto.id}">...</button>`
+                    if ($userId === dto.author){
+                        str += `<button class="btn btn-light updateCommentBtn" data-id="${dto.id}">...</button>`
+                    }
+                    str +=          `</div>
+                                    <div class="col-8 comment-text">${dto.comment}</div>
+                                </div>
+                            </li>`
+                }
+            }
+            $commentList.innerHTML = str
+        }
+
+        function printPage(data){
+
+            let pageStr = '';
+
+            if (data.prev){
+                pageStr += `<li><a class="comment-page-link" data-page="${data.start -1}">PREV</a></li>`
+            }
+
+            for (let i = data.start; i <= data.end; i++){
+                if (data.page > 0){
+                    pageStr += `<li class="page-item ${i == data.page ? "active" : ""}">
+                                <a data-page="${i}">${i}</a>
+                            </li>`
+                }
+            }
+
+            if (data.next){
+                pageStr += `<li><a data-page="${data.end +1}">NEXT</a></li>`
+            }
+            $commentPaging.innerHTML = pageStr
+        }
+
+        function printComment(page, size, goLast){
+
+            console.log("page: " + page)
+            console.log("size: " + size)
+
+            getList({$articleId, page, size, goLast}).then(
+                data => {
+                    printCommentList(data.dtoList)
+                    printPage(data)
+                }
+            ).catch(e => {
+                console.error(e)
+            })
+        }
+
+        printComment(1, 10, false)
+
+
+        //  리플 달기
+        const $addCommentBtn = document.querySelector('.addCommentBtn')
+        const $comment = document.querySelector('.comment-textArea')
+        const $author = document.querySelector('.comment-author')
+
+        if ($addCommentBtn){
+            $addCommentBtn.addEventListener('click', function (e){
+
+                if (!$comment.value){
+                    alert("댓글 내용을 입력해 주세요.")
+                    return;
+                }
+
+                const commentObj = {
+                    articleId: $articleId,
+                    comment: $comment.value,
+                    author: $author.value
+                }
+                addComment(commentObj).then(result => {
+                    $comment.value = ''
+                    // $author.value = ''
+                    printComment(1, 10, true)
+                }).catch(e => {
+                    alert("Exception....")
+                })
+            }, false)
+        }
+
+        let page = 1
+        let size = 10
+
+        $commentPaging.addEventListener('click', function (e){
+
+            e.preventDefault()
+            e.stopPropagation()
+
+            const target = e.target
+
+            if (!target || target.tagName != 'A'){
+                return
+            }
+
+            const pageNum = target.getAttribute("data-page")
+            page = pageNum
+            printComment(page, size)
+
+        }, false)
+
+
+        // 댓글 수정 버튼 클릭 이벤트
+        const $commentUpdateModal = new bootstrap.Modal(document.querySelector('.comment-modal'))
+
+        const $modalTitle = document.querySelector('.modal-title')
+        const $modalBody = document.querySelector('.modal-body')
+
+        const $commentDeleteBtn = document.querySelector('.comment-delete-btn')
+        const $commentModifyBtn = document.querySelector('.comment-update-btn')
+
+        if ($commentList){
+            $commentList.addEventListener('click', function (e) {
+
+                e.preventDefault()
+                e.stopPropagation()
+
+                document.querySelector('.modal-comment-modify').style.display = 'block'
+
+                const target = e.target
+
+                if (target.tagName === 'BUTTON'){
+
+                    const id = e.target.closest('.updateCommentBtn').getAttribute('data-id');
+
+                    if (id){
+                        console.log("id1: " + id)
+                    }
+
+                    getComment(id).then(
+                        dto => {
+                            console.log(dto);
+                            // $modalTitle.innerHTML = dto.id;
+                            // $modalTitle.innerHTML = dto.nickName;
+                            $modalBody.innerHTML = dto.comment;
+                            $commentDeleteBtn.setAttribute('data-id', id)
+                            $commentDeleteBtn.setAttribute('data-userId', dto.author)
+                            $commentModifyBtn.setAttribute('data-id', id)
+                            $commentModifyBtn.setAttribute('data-userId', dto.author)
+                            $commentUpdateModal.show()
+                        }
+                    ).catch(e =>{
+                        console.error(e)
+                    })
+                }
+
+            }, false)
+        }
+
+        // 댓글 삭제 버튼 클릭 이벤트
+        if ($commentDeleteBtn){
+            $commentDeleteBtn.addEventListener('click', function (event){
+
+                const target = event.target
+                const id = target.getAttribute('data-id')
+                const userId = target.getAttribute('data-userId')
+                console.log(id)
+                console.log(userId)
+
+                if ($userId !== userId){
+                    alert('작성자만 삭제가 가능합니다.')
+                    return
+                }
+
+                removeComment(id).then(
+                    result => {
+                        console.log(result)
+                        printComment(1, 10)
+                        $modalTitle.value = ''
+                        $modalBody.value = ''
+                        $commentUpdateModal.hide()
+                    }
+                ).catch(e => {
+                    console.error(e)
+                })
+            }, false)
+        }
+
+        // 댓글 수정 이벤트 클릭
+        const $commentModifiedValue = document.querySelector('.comment-modify-value')
+
+        if ($commentModifyBtn){
+            $commentModifyBtn.addEventListener('click', function (event) {
+
+                const target = event.target
+                const id = target.getAttribute('data-id')
+                const userId = target.getAttribute('data-userId')
+
+                if ($userId !== userId){
+                    alert('작성자만 수정이가 가능합니다.')
+                    return
+                }
+
+                const commentModifyObj = {
+                    id : id,
+                    comment: $commentModifiedValue.value
+                }
+
+                console.log(commentModifyObj)
+
+                updateComment(commentModifyObj).then(
+                    result =>{
+                        console.log(result)
+                        $modalTitle.value = ''
+                        $modalBody.value = ''
+                        $commentModifiedValue.value = ''
+                        $commentUpdateModal.hide()
+                        document.querySelector('.modal-comment-modify').style.display = 'none'
+                        printComment(1, 10)
+                    }
+                ).catch(e => {
+                    console.error(e)
+                })
+
+            }, false)
+        }
+
+
+
+    </script>
+</div>
+
+
+
+
+</body>
+</html>

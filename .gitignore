@@ -49,4 +49,4 @@ application-oauth.yml
 application-jwt.yml
 
 aws.yml
-
+.env

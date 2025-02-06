@@ -26,17 +26,17 @@ jobs:
         run: ./gradlew clean build
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+        run: echo "${{ DOCKER_HUB_PASSWORD }}" | docker login -u "${{ DOCKER_HUB_USERNAME }}" --password-stdin
 
       - name: Build and tag Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_IMAGE_NAME }}:latest .
-          docker tag ${{ secrets.DOCKER_IMAGE_NAME }}:latest ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+          docker build -t ${{ DOCKER_IMAGE_NAME }}:latest .
+          docker tag ${{DOCKER_IMAGE_NAME }}:latest ${{ DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_IMAGE_NAME }}:latest
-          docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+          docker push ${{ DOCKER_IMAGE_NAME }}:latest
+          docker push ${{ DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
       - name: Set up AWS CLI
         run: |
@@ -46,17 +46,17 @@ jobs:
 
       - name: Deploy to Elastic Beanstalk
         run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set region ${{ secrets.AWS_REGION }}
+          aws configure set aws_access_key_id ${{ AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ AWS_REGION }}
 
           echo "Updating Elastic Beanstalk environment with new Docker image..."
           aws elasticbeanstalk update-environment \
-            --application-name ${{ secrets.EB_APPLICATION_NAME }} \
-            --environment-name ${{ secrets.EB_ENVIRONMENT_NAME }} \
+            --application-name ${{ AWS_EB_APP_NAME }} \
+            --environment-name ${{ AWS_EB_ENV_NAME }} \
             --version-label "deploy-${{ github.sha }}"
 
       - name: Verify deployment
         run: |
           aws elasticbeanstalk describe-environments \
-            --application-name ${{ secrets.EB_APPLICATION_NAME }}
+            --application-name ${{ AWS_EB_APP_NAME }}

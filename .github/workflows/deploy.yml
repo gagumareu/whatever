@@ -38,11 +38,14 @@ jobs:
           docker push ${{ secrets.DOCKER_IMAGE_NAME }}:latest
           docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
-      - name: Set up AWS CLI
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
+      - name: Verify AWS CLI Version
+        run: aws --version
+
+#      - name: Set up AWS CLI
+#        run: |
+#          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+#          unzip awscliv2.zip
+#          sudo ./aws/install
 
       - name: Deploy to Elastic Beanstalk
         run: |

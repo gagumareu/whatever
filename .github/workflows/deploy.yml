@@ -78,7 +78,7 @@ jobs:
           aws elasticbeanstalk update-environment \
             --application-name ${{ secrets.AWS_EB_APP_NAME }} \
             --environment-name ${{ secrets.AWS_EB_ENV_NAME }} \
-            --version-label "deploy-${{ env.TIMESTAMP }}"
+            --version-label "${{ env.TIMESTAMP }}-Dockerrun.aws.json"
 
       - name: Verify deployment
         run: aws elasticbeanstalk describe-environments --application-name ${{ secrets.AWS_EB_APP_NAME }}

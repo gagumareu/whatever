@@ -39,15 +39,7 @@ jobs:
           docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
       - name: Verify AWS CLI Version
-        run: aws --version
-
-      - name: Package Application for Elastic Beanstalk
-        run: |
-            zip -r deploy-package.zip Dockerrun.aws.json
-
-      - name: Upload to S3
-        run: |
-          aws s3 cp deploy-package.zip s3://${{ secrets.AWS_S3_BUCKET }}/deploy-package-${{ github.sha }}.zip
+        run: aws --ver
 
       - name: Create Application Version
         run: |
@@ -55,6 +47,10 @@ jobs:
             --application-name ${{ secrets.AWS_EB_APP_NAME }} \
             --version-label "deploy-${{ github.sha }}" \
             --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="deploy-package-${{ github.sha }}.zip"
+
+      - name: Package Application for Elastic Beanstalk
+        run: |
+          zip -r deploy-package.zip Dockerrun.aws.json
 
       - name: Deploy to Elastic Beanstalk
         run: |
@@ -68,11 +64,15 @@ jobs:
             --environment-name ${{ secrets.AWS_EB_ENV_NAME }} \
             --version-label "deploy-${{ github.sha }}"
 
-      - name: Check Elastic Beanstalk Environments
-        run: aws elasticbeanstalk describe-environments
-
       - name: Verify AWS Authentication
         run: aws sts get-caller-identity
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp deploy-package.zip s3://${{ secrets.AWS_S3_BUCKET }}/deploy-package-${{ github.sha }}.zip
+
+      - name: Check Elastic Beanstalk Environments
+        run: aws elasticbeanstalk describe-environments
 
       - name: Verify deployment
         run: |

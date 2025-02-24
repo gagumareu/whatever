@@ -39,29 +39,16 @@ jobs:
           docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
       - name: Verify AWS CLI Version
-        run: aws --ver
+        run: aws --version
 
-      - name: Deploy to Elastic Beanstalk
+      - name: Configure AWS credentials
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region ${{ secrets.AWS_REGION }}
 
-          echo "Updating Elastic Beanstalk environment with new Docker image..."
-          aws elasticbeanstalk update-environment \
-            --application-name ${{ secrets.AWS_EB_APP_NAME }} \
-            --environment-name ${{ secrets.AWS_EB_ENV_NAME }} \
-            --version-label "deploy-${{ github.sha }}"
-
       - name: Verify AWS Authentication
         run: aws sts get-caller-identity
-
-      - name: Create Application Version
-        run: |
-          aws elasticbeanstalk create-application-version \
-            --application-name ${{ secrets.AWS_EB_APP_NAME }} \
-            --version-label "deploy-${{ github.sha }}" \
-            --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="deploy-package-${{ github.sha }}.zip"
 
       - name: Package Application for Elastic Beanstalk
         run: |
@@ -70,11 +57,25 @@ jobs:
       - name: Upload to S3
         run: |
           aws s3 cp deploy-package.zip s3://${{ secrets.AWS_S3_BUCKET }}/deploy-package-${{ github.sha }}.zip
+          aws s3 ls s3://${{ secrets.AWS_S3_BUCKET }}/
 
-      - name: Check Elastic Beanstalk Environments
-        run: aws elasticbeanstalk describe-environments
+      - name: Create Application Version
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name ${{ secrets.AWS_EB_APP_NAME }} \
+            --version-label "deploy-${{ github.sha }}" \
+            --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="deploy-package-${{ github.sha }}.zip"
+
+      - name: Check Application Versions
+        run: aws elasticbeanstalk describe-application-versions --application-name ${{ secrets.AWS_EB_APP_NAME }}
+
+      - name: Deploy to Elastic Beanstalk
+        run: |
+          echo "Updating Elastic Beanstalk environment with new Docker image..."
+          aws elasticbeanstalk update-environment \
+            --application-name ${{ secrets.AWS_EB_APP_NAME }} \
+            --environment-name ${{ secrets.AWS_EB_ENV_NAME }} \
+            --version-label "deploy-${{ github.sha }}"
 
       - name: Verify deployment
-        run: |
-          aws elasticbeanstalk describe-environments \
-            --application-name ${{ secrets.AWS_EB_APP_NAME }}
+        run: aws elasticbeanstalk describe-environments --application-name ${{ secrets.AWS_EB_APP_NAME }}

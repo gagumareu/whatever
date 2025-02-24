@@ -41,11 +41,20 @@ jobs:
       - name: Verify AWS CLI Version
         run: aws --version
 
-#      - name: Set up AWS CLI
-#        run: |
-#          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-#          unzip awscliv2.zip
-#          sudo ./aws/install
+      - name: Package Application for Elastic Beanstalk
+        run: |
+            zip -r deploy-package.zip Dockerrun.aws.json
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp deploy-package.zip s3://${{ secrets.AWS_S3_BUCKET }}/deploy-package-${{ github.sha }}.zip
+
+      - name: Create Application Version
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name ${{ secrets.AWS_EB_APP_NAME }} \
+            --version-label "deploy-${{ github.sha }}" \
+            --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="deploy-package-${{ github.sha }}.zip"
 
       - name: Deploy to Elastic Beanstalk
         run: |
@@ -58,6 +67,12 @@ jobs:
             --application-name ${{ secrets.AWS_EB_APP_NAME }} \
             --environment-name ${{ secrets.AWS_EB_ENV_NAME }} \
             --version-label "deploy-${{ github.sha }}"
+
+      - name: Check Elastic Beanstalk Environments
+        run: aws elasticbeanstalk describe-environments
+
+      - name: Verify AWS Authentication
+        run: aws sts get-caller-identity
 
       - name: Verify deployment
         run: |

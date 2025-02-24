@@ -54,17 +54,18 @@ jobs:
         run: |
           zip -r deploy-package.zip Dockerrun.aws.json
 
-      - name: Upload to S3
+      - name: Upload Dockerrun.aws.json to S3 with UUID
         run: |
-          aws s3 cp deploy-package.zip s3://${{ secrets.AWS_S3_BUCKET }}/deploy-package-${{ github.sha }}.zip
-          aws s3 ls s3://${{ secrets.AWS_S3_BUCKET }}/
+          UUID=$(uuidgen)
+          aws s3 cp Dockerrun.aws.json s3://${{ secrets.AWS_S3_BUCKET }}/${UUID}-Dockerrun.aws.json
+          echo "S3_FILE_NAME=${UUID}-Dockerrun.aws.json" >> $GITHUB_ENV
 
       - name: Create Application Version
         run: |
           aws elasticbeanstalk create-application-version \
             --application-name ${{ secrets.AWS_EB_APP_NAME }} \
             --version-label "deploy-${{ github.sha }}" \
-            --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="deploy-package-${{ github.sha }}.zip"
+            --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="${{ env.S3_FILE_NAME }}"
 
       - name: Check Application Versions
         run: aws elasticbeanstalk describe-application-versions --application-name ${{ secrets.AWS_EB_APP_NAME }}

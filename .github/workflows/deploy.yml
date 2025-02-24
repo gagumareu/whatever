@@ -54,17 +54,19 @@ jobs:
         run: |
           zip -r deploy-package.zip Dockerrun.aws.json
 
-      - name: Upload Dockerrun.aws.json to S3 with UUID
+      - name: Generate Timestamp
+        run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Upload Dockerrun.aws.json to S3 with timestamp
         run: |
-          UUID=$(uuidgen)
-          aws s3 cp Dockerrun.aws.json s3://${{ secrets.AWS_S3_BUCKET }}/${UUID}-Dockerrun.aws.json
-          echo "S3_FILE_NAME=${UUID}-Dockerrun.aws.json" >> $GITHUB_ENV
+          aws s3 cp Dockerrun.aws.json s3://${{ secrets.AWS_S3_BUCKET }}/${{ env.TIMESTAMP }}-Dockerrun.aws.json
+          echo "S3_FILE_NAME=${{ env.TIMESTAMP }}-Dockerrun.aws.json" >> $GITHUB_ENV
 
       - name: Create Application Version
         run: |
           aws elasticbeanstalk create-application-version \
             --application-name ${{ secrets.AWS_EB_APP_NAME }} \
-            --version-label "deploy-${{ github.sha }}" \
+            --version-label "deploy-${{ env.TIMESTAMP }}" \
             --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="${{ env.S3_FILE_NAME }}"
 
       - name: Check Application Versions
@@ -76,7 +78,7 @@ jobs:
           aws elasticbeanstalk update-environment \
             --application-name ${{ secrets.AWS_EB_APP_NAME }} \
             --environment-name ${{ secrets.AWS_EB_ENV_NAME }} \
-            --version-label "deploy-${{ github.sha }}"
+            --version-label "deploy-${{ env.TIMESTAMP }}"
 
       - name: Verify deployment
         run: aws elasticbeanstalk describe-environments --application-name ${{ secrets.AWS_EB_APP_NAME }}

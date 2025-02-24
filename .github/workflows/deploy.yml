@@ -41,17 +41,6 @@ jobs:
       - name: Verify AWS CLI Version
         run: aws --ver
 
-      - name: Create Application Version
-        run: |
-          aws elasticbeanstalk create-application-version \
-            --application-name ${{ secrets.AWS_EB_APP_NAME }} \
-            --version-label "deploy-${{ github.sha }}" \
-            --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="deploy-package-${{ github.sha }}.zip"
-
-      - name: Package Application for Elastic Beanstalk
-        run: |
-          zip -r deploy-package.zip Dockerrun.aws.json
-
       - name: Deploy to Elastic Beanstalk
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -66,6 +55,17 @@ jobs:
 
       - name: Verify AWS Authentication
         run: aws sts get-caller-identity
+
+      - name: Create Application Version
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name ${{ secrets.AWS_EB_APP_NAME }} \
+            --version-label "deploy-${{ github.sha }}" \
+            --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="deploy-package-${{ github.sha }}.zip"
+
+      - name: Package Application for Elastic Beanstalk
+        run: |
+          zip -r deploy-package.zip Dockerrun.aws.json
 
       - name: Upload to S3
         run: |

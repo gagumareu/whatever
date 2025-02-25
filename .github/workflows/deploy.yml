@@ -47,7 +47,7 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_IMAGE_NAME }}:latest
-          docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+#          docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
       - name: Verify AWS CLI Version
         run: aws --version

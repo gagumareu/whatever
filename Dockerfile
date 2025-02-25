@@ -1,6 +1,14 @@
 # OpenJDK 17 기반의 이미지를 사용 (버전은 프로젝트에 맞게 변경)
 FROM openjdk:17-jdk-slim
 
+ARG DB_URL
+ARG DB_USERNAME
+ARG DB_PASSWORD
+ARG AWS_S3_BUCKET
+ARG GOOGLE_OAUTH_ID
+ARG GOOGLE_OAUTH_SECRET
+ARG REDIRECT_URL
+
 # 작업 디렉토리 생성
 WORKDIR /app
 

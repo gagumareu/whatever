@@ -30,6 +30,9 @@ jobs:
 
       - name: Build and tag Docker image
         run: |
+          export ENV DB_URL=${{secrets.DB_URL}}
+          export ENV DB_USERNAME=${{secrets.DB_USERNAME}}
+          export ENV DB_PASSWORD=${{secrets.DB_PASSWORD}}
           docker build -t ${{ secrets.DOCKER_IMAGE_NAME }}:latest .
           docker tag ${{ secrets.DOCKER_IMAGE_NAME }}:latest ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
